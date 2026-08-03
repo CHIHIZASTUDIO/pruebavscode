@@ -1,0 +1,139 @@
+PROMPT PARA RENDERIZAR - VIVIENDA CAMPESTRE MINIMALISTA
+================================================================
+Codigo: VC-2026-001
+Area: 120 m² (70 m² nivel 1 + 50 m² nivel 2)
+Estilo: Minimalista campestre contemporaneo
+================================================================
+
+================================================================================
+PROMPT PRINCIPAL - VISTA EXTERIOR (Frontal-Perspectiva)
+================================================================================
+
+A photorealistic architectural visualization of a minimalist rural house in Colombia, 2-story contemporary design, 120 square meters. The house features clean geometric lines with exposed concrete and white plastered walls. Ground floor: 70 m² with open-plan living, dining, and kitchen areas visible through floor-to-ceiling glass windows with black aluminum frames. Upper floor: 50 m² with private bedrooms, cantilevered balcony with wooden deck. Flat roof with hidden gutters and 2 solar panels visible. Materials: raw concrete structural columns, white stucco walls, natural wood accents on balcony and front door, black steel window frames. Front facade has asymmetric window arrangement - large glass panel on ground floor left, smaller horizontal windows on upper floor. Single-car garage with sectional metal door on the right side. Surrounding landscape: manicured green lawn, native Colombian plants, ornamental white gravel paths, 4 medium-sized trees, LED garden lights along pathway. Sky: golden hour sunset, warm orange and pink clouds. Background: distant green hills and mountains typical of Colombian countryside. Style: ultra-realistic, architectural photography, 8K resolution, soft natural lighting, shallow depth of field on background. Shot with Canon EOS R5, 24mm wide-angle lens, f/8 aperture.
+
+================================================================================
+PROMPT - VISTA EXTERIOR TRASERA (Jardin)
+================================================================================
+
+Rear view of minimalist rural house, Colombian countryside setting. Back facade features large sliding glass doors connecting interior to wooden deck terrace (8 m²). Outdoor dining area with modern concrete table and 4 chairs visible. Vertical garden wall with native plants on one side. Gravel pathway leading to garden with drip irrigation system visible. 80 m² of green lawn, 8 small ornamental shrubs, 6 LED solar garden lights along stone pathway. Mature trees providing natural shade. Background shows rolling green hills with scattered clouds. Late afternoon light, warm tones, photorealistic architectural render, 8K, cinematic composition.
+
+================================================================================
+PROMPT - VISTA INTERIOR SALA-COCINA (Planta Baja)
+================================================================================
+
+Interior view of open-plan ground floor, minimalist rural Colombian house. Living room area: polished porcelain tile floor (60x60cm gray), concrete accent wall with subtle texture, floor-to-ceiling black aluminum frame windows letting in golden hour light. Modern low-profile sofa in light gray fabric, concrete coffee table, pendant LED light fixture. Transition to kitchen: white quartz countertop (2.5 linear meters), modular white cabinets with handleless design, stainless steel double sink, black cooktop 4-burner, chrome pull-out faucet, black range hood. Small dining table for 4 in light wood with black steel legs. Exposed concrete ceiling beam as design element. Warm ambient lighting, minimalist decor with 2-3 potted plants. Photorealistic interior photography, 8K, natural light flooding through windows, warm color palette.
+
+================================================================================
+PROMPT - VISTA INTERIOR BAÑO PRINCIPAL
+================================================================================
+
+Modern minimalist bathroom, rural Colombian house. Wall-mounted Roca toilet, floating vanity with white quartz countertop and integrated white ceramic sink. Chrome monocomando faucet. Large mirror with integrated LED backlight. Walk-in shower with frameless glass partition, rain shower head and handheld thermostatic set. Walls: combination of white porcelain tiles and gray cement-look tiles (25x40cm). Concrete floor with linear drain. Chrome towel warmer, soap dispenser, toilet paper holder. Small window with frosted glass for natural light. Warm recessed LED lighting. Photorealistic bathroom visualization, 8K, clean lines, spa-like atmosphere.
+
+================================================================================
+PROMPT - VISTA INTERIOR HABITACION PRINCIPAL
+================================================================================
+
+Master bedroom on upper floor, minimalist rural Colombian house. Polished porcelain floor in warm gray tones. Large window with black aluminum frame overlooking countryside hills, sheer white curtains. Platform bed with light gray linen bedding, concrete accent wall behind headboard with integrated LED strip lighting. Built-in closet with melamine sliding doors. Small desk area near window with natural light. Ceiling fan with LED light. Color palette: whites, warm grays, natural wood accents. Clean minimalist aesthetic with 2-3 decorative items. Photorealistic interior, 8K, soft morning light, warm and inviting atmosphere.
+
+================================================================================
+PROMPT - VISTA AEREA (Drone/Top-Down)
+================================================================================
+
+Aerial drone view of minimalist rural house on rectangular plot, Colombian countryside. House footprint clearly visible: 2-story structure with flat roof showing 2 solar panels and water tank area. Red/orange clay tile accent on small roof section. Surrounding landscape: green lawn (80 m²), white gravel ornamental areas, stone pathways, 4 large trees and 8 small trees creating natural borders. Drip irrigation system visible as thin lines. Single-car garage with driveway. Perimeter fence partially visible. Background: patchwork of green agricultural fields, distant mountains, scattered clouds. Golden hour lighting, long shadows, photorealistic drone photography, 8K resolution, wide establishing shot.
+
+================================================================================
+PROMPT - VISTA NOCTURNA (Exterior)
+================================================================================
+
+Night exterior view of minimalist rural Colombian house. Warm interior lighting glowing through large glass windows, creating inviting atmosphere against dark blue twilight sky. LED garden lights illuminating stone pathway and trees. Up-lighting on concrete facade accentuating textures. Balcony with subtle warm LED strip under railing. Garage door visible on right. Stars visible in clear sky, distant mountain silhouette. Reflections on glass surfaces. Photorealistic architectural night photography, 8K, long exposure effect, blue hour color temperature contrast between warm interior and cool exterior.
+
+================================================================================
+PROMPT - DETALLE MATERIALES
+================================================================================
+
+Close-up architectural detail shot: junction of raw exposed concrete column meeting white plastered wall, with black aluminum window frame. Natural wood balcony railing in foreground. Texture of materials clearly visible: concrete grain, smooth white stucco, wood grain pattern, metal frame joints. Soft directional lighting creating subtle shadows. Shallow depth of field, architectural detail photography, 8K, material study composition.
+
+================================================================================
+PROMPT - VISTA 3D ISOMETRICA (Planta)
+================================================================================
+
+3D isometric floor plan visualization of 2-story minimalist house, cutaway view showing interior layout. Ground floor: open living-dining-kitchen area, single bathroom, garage. Upper floor: master bedroom with ensuite, second bedroom, shared bathroom, balcony. Furniture layout visible: sofa, dining table, kitchen counter, beds, bathroom fixtures. Color-coded spaces: living areas in warm gray, wet areas in blue-tint, bedrooms in soft cream. Materials shown in section: concrete slab, block walls, roof structure. Clean white background, architectural isometric illustration, 8K, labeled rooms.
+
+================================================================================
+PROMPT - VISTA CORTE LONGITUDINAL
+================================================================================
+
+Longitudinal section cut through 2-story minimalist house showing structural system. Foundation: concrete footings and grade beams. Ground floor: 20cm concrete slab on grade, block walls (14cm structural, 9cm partition), reinforced concrete columns. Upper floor: 15cm concrete slab, continued structural walls. Roof: concrete slab with waterproofing membrane. Visible installations: electrical conduit in walls, plumbing in bathroom/kitchen areas. Floor heights: 2.8m each level. Total height approximately 7m. Material hatching: concrete in gray, block in light hatching, insulation patterns. Technical architectural section drawing style, clean lines, 8K resolution, labeled dimensions.
+
+================================================================================
+PROMPT - PERSPECTIVA CALLE FRONTAL
+================================================================================
+
+Street-level perspective view of minimalist rural house from front approach. House sits slightly elevated from street level with concrete steps leading to front entrance. Black metal front door with vertical wooden slat detail. House number "VC-2026" in minimal steel letters. Concrete boundary wall (1.2m height) with integrated planter boxes containing ornamental grasses. Driveway in exposed aggregate concrete leading to garage. Street: simple paved road typical of Colombian peri-urban areas. Neighboring green vegetation partially visible. Midday sun, clear shadows, photorealistic street photography, 8K, natural color palette.
+
+================================================================================
+NOTAS PARA MEJORAR RESULTADOS
+================================================================================
+
+1. PLATAFORMA RECOMENDADA:
+   - Midjourney v6.1: Mejor para arquitectura realista
+   - DALL-E 3: Bueno para planos y diagramas
+   - Stable Diffusion XL: Con modelo de arquitectura
+   - Leonardo AI: Gratis, buenos resultados
+
+2. PARAMETROS SUGERIDOS:
+   - Aspect ratio: --ar 16:9 (exteriores), --ar 4:3 (interiores)
+   - Style: --style raw (Midjourney para realismo)
+   - Quality: --q 2
+   - Stylize: --s 250-500
+   -负面提示 (Negative prompt): cartoon, anime, sketch, drawing, blurry, low quality, distorted, deformed, ugly, watermark, text overlay
+
+3. PALETA DE COLORES DEL PROYECTO:
+   - Concreto expuesto: #808080 a #A0A0A0
+   - Paredes blancas: #FFFFFF a #F5F5F5
+   - Madera natural: #C4A882 a #8B6914
+   - Marcos aluminio negro: #1A1A1A a #333333
+   - Cuarzo countertop: #E8E0D4 a #D4C4B0
+   - Porcelanato piso: #B0B0B0 a #909090
+   - Pasto/vegetacion: #228B22 a #90EE90
+   - Cielo azul colombiano: #87CEEB a #4A90D9
+
+4. COMPOSICIONES CLAVE:
+   - Vista 3/4 frontal: Mas vendible, muestra fachada + profundidad
+   - Horas de render: Golden hour (amanecer/atardecer) = mas emocional
+   - Incluir contexto: paisaje colombiano = identidad del proyecto
+   - Mostrar materiales: texturas reales = credibilidad
+
+5. PROMPT MODULAR - REEMPLAZAR VARIABLES:
+   [ESTILO] = minimalista campestre contemporaneo
+   [MATERIALES] = concreto expuesto, paredes blancas, madera natural, aluminio negro
+   [COLORES] = blanco, gris, marron natural, negro
+   [PAISAJE] = campo colombiano, colinas verdes, cielo azul
+   [ILUMINACION] = golden hour, luz natural suave
+   [RESOLUCION] = 8K, photorealistic, architectural photography
+
+================================================================================
+COPY-PASTE RAPIDO (Midjourney)
+================================================================================
+
+EXTERIOR:
+--no text, watermark, people, car, cartoon, anime
+--ar 16:9 --style raw --s 300 --q 2
+
+INTERIOR:
+--no text, watermark, people, clutter, cartoon, anime
+--ar 4:3 --style raw --s 250 --q 2
+
+AEREO:
+--no text, watermark, people, cartoon, anime, fisheye
+--ar 1:1 --style raw --s 400 --q 2
+
+NOCTURNO:
+--no text, watermark, people, cartoon, anime, overexposed
+--ar 16:9 --style raw --s 350 --q 2
+
+SECTION/PLAN:
+--no photorealistic, 3d render, cartoon, anime, watermark
+--ar 16:9 --s 200 --q 2
+
+================================================================================

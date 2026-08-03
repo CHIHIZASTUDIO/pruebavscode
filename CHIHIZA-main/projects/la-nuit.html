@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Nuit &mdash; CHIHIZA</title>
+  <meta name="description" content="La Nuit &mdash; 5-star luxury eco-lodge investment in La Vega, Colombia. From break-even to 21.18% ROI through staged value creation.">
+  <link rel="canonical" href="https://chihiza.com/projects/la-nuit">
+  <meta property="og:title" content="La Nuit &mdash; CHIHIZA 5-Star Luxury Eco-Lodge">
+  <meta property="og:description" content="5-star luxury eco-lodge in La Vega, Colombia. USD 625,000. Staged ROI from 0.0002% to 21.18% (O+R+U).">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chihiza.com/projects/la-nuit">
+  <meta property="og:image" content="https://chihiza.com/proyectos/la-nuite/862a363f-9075-471b-b624-34c967161cc9.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .password-gate {
+      position: relative;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 3rem auto;
+      max-width: 700px;
+    }
+    .password-gate-content {
+      filter: blur(8px);
+      pointer-events: none;
+      user-select: none;
+      padding: 2rem;
+      transition: filter 0.6s var(--ease-out);
+    }
+    .password-gate.unlocked .password-gate-content {
+      filter: blur(0);
+      pointer-events: auto;
+      user-select: auto;
+    }
+    .password-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(248,247,244,0.85);
+      backdrop-filter: blur(4px);
+      transition: opacity 0.6s var(--ease-out);
+    }
+    .password-gate.unlocked .password-overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .password-overlay-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .password-overlay-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .password-overlay h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .password-overlay p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+    .password-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .password-form input {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      width: 120px;
+      text-align: center;
+      letter-spacing: 6px;
+      background: var(--white);
+    }
+    .password-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .password-form button {
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s var(--ease);
+    }
+    .password-form button:hover { background: var(--accent-hover); }
+    .password-error {
+      font-size: 0.75rem;
+      color: var(--error);
+      margin-top: 0.5rem;
+      display: none;
+    }
+    .password-error.show { display: block; }
+    .password-error svg {
+      width: 14px;
+      height: 14px;
+      vertical-align: middle;
+      margin-right: 4px;
+      fill: var(--error);
+    }
+    .chart-section { margin: 3rem 0; }
+    .chart-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .chart-card {
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .chart-card.full { grid-column: 1 / -1; }
+    .chart-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .key-insight {
+      padding: 0.8rem 1.2rem;
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 1.5rem 0;
+    }
+    .net-income { color: var(--accent); font-weight: 600; }
+    .net-loss { color: var(--orange); font-weight: 600; }
+    @media (max-width: 768px) {
+      .chart-grid { grid-template-columns: 1fr; }
+      .password-form { flex-direction: column; align-items: center; }
+      .password-form input { width: 100%; max-width: 200px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="../index.html" class="logo">CHIHIZA</a>
+    <nav class="nav">
+      <a href="../projects.html">Projects</a>
+      <a href="../about.html">About</a>
+      <a href="../process.html">Process</a>
+      <a href="../research.html">Research</a>
+      <a href="../legacy.html">Legal</a>
+      <a href="../guide.html">Guide</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../projects.html">Projects</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">La Nuit</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <img src="../proyectos/la-nuite/862a363f-9075-471b-b624-34c967161cc9.jpg" alt="La Nuit Eco-Lodge" width="1920" height="1080" loading="eager">
+    <div class="project-hero-overlay">
+      <span class="project-hero-tag">Colombia &middot; La Vega &middot; 5-Star Luxury &middot; Undervalued Asset</span>
+      <h1 class="project-hero-title">La Nuit</h1>
+      <p class="project-hero-sub">From break-even to 21.18% ROI &mdash; a staged value creation story</p>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-tag">Context</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1.5rem;">Colombia&rsquo;s tourism opportunity</h2>
+      <p>Colombia receives an average of <strong>6 million non-resident visitors annually</strong> (24 million between August 2022 and today, 95% arriving through Bogot&aacute;). Tourism is concentrated in a few well-known spots &mdash; the Coffee Region, the Caribbean, the Llanos, and the Amazon &mdash; where natural traffic is high but competition is fierce.</p>
+      <p>Yet vast potential remains underdeveloped. <strong>El Gualiv&aacute;</strong>, due to its proximity to the capital, is one of these frontiers. It offers everything from p&aacute;ramo lakes at 3,000 metres to tropical lowlands, passing through intermediate cloud-forest climates like that of <strong>La Vega</strong>.</p>
+      <p>Within Colombia&rsquo;s rural tourism market, the <strong>premium niche &mdash; blue ocean &mdash;</strong> stands apart from the mainstream glamping boom (red ocean: low investment, increasingly commoditised). Premium projects combine the sensation of adventure and maximum escape with first-class comfort guarantees. They target high-purchasing-power locals (Bogot&aacute;) and international travellers seeking unique experiences.</p>
+      <p style="margin-top: 1rem; padding: 1rem; background: var(--white); border-radius: 8px; border-left: 3px solid var(--accent); font-size: 0.9rem; color: var(--text-secondary);"><strong>6M</strong> annual visitors &middot; <strong>95%</strong> via Bogot&aacute; &middot; <strong>24M</strong> between Aug 2022 &ndash; today &middot; Premium rural = blue ocean</p>
+    </div>
+  </section>
+
+  <!-- CURRENT STATUS + PASSWORD GATE -->
+  <section class="project-details fade-in">
+    <div class="project-description">
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1.5rem;">Where we are today</h2>
+
+      <p>La Nuit is a 5-star luxury eco-lodge in operation in La Vega, Cundinamarca. The property is titled, permitted, and built to the highest standard: luxury furnishings and linens, professional-grade kitchen, architectural finishes in guadua bamboo and volcanic stone. It is an exceptional asset &mdash; currently operated by its owners as a personal, lifestyle-oriented project rather than a fully commercialised hospitality business.</p>
+
+      <p>This explains why the numbers do not reflect the asset&rsquo;s intrinsic value. The current operation carries deliberate restrictions &mdash; couples only, weekends only, no pets, no children &mdash; limiting occupancy to <strong>13%</strong>. The property was never operated to maximise revenue. Yet it has built a track record of excellence: outstanding 5-star reviews on Google, TripAdvisor, and Booking, generating significant <strong>goodwill</strong> that a professional operator can capitalise on immediately.</p>
+
+      <p>There is no defect in the asset. It is an opportunity to unlock commercial potential through staged investments based on the three fundamental variables: <strong>Occupancy, Rate, and Units</strong>.</p>
+
+      <!-- PASSWORD GATE -->
+      <div class="password-gate" id="passwordGate">
+        <div class="password-gate-content">
+          <div style="background: var(--accent-light); padding: 0.8rem 1rem; border-radius: 8px; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            <strong>Note on occupancy metrics:</strong> Figures shown as &ldquo;guest-nights&rdquo; (&ldquo;person-days&rdquo;) = guests &times; nights occupied. The lodge sleeps 4 guests. At 33.3% occupancy, 40 guest-nights/month = 4 guests &times; 2.5 nights/week &times; 4 weeks. Maximum monthly capacity: 120 guest-nights (4 guests &times; 30 days).
+          </div>
+          <p><strong>Current status:</strong></p>
+          <ul style="margin: 1rem 0 1.5rem 1.5rem; line-height: 2; color: var(--text-secondary);">
+            <li><strong>Rate:</strong> USD 204/night (COP 655,000 &mdash; USD 1 = COP 3,200)</li>
+            <li><strong>Occupancy:</strong> 13.33% (weekends only, owner-imposed restrictions)</li>
+            <li><strong>Annual Revenue:</strong> USD 39,300</li>
+            <li><strong>Operating Costs:</strong> USD 34,375/yr</li>
+            <li><strong>Net Income:</strong> USD 4,925/yr</li>
+            <li><strong>ROI on Total Capital:</strong> 0.0002%</li>
+            <li><strong>Goodwill:</strong> 5-star reviews on Google, TripAdvisor, Booking</li>
+            <li><strong>Standard:</strong> 5-star luxury, premium furnishings, professional kitchen</li>
+            <li><strong>Papers:</strong> Clean title (Certificado de Tradici&oacute;n y Libertad), POT/EOT permits, C&aacute;mara de Comercio, RNT, construction licence</li>
+            <li><strong>Land:</strong> 1 hectare with creek and natural forest, fully titled</li>
+            <li><strong>Constraints:</strong> Couples only, weekends only, no pets, no children (owner-imposed)</li>
+          </ul>
+        </div>
+        <div class="password-overlay" id="passwordOverlay">
+          <div class="password-overlay-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+          </div>
+          <h3>Sensitive Financial Data</h3>
+          <p>Enter password to view projections</p>
+          <div class="password-form">
+            <input type="password" id="passwordInput" maxlength="10" placeholder="&bull;&bull;&bull;&bull;" autocomplete="off">
+            <button id="passwordBtn">Unlock</button>
+          </div>
+          <div class="password-error" id="passwordError">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            Incorrect password
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-sidebar">
+      <div class="sidebar-item">
+        <div class="sidebar-label">Location</div>
+        <div class="sidebar-value">La Vega, Cundinamarca</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-label">Acquisition Value</div>
+        <div class="sidebar-value">USD 625,000</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-label">Exchange Rate</div>
+        <div class="sidebar-value">COP 3,200/USD</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-label">Land</div>
+        <div class="sidebar-value">1 Ha + creek + forest</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-label">Current Nightly Rate</div>
+        <div class="sidebar-value">USD 204</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-label">Current Occupancy</div>
+        <div class="sidebar-value">13.33%</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-label">Current ROI</div>
+        <div class="sidebar-value">0.0002%</div>
+      </div>
+      <div class="sidebar-item" style="border-bottom: none; padding-top: 2rem;">
+        <a href="https://wa.me/573219931029?text=Hi%2C%20I%27m%20interested%20in%20La%20Nuit%20eco-lodge%20investment." target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%; justify-content: center;">Request Full Package</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCIAL PROJECTIONS (behind password gate) -->
+  <div id="financialContent">
+
+  <!-- THE VALUE EQUATION -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">The Value Equation</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;">Revenue = Occupancy &times; Rate &times; Units</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Three levers. Pull them in sequence and the asset transforms. Returns shown as <strong>net dividends &divide; total capital deployed</strong> (&mdash; land appreciation not included).</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0;">
+        <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">O</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 0.5rem;">Occupancy</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Fill more nights. From 13.33% to 33.33% through digital marketing targeting Bogot&aacute; (weekends) and international travellers (weekdays).</p>
+        </div>
+        <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">R</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 0.5rem;">Rate</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Double the nightly rate by transforming each eco-lodge into an ultra-premium unit: micro ecological pools, private relaxation kiosks, premium wellness integration.</p>
+        </div>
+        <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; text-align: center;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">U</div>
+          <h3 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 0.5rem;">Units</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Add 1 additional lodge and a common wellness area (yoga deck, retreat space) to multiply capacity while generating extra revenue from chargeable services.</p>
+        </div>
+      </div>
+
+      <p style="color: var(--text-secondary); font-size: 0.9rem; text-align: center; max-width: 700px; margin: 0 auto;">The three stages below show the return on <strong>total capital deployed</strong> (acquisition + staged investments). All values in USD at COP 3,200/USD.</p>
+    </div>
+  </section>
+
+  <!-- STAGE O -->
+  <section class="section fade-in" style="border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Stage O</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;">Occupancy &mdash; from 13% to 33%</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Current occupancy is artificially low because the property was never marketed commercially. A focused digital campaign &mdash; Google Ads, Instagram, Booking.com &amp; TripAdvisor optimisation &mdash; targeting Bogot&aacute; weekend travellers (90-min drive) and international tourists (weekdays) unlocks immediate value.</p>
+
+      <div class="scenario-grid" style="margin-bottom: 1.5rem;">
+        <div class="scenario-card conservative">
+          <div class="scenario-tag">Today &mdash; Break-Even</div>
+          <div class="scenario-occupancy">USD 204</div>
+          <div class="scenario-rate">per night &middot; total &middot; 13.33% occ</div>
+          <div class="scenario-detail"><span class="label">Total Capital</span><span class="value">USD 625,000</span></div>
+          <div class="scenario-detail"><span class="label">Annual Revenue</span><span class="value">USD 39,300</span></div>
+          <div class="scenario-detail"><span class="label">Operating Costs</span><span class="value">USD 34,375</span></div>
+          <div class="scenario-detail"><span class="label">Net Income</span><span class="value">USD 4,925</span></div>
+          <div class="scenario-detail"><span class="label">ROI on Total</span><span class="value">0.0002%</span></div>
+        </div>
+        <div class="scenario-card base" style="grid-column: span 2;">
+          <div class="scenario-tag">Stage O &mdash; Occupancy Unlocked</div>
+          <div class="scenario-occupancy">USD 204</div>
+          <div class="scenario-rate">per night &middot; total &middot; 33.33% occupancy</div>
+          <div class="scenario-detail"><span class="label">Stage Investment</span><span class="value">USD 11,250</span></div>
+          <div class="scenario-detail"><span class="label">Total Capital</span><span class="value">USD 636,250</span></div>
+          <div class="scenario-detail"><span class="label">Annual Revenue</span><span class="value">USD 98,250</span></div>
+          <div class="scenario-detail"><span class="label">Operating Costs</span><span class="value">USD 34,375</span></div>
+          <div class="scenario-detail"><span class="label">Net Income</span><span class="value" style="color: var(--accent); font-weight: 700;">USD 63,875</span></div>
+          <div class="scenario-detail"><span class="label">ROI on Total Capital</span><span class="value" style="color: var(--accent); font-weight: 700;">10.04%</span></div>
+        </div>
+      </div>
+      <div class="key-insight">
+        <strong>Key insight:</strong> With a modest $11.25K marketing investment, the property moves from break-even to delivering a 10% return on total capital deployed. This is the foundation for all subsequent stages.
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE O+R -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Stage O+R</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;">Rate &mdash; premium upgrades that increase the tariff by 50%</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">The owner&rsquo;s analysis shows this is the most capital-efficient lever. Instead of multiplying units, invest in transforming each eco-lodge into an ultra-premium experience. Micro ecological pools, private relaxation kiosks, premium wellness and wet areas &mdash; these upgrades command a 50% premium and generate the highest marginal ROI.</p>
+
+      <div class="scenario-grid">
+        <div class="scenario-card base" style="grid-column: span 1;">
+          <div class="scenario-tag">Stage O+R &mdash; Premium Wellness</div>
+          <div class="scenario-occupancy">USD 307</div>
+          <div class="scenario-rate">per night &middot; total &middot; after upgrades</div>
+          <div class="scenario-detail"><span class="label">Stage Investment</span><span class="value">USD 55,000</span></div>
+          <div class="scenario-detail"><span class="label">Total Capital</span><span class="value">USD 691,250</span></div>
+          <div class="scenario-detail"><span class="label">Annual Revenue</span><span class="value">USD 147,375</span></div>
+          <div class="scenario-detail"><span class="label">Operating Costs</span><span class="value">USD 51,563</span></div>
+          <div class="scenario-detail"><span class="label">Net Income</span><span class="value" style="color: var(--accent); font-weight: 700;">USD 95,813</span></div>
+          <div class="scenario-detail"><span class="label">ROI on Total Capital</span><span class="value" style="color: var(--accent); font-weight: 700;">13.86%</span></div>
+        </div>
+        <div style="grid-column: span 1; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem;">
+            <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Rate Increase</div>
+            <div style="font-family: var(--font-display); font-size: 2rem; color: var(--accent); font-weight: 600;">50%</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">USD 204 &rarr; USD 307</div>
+          </div>
+          <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem;">
+            <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Marginal ROI</div>
+            <div style="font-family: var(--font-display); font-size: 2rem; color: #2ecc71; font-weight: 600;">56.2%</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">On the $55K incremental investment</div>
+          </div>
+        </div>
+      </div>
+      <div class="key-insight">
+        <strong>Owner&rsquo;s view:</strong> &ldquo;Investing in premium upgrades per unit is more attractive than multiplying units. With a COP 176M ($55K) investment in wellness, wet areas, and micro pools, the tariff increases by 50% and total ROI reaches 13.86%.&rdquo;
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE DIVIDER — Stage 3 Vision -->
+  <div class="img-divider" style="background-image: url('../proyectos/la-nuite/ChatGPT%20Image%2030%20jul%202026%2C%2017_19_25.png');"></div>
+
+  <!-- STAGE O+R+U -->
+  <section class="section fade-in">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Stage O+R+U</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;">Units &mdash; one additional lodge + wellness common areas</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Rather than adding multiple full lodges, the third stage focuses on 1 additional unit and a common wellness &amp; retreat space (yoga deck, group meditation area) that generates chargeable services on top of nightly rates. Fewer units means easier to fill, lower management overhead, and maintained rate premium.</p>
+
+      <div class="scenario-grid">
+        <div class="scenario-card optimistic" style="grid-column: span 1;">
+          <div class="scenario-tag">Stage O+R+U &mdash; Full Picture</div>
+          <div class="scenario-occupancy">USD 461</div>
+          <div class="scenario-rate">per night &middot; total &middot; 2 lodges</div>
+          <div class="scenario-detail"><span class="label">Stage Investment</span><span class="value">USD 471,250</span></div>
+          <div class="scenario-detail"><span class="label">Total Capital</span><span class="value">USD 1,096,250</span></div>
+          <div class="scenario-detail"><span class="label">Annual Revenue</span><span class="value">USD 386,859</span></div>
+          <div class="scenario-detail"><span class="label">Operating Costs</span><span class="value">USD 154,688</span></div>
+          <div class="scenario-detail"><span class="label">Net Income</span><span class="value" style="color: var(--accent); font-weight: 700;">USD 232,172</span></div>
+          <div class="scenario-detail"><span class="label">ROI on Total Capital</span><span class="value" style="color: var(--accent); font-weight: 700;">21.18%</span></div>
+        </div>
+        <div style="grid-column: span 1; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem;">
+            <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Capacity Increase</div>
+            <div style="font-family: var(--font-display); font-size: 2rem; color: var(--accent); font-weight: 600;">+75%</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Monthly guest-nights: 40 &rarr; 70</div>
+          </div>
+          <div style="background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem;">
+            <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Additional Revenue</div>
+            <div style="font-family: var(--font-display); font-size: 2rem; color: var(--accent); font-weight: 600;">USD 239K</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Incremental from Stage O+R</div>
+          </div>
+        </div>
+      </div>
+      <div class="key-insight">
+        <strong>Balanced growth:</strong> By prioritising premium upgrades over unit multiplication, the business maintains operational efficiency while reaching 21.18% ROI. The wellness common areas (yoga, retreats) add a revenue stream independent of occupancy.
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARTS SECTION -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Visual Summary</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;">Financial Projections at a Glance</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Five charts showing the complete investment story. All values in USD.</p>
+
+      <div class="chart-grid">
+
+        <!-- Chart 1: ROI Comparison -->
+        <div class="chart-card">
+          <div class="chart-title">ROI on Total Capital</div>
+          <div class="roi-timeline" style="height: 220px;">
+            <div class="roi-bar-wrapper">
+              <div class="roi-bar" style="height: 1%; background: var(--orange);">
+                <span class="roi-value">0.0002%</span>
+              </div>
+              <div class="roi-year">Today</div>
+            </div>
+            <div class="roi-bar-wrapper">
+              <div class="roi-bar" style="height: 47%; background: linear-gradient(180deg, #6b8f71, #4a7a50);">
+                <span class="roi-value">10.04%</span>
+              </div>
+              <div class="roi-year">+O</div>
+            </div>
+            <div class="roi-bar-wrapper">
+              <div class="roi-bar" style="height: 65%; background: linear-gradient(180deg, #3498db, #2980b9);">
+                <span class="roi-value">13.86%</span>
+              </div>
+              <div class="roi-year">+R</div>
+            </div>
+            <div class="roi-bar-wrapper">
+              <div class="roi-bar" style="height: 100%; background: linear-gradient(180deg, #2ecc71, #27ae60);">
+                <span class="roi-value">21.18%</span>
+              </div>
+              <div class="roi-year">+U</div>
+            </div>
+          </div>
+          <div class="chart-note">Net annual dividends &divide; total capital deployed</div>
+        </div>
+
+        <!-- Chart 2: Annual Revenue -->
+        <div class="chart-card">
+          <div class="chart-title">Annual Revenue</div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">Today</div>
+              <div class="bar-track">
+                <div class="bar-fill dark" style="width: 10%;">$39.3K</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+O</div>
+              <div class="bar-track">
+                <div class="bar-fill green" style="width: 25%;">$98.3K</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+R</div>
+              <div class="bar-track">
+                <div class="bar-fill blue" style="width: 38%;">$147.4K</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+U</div>
+              <div class="bar-track">
+                <div class="bar-fill orange" style="width: 100%;">$386.9K</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 3: Net Income -->
+        <div class="chart-card">
+          <div class="chart-title">Net Income After Operating Costs</div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">Today</div>
+              <div class="bar-track">
+                <div class="bar-fill dark" style="width: 2%;">$4.9K</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+O</div>
+              <div class="bar-track">
+                <div class="bar-fill green" style="width: 27%;">$63.9K</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+R</div>
+              <div class="bar-track">
+                <div class="bar-fill blue" style="width: 41%;">$95.8K</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+U</div>
+              <div class="bar-track">
+                <div class="bar-fill orange" style="width: 100%;">$232.2K</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 4: Capital Deployment -->
+        <div class="chart-card">
+          <div class="chart-title">Total Capital Deployed</div>
+          <div class="donut-container" style="gap: 2rem;">
+            <div class="donut" style="background: conic-gradient(#2c2c2c 0deg 205deg, #4a7a50 205deg 209deg, #2980b9 209deg 225deg, #27ae60 225deg 360deg);">
+              <div class="donut-center">
+                <div class="value">$1.10M</div>
+                <div class="label">Total</div>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="legend-item">
+                <div class="legend-dot" style="background: #2c2c2c;"></div>
+                <div class="legend-text">Acquisition</div>
+                <div class="legend-value">$625K</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background: #4a7a50;"></div>
+                <div class="legend-text">Stage O (Marketing)</div>
+                <div class="legend-value">$11.3K</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background: #2980b9;"></div>
+                <div class="legend-text">Stage R (Upgrades)</div>
+                <div class="legend-value">$55K</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background: #27ae60;"></div>
+                <div class="legend-text">Stage U (Expansion)</div>
+                <div class="legend-value">$405K</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart 5: Occupancy Progression -->
+        <div class="chart-card full">
+          <div class="chart-title">Monthly Occupancy Progression (guest-nights)</div>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label">Today</div>
+              <div class="bar-track">
+                <div class="bar-fill dark" style="width: 23%;">16 (13.3%)</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+O</div>
+              <div class="bar-track">
+                <div class="bar-fill green" style="width: 57%;">40 (33.3%)</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+R</div>
+              <div class="bar-track">
+                <div class="bar-fill blue" style="width: 57%;">40 (33.3%)</div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">+U</div>
+              <div class="bar-track">
+                <div class="bar-fill orange" style="width: 100%;">70 (58.3%)</div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-note">Maximum capacity: 120 guest-nights/month (4 guests &times; 30 days)</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENT SUMMARY -->
+  <section class="section fade-in" style="border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Capital Required</span>
+      <h2 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem;">Total Investment &amp; Returns</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Return on Investment calculated as <strong>net annual dividends &divide; total capital deployed</strong> (acquisition value of USD 625,000 + staged investments). Land appreciation not included.</p>
+
+      <div style="background: var(--white); border: 2px solid var(--accent); border-radius: 12px; padding: 2rem; margin: 2rem 0;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Stage Investment</th>
+              <th>Total Capital</th>
+              <th>Annual Revenue</th>
+              <th>Net Income</th>
+              <th>ROI on Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Today &mdash; Break-Even</td>
+              <td class="highlight-cell">USD 0</td>
+              <td class="highlight-cell">USD 625,000</td>
+              <td>USD 39,300</td>
+              <td>USD 4,925</td>
+              <td class="highlight-cell">0.0002%</td>
+            </tr>
+            <tr>
+              <td>Stage O &mdash; Occupancy</td>
+              <td class="highlight-cell">USD 11,250</td>
+              <td class="highlight-cell">USD 636,250</td>
+              <td>USD 98,250</td>
+              <td style="color: var(--accent); font-weight: 600;">USD 63,875</td>
+              <td class="highlight-cell" style="color: var(--accent); font-weight: 700;">10.04%</td>
+            </tr>
+            <tr>
+              <td>Stage O+R &mdash; Premium Wellness</td>
+              <td class="highlight-cell">USD 66,250</td>
+              <td class="highlight-cell">USD 691,250</td>
+              <td>USD 147,375</td>
+              <td style="color: var(--accent); font-weight: 600;">USD 95,813</td>
+              <td class="highlight-cell" style="color: var(--accent); font-weight: 700;">13.86%</td>
+            </tr>
+            <tr style="font-weight: 700; border-top: 2px solid var(--accent);">
+              <td>Stage O+R+U &mdash; Full Picture</td>
+              <td class="highlight-cell" style="font-size: 1.1rem;">USD 471,250</td>
+              <td class="highlight-cell" style="font-size: 1.1rem;">USD 1,096,250</td>
+              <td style="font-size: 1.1rem;">USD 386,859</td>
+              <td style="font-size: 1.1rem; color: var(--accent); font-weight: 700;">USD 232,172</td>
+              <td class="highlight-cell" style="font-size: 1.1rem; color: var(--accent);">21.18%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="text-align: center; color: var(--text-secondary); font-size: 0.9rem; max-width: 600px; margin: 0 auto;">Acquisition value: <strong>USD 625,000</strong>. Full transformation capital: <strong>USD 471,250</strong>. Combined enterprise value post-upgrade: projected <strong>USD 1,500,000+</strong>. All returns exclude land appreciation driven by municipal tourism infrastructure investment and road development.</p>
+    </div>
+  </section>
+
+  </div>
+  <!-- END FINANCIAL CONTENT -->
+
+  <!-- WHY LA VEGA -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-tag">Location Intelligence</span>
+      <h2 class="section-title">Why La Vega</h2>
+      <div class="project-narrative">
+        <p class="project-narrative-first">Beyond the numbers, there is a place. And the place tells the story.</p>
+        <p>La Vega sits in Colombia&rsquo;s temperate zone &mdash; a micro-climate with no seasons, no tourism seasonality, and <strong>365 days of stable occupancy potential</strong>. It is a 90-minute drive from Bogot&aacute; through landscapes that rival the world&rsquo;s finest mountain scenery. For international visitors accustomed to seasonal constraints, Colombia&rsquo;s thermal floor climate is a revelation: consistent, predictable, always hospitable.</p>
+        <p>The northern slope of La Vega &mdash; where La Nuit is located &mdash; has been transitioning from agricultural use to tourism development since the POT (land-use plan) change a decade ago. The municipality has made tourism a strategic priority, leveraging its proximity to Bogot&aacute;, its lagunas, and its waterfalls. With the new national government reinforcing tertiary road projects and tourism infrastructure in the region, <strong>land appreciation potential is significant</strong> &mdash; and none of the returns above account for it.</p>
+        <p>The area is a <strong>mini coffee region</strong>, with native coffee minifundios offering rural cultural tourism experiences. It is also a <strong>birdwatching paradise</strong>, with La Vega&rsquo;s local expert association actively promoting avitourism &mdash; a high-purchasing-power niche that aligns perfectly with La Nuit&rsquo;s premium positioning. The global wellness tourism market is growing at double-digit rates annually, and Colombia&rsquo;s premium eco-lodge segment remains under-supplied.</p>
+        <p style="margin-top: 1.5rem; padding: 1rem; background: var(--white); border-radius: 8px; border-left: 3px solid var(--accent); font-size: 0.9rem; color: var(--text-secondary);"><strong>Premium niche is less competitive.</strong> The mainstream hospitality market is saturated. The ultra-premium wellness &amp; eco-lodge segment is not. It allows for differentiated value creation, higher rates, and stronger guest loyalty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENT STRUCTURE -->
+  <section class="section fade-in">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-tag">Investment Structure</span>
+      <div class="project-narrative">
+        <p class="project-narrative-first">Transparent. Protected. Designed for international investors.</p>
+        <p><strong>Legal clarity:</strong> The Certificado de Tradici&oacute;n y Libertad confirms the title is clean &mdash; free of liens, disputes, or encumbrances. Land use permits (POT/EOT) are officially approved for tourism and residential use. Papers are up to date.</p>
+        <p><strong>Ownership structures &mdash; flexible for investor needs:</strong></p>
+        <ul style="margin: 1rem 0 1.5rem 1.5rem; line-height: 2; color: var(--text-secondary);">
+          <li><strong>Proindiviso:</strong> Direct co-ownership share registered on the property title. Each investor holds a proportional undivided interest (cuota parte) in the estate.</li>
+          <li><strong>Fiducia (trust):</strong> The property is held in a Colombian fiducia trust, with the investor as beneficiary. Provides asset protection, simplifies transfer, and offers tax planning advantages.</li>
+          <li><strong>Revenue-share:</strong> For investors who prefer not to hold title directly, profit-share arrangements tied to the lodge's operating performance are available.</li>
+        </ul>
+        <p><strong>Escrow protection:</strong> All investor funds are held in a Colombian fiducia account. Funds are only released upon verified milestone completion.</p>
+        <p><strong>Resale:</strong> Investors may transfer their cuota parte at any time. CHIHIZA facilitates secondary market transactions and maintains a right of first refusal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="project-gallery fade-in">
+    <img src="../proyectos/la-nuite/Captura%20de%20pantalla%202026-07-28%20093836.png" alt="La Nuit interior living" width="800" height="600" loading="lazy">
+    <img src="../proyectos/la-nuite/Captura%20de%20pantalla%202026-07-28%20093917.png" alt="La Nuit bedroom" width="800" height="600" loading="lazy">
+    <img src="../proyectos/la-nuite/Captura%20de%20pantalla%202026-07-28%20093950.png" alt="La Nuit kitchen" width="800" height="600" loading="lazy">
+    <img src="../proyectos/la-nuite/Captura%20de%20pantalla%202026-07-28%20094019.png" alt="La Nuit details" width="800" height="600" loading="lazy">
+    <img src="../proyectos/la-nuite/Captura%20de%20pantalla%202026-07-28%20094042.png" alt="La Nuit surroundings" width="800" height="600" loading="lazy">
+  </section>
+
+  <!-- CTA -->
+  <section class="project-cta fade-in">
+    <div class="section-inner">
+      <span class="section-tag">Interested in La Nuit?</span>
+      <h2 class="section-title">Request the full investment package</h2>
+      <p class="section-desc">Financial statements, occupancy data, legal documentation, title certificates, and site visit scheduling. We provide complete transparency.</p>
+      <div class="hero-actions" style="margin-top: 2rem;">
+        <a href="https://wa.me/573219931029?text=Hi%2C%20I%27d%20like%20to%20request%20the%20full%20investment%20package%20for%20La%20Nuit." target="_blank" rel="noopener" class="btn btn-primary">Request Investment Package</a>
+        <a href="../projects.html" class="btn btn-outline">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">CHIHIZA</div>
+        <p class="footer-text">Architecture born from the forest. Colombia</p>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <a href="natauta.html">Nataut&aacute;</a>
+        <a href="la-nuit.html">La Nuit</a>
+        <a href="montvento.html">Montvento</a>
+        <a href="anukwe.html">ANUKWE</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../about.html">About Us</a>
+        <a href="../process.html">Process</a>
+        <a href="../research.html">Research</a>
+        <a href="../legacy.html">Legal &amp; Trust</a>
+        <a href="../guide.html">Guide</a>
+        <a href="../contact.html">Contact</a>
+        <a href="https://wa.me/573219931029" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 CHIHIZA International. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/moxdesing/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/573219931029" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <div class="toast" id="toast"></div>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    (function () {
+      var gate = document.getElementById('passwordGate');
+      var overlay = document.getElementById('passwordOverlay');
+      var input = document.getElementById('passwordInput');
+      var btn = document.getElementById('passwordBtn');
+      var error = document.getElementById('passwordError');
+      var password = '8888';
+      var unlocked = sessionStorage.getItem('laNuitUnlocked') === 'true';
+
+      function unlock() {
+        gate.classList.add('unlocked');
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+        sessionStorage.setItem('laNuitUnlocked', 'true');
+      }
+
+      if (unlocked) { unlock(); }
+
+      function tryPassword() {
+        if (input.value === password) {
+          unlock();
+          error.classList.remove('show');
+        } else {
+          error.classList.add('show');
+          input.value = '';
+          input.focus();
+        }
+      }
+
+      btn.addEventListener('click', tryPassword);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') tryPassword();
+      });
+      input.addEventListener('input', function () {
+        error.classList.remove('show');
+      });
+    })();
+  </script>
+</body>
+
+</html>

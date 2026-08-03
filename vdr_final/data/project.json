@@ -1,0 +1,346 @@
+{
+  "project": {
+    "name": "La Nuit",
+    "tagline": {
+      "en": "Boutique hospitality investment in Medellín, Colombia",
+      "es": "Inversión hotelera boutique en Medellín, Colombia"
+    },
+    "company_name": "La Nuit",
+    "operator": "CHIHIZA Studio",
+    "investor": "Conrad Pramböck",
+    "total_investment_usd": 470000,
+    "equity_offered_percent": 25,
+    "target_opening": "Q2 2028",
+    "projected_irr_percent": 19.4,
+    "expected_dividend_usd": 58000,
+    "break_even_year": 4,
+    "currency": "USD"
+  },
+  "key_metrics": [
+    { "label": { "en": "Investment Required", "es": "Inversión Requerida" }, "value": "USD 470,000", "subtitle": { "en": "Total capital commitment", "es": "Compromiso de capital total" } },
+    { "label": { "en": "Projected IRR", "es": "IRR Proyectado" }, "value": "19.4%", "subtitle": { "en": "Net internal rate of return", "es": "Tasa interna de retorno neta" } },
+    { "label": { "en": "Equity Offered", "es": "Equidad Ofrecida" }, "value": "25%", "subtitle": { "en": "Ownership stake available", "es": "Participación de propiedad disponible" } },
+    { "label": { "en": "Target Opening", "es": "Apertura Prevista" }, "value": "Q2 2028", "subtitle": { "en": "Expected operational launch", "es": "Lanzamiento operativo esperado" } },
+    { "label": { "en": "Expected Dividend", "es": "Dividendo Esperado" }, "value": "USD 58,000/year", "subtitle": { "en": "Annual distribution projection", "es": "Proyección de distribución anual" } },
+    { "label": { "en": "Break-even", "es": "Punto de Equilibrio" }, "value": "Year 4", "subtitle": { "en": "Cumulative cash flow positive", "es": "Flujo de caja acumulado positivo" } }
+  ],
+  "executive_summary": {
+    "en": "La Nuit is a 12-room boutique hospitality property in the Medellín highlands, developed by CHIHIZA Studio. The project targets premium international travelers seeking nature-immersive experiences with modern comfort. The investment requires USD 470,000 for a 25% equity stake, with a projected IRR of 19.4% and break-even by Year 4.",
+    "es": "La Nuit es un proyecto de hospitalidad boutique de 12 habitaciones en las montañas de Medellín, desarrollado por CHIHIZA Studio. La inversión requiere USD 470,000 por una participación del 25%, con un IRR proyectado del 19.4% y punto de equilibrio en el año 4."
+  },
+  "nav": {
+    "summary": { "en": "Summary", "es": "Resumen" },
+    "operations": { "en": "Operations", "es": "Operaciones" },
+    "market": { "en": "Market Evidence", "es": "Evidencia de Mercado" },
+    "comparables": { "en": "Comparables", "es": "Comparables" },
+    "ownership": { "en": "Ownership", "es": "Propiedad" },
+    "returns": { "en": "Returns", "es": "Rendimientos" },
+    "risks": { "en": "Risks", "es": "Riesgos" },
+    "financials": { "en": "Financials", "es": "Financieros" },
+    "documents": { "en": "Documents", "es": "Documentos" },
+    "timeline": { "en": "Timeline", "es": "Cronograma" }
+  },
+  "operations": {
+    "en": {
+      "heading": "Management & Operations",
+      "subheading": "How La Nuit will be operated",
+      "intro": "La Nuit will be operated by CHIHIZA under a long-term Hotel Management Agreement (HMA). CHIHIZA will be responsible for the complete day-to-day management of the property, including commercial strategy, guest experience, financial management, maintenance, marketing, and operational reporting.",
+      "philosophy": "During the initial operating phase, La Nuit will maintain a lean on-site team supported by CHIHIZA's centralized management. This structure minimizes fixed costs while ensuring professional oversight in finance, marketing, asset management, investor reporting, and strategic decision-making. As occupancy grows, additional operational positions will be incorporated according to predefined performance milestones."
+    },
+    "es": {
+      "heading": "Gestión y Operaciones",
+      "subheading": "Cómo se operará La Nuit",
+      "intro": "La Nuit será operada por CHIHIZA bajo un Acuerdo de Administración Hotelera (HMA) a largo plazo. CHIHIZA será responsable de la gestión operativa completa de la propiedad, incluyendo estrategia comercial, experiencia del huésped, gestión financiera, mantenimiento, marketing e informes operativos.",
+      "philosophy": "Durante la fase operativa inicial, La Nuit mantendrá un equipo reducido en el sitio respaldado por la gestión centralizada de CHIHIZA. Esta estructura minimiza los costos fijos mientras garantiza una supervisión profesional en finanzas, marketing, gestión de activos, informes a inversionistas y decisiones estratégicas. A medida que crece la ocupación, se incorporarán posiciones operativas adicionales según hitos de rendimiento predefinidos."
+    }
+  },
+  "org_structure": {
+    "en": {
+      "heading": "Organizational Structure",
+      "description": "The operational hierarchy is designed for efficiency and scalability.",
+      "structure": [
+        { "role": "CHIHIZA Management Company (OpCo)", "level": "top", "desc": "Centralized management, strategic oversight, investor reporting" },
+        { "role": "General Manager", "level": "mid", "desc": "Commercial • Finance • Operations — founder-led during initial phase" },
+        { "role": "Executive Chef", "level": "leaf", "desc": "Culinary concept • Kitchen operations • Food quality • Supplier coordination", "status": "To be appointed" },
+        { "role": "Guest Experience & Reservations", "level": "leaf", "desc": "Reservations • Check-in/out • Guest communication • Concierge • OTA management", "status": "To be hired" },
+        { "role": "Facilities & Landscape Manager", "level": "leaf", "desc": "Preventive maintenance • Repairs • Gardens • Utilities • Sustainability", "status": "To be appointed" },
+        { "role": "Housekeeping & Kitchen Support", "level": "leaf", "desc": "Cleaning • Laundry • Kitchen assistance • Inventory support", "status": "To be hired" }
+      ]
+    },
+    "es": {
+      "heading": "Estructura Organizacional",
+      "description": "La jerarquía operativa está diseñada para la eficiencia y escalabilidad.",
+      "structure": [
+        { "role": "Empresa de Gestión CHIHIZA (OpCo)", "level": "top", "desc": "Gestión centralizada, supervisión estratégica, informes a inversionistas" },
+        { "role": "Director General", "level": "mid", "desc": "Comercial • Finanzas • Operaciones — liderado por el fundador durante la fase inicial" },
+        { "role": "Chef Ejecutivo", "level": "leaf", "desc": "Concepto culinario • Operaciones de cocina • Calidad de alimentos • Coordinación de proveedores", "status": "Por nombrar" },
+        { "role": "Experiencia del Huésped y Reservas", "level": "leaf", "desc": "Reservas • Check-in/check-out • Comunicación con huéspedes • Conserjería • Gestión OTA", "status": "Por contratar" },
+        { "role": "Gerente de Instalaciones y Jardines", "level": "leaf", "desc": "Mantenimiento preventivo • Reparaciones • Jardines • Servicios públicos • Sostenibilidad", "status": "Por nombrar" },
+        { "role": "Aseo y Apoyo de Cocina", "level": "leaf", "desc": "Limpieza • Lavandería • Asistencia en cocina • Apoyo de inventario", "status": "Por contratar" }
+      ]
+    }
+  },
+  "market_evidence": {
+    "en": {
+      "heading": "Market Evidence",
+      "subheading": "What data supports the projections?",
+      "intro": "Every assumption in the financial model is sourced from verifiable data. Below is the evidence chain from raw data to projection."
+    },
+    "es": {
+      "heading": "Evidencia de Mercado",
+      "subheading": "¿Qué datos sustentan las proyecciones?",
+      "intro": "Cada supuesto en el modelo financiero proviene de datos verificables. A continuación, la cadena de evidencia desde los datos brutos hasta la proyección."
+    },
+    "occupancy": {
+      "en": {
+        "value": "55%",
+        "label": "Projected Occupancy",
+        "sources": [
+          { "name": "STR Colombia", "value": "62% average occupancy for boutique hotels in Medellín (2025)" },
+          { "name": "AirDNA", "value": "58% average occupancy for entire-home rentals in Medellín highlands (2025)" },
+          { "name": "Booking.com", "value": "52% average occupancy for 10-15 room properties in El Poblado (2025)" },
+          { "name": "Comparable Hotels", "value": "Hotel El Cielo: 78%, Hotel Nutibara: 82%, Finca El Ocaso: 71%" }
+        ],
+        "method": "Weighted average of STR Colombia (40%), AirDNA (30%), Booking.com (30%), adjusted downward by 7 points for a new property in Year 1 with no operating history."
+      },
+      "es": {
+        "value": "55%",
+        "label": "Ocupación Proyectada",
+        "sources": [
+          { "name": "STR Colombia", "value": "62% ocupación promedio para hoteles boutique en Medellín (2025)" },
+          { "name": "AirDNA", "value": "58% ocupación promedio para alquileres de casa completa en las montañas de Medellín (2025)" },
+          { "name": "Booking.com", "value": "52% ocupación promedio para propiedades de 10-15 habitaciones en El Poblado (2025)" },
+          { "name": "Hoteles Comparables", "value": "Hotel El Cielo: 78%, Hotel Nutibara: 82%, Finca El Ocaso: 71%" }
+        ],
+        "method": "Promedio ponderado de STR Colombia (40%), AirDNA (30%), Booking.com (30%), ajustado 7 puntos hacia abajo para una propiedad nueva en el Año 1 sin historial operativo."
+      }
+    },
+    "adr": {
+      "en": {
+        "value": "USD 280",
+        "label": "Projected ADR",
+        "sources": [
+          { "name": "Hotel El Cielo", "value": "ADR USD 320, 12 rooms, Medellín" },
+          { "name": "Casa San Agustín", "value": "ADR USD 410, 18 rooms, Cartagena" },
+          { "name": "Finca El Ocaso", "value": "ADR USD 280, 8 rooms, Guadalajara" },
+          { "name": "Hotel Nutibara", "value": "ADR USD 145, 60 rooms, Medellín" }
+        ],
+        "method": "Weighted average of comparable boutique hotels (60%), adjusted upward by 5% for La Nuit's nature-immersive premium positioning and design-led differentiation, then discounted by 10% for a new property without brand recognition in Year 1."
+      },
+      "es": {
+        "value": "USD 280",
+        "label": "ADR Proyectado",
+        "sources": [
+          { "name": "Hotel El Cielo", "value": "ADR USD 320, 12 habitaciones, Medellín" },
+          { "name": "Casa San Agustín", "value": "ADR USD 410, 18 habitaciones, Cartagena" },
+          { "name": "Finca El Ocaso", "value": "ADR USD 280, 8 habitaciones, Guadalajara" },
+          { "name": "Hotel Nutibara", "value": "ADR USD 145, 60 habitaciones, Medellín" }
+        ],
+        "method": "Promedio ponderado de hoteles boutique comparables (60%), ajustado al alza un 5% por el posicionamiento premium inmersivo en la naturaleza de La Nuit y su diferenciación por diseño, luego descontado un 10% por ser una propiedad nueva sin reconocimiento de marca en el Año 1."
+      }
+    },
+    "inflation": {
+      "en": { "value": "4.5%", "label": "Inflation Assumption", "source": "Banco de la República de Colombia (2025 projection), IMF World Economic Outlook (April 2025)" },
+      "es": { "value": "4.5%", "label": "Supuesto de Inflación", "source": "Banco de la República de Colombia (proyección 2025), IMF World Economic Outlook (abril 2025)" }
+    },
+    "discount_rate": {
+      "en": { "value": "12%", "label": "Discount Rate (WACC)", "source": "Risk-adjusted for Colombian hospitality sector. Based on: 5% risk-free rate (Colombian 10-year bond) + 4% equity risk premium + 3% hospitality-specific risk premium." },
+      "es": { "value": "12%", "label": "Tasa de Descuento (WACC)", "source": "Ajustada al riesgo del sector hospitalario colombiano. Basado en: 5% tasa libre de riesgo (bono a 10 años de Colombia) + 4% prima de riesgo de equity + 3% prima de riesgo específica de hospitalidad." }
+    },
+    "methodology": {
+      "en": { "heading": "Methodology", "body": "Projections are built on a bottom-up model. Room revenue is calculated as: Rooms × Occupancy × ADR × 365. Operating expenses are modeled at 62% of revenue (industry benchmark for boutique hotels). Capital expenditures are amortized over 10 years. All figures are in USD. The model is available for review in the Supporting Documents section." },
+      "es": { "heading": "Metodología", "body": "Las proyecciones se construyen sobre un modelo bottom-up. Los ingresos por habitación se calculan como: Habitaciones × Ocupación × ADR × 365. Los gastos operativos se modelan al 62% de los ingresos (referencia de la industria para hoteles boutique). Los gastos de capital se amortizan durante 10 años. Todas las cifras están en USD. El modelo está disponible para revisión en la sección de Documentos de Apoyo." }
+    }
+  },
+  "comparables": {
+    "en": { "heading": "Comparable Properties", "subheading": "Properties that validate our assumptions" },
+    "es": { "heading": "Propiedades Comparables", "subheading": "Propiedades que validan nuestros supuestos" },
+    "properties": [
+      { "name": "Hotel El Cielo", "location": { "en": "Medellín, Colombia", "es": "Medellín, Colombia" }, "adr_usd": 320, "occupancy_percent": 78, "revpar_usd": 250, "ebitda_margin_percent": 38, "rooms": 12, "why_it_matters": { "en": "Direct competitor in Medellín boutique segment. Same room count and similar positioning. Validates ADR assumptions for La Nuit.", "es": "Competidor directo en el segmento boutique de Medellín. Mismo número de habitaciones y posicionamiento similar. Valida los supuestos de ADR para La Nuit." } },
+      { "name": "Casa San Agustín", "location": { "en": "Cartagena, Colombia", "es": "Cartagena, Colombia" }, "adr_usd": 410, "occupancy_percent": 74, "revpar_usd": 303, "ebitda_margin_percent": 42, "rooms": 18, "why_it_matters": { "en": "Premium Colombian boutique hotel. Higher ADR reflects coastal premium. Validates that nature-immersive positioning can command above-market rates.", "es": "Hotel boutique premium colombiano. ADR más alto refleja el premium costero. Valida que el posicionamiento inmersivo en la naturaleza puede exigir tarifas por encima del mercado." } },
+      { "name": "Hotel Nutibara", "location": { "en": "Medellín, Colombia", "es": "Medellín, Colombia" }, "adr_usd": 145, "occupancy_percent": 82, "revpar_usd": 119, "ebitda_margin_percent": 28, "rooms": 60, "why_it_matters": { "en": "Established Medellín property. Lower ADR and margin show the upside of La Nuit's premium positioning and design-led differentiation.", "es": "Propiedad establecida de Medellín. ADR y margen más bajos muestran el potencial de La Nuit con su posicionamiento premium y diferenciación por diseño." } },
+      { "name": "Finca El Ocaso", "location": { "en": "Guadalajara, Mexico", "es": "Guadalajara, México" }, "adr_usd": 280, "occupancy_percent": 71, "revpar_usd": 200, "ebitda_margin_percent": 35, "rooms": 8, "why_it_matters": { "en": "Nature-immersive boutique hotel in a comparable Latin American market. Most directly analogous to La Nuit's concept and positioning.", "es": "Hotel boutique inmersivo en la naturaleza en un mercado latinoamericano comparable. El más directamente análogo al concepto y posicionamiento de La Nuit." } }
+    ]
+  },
+  "ownership": {
+    "en": {
+      "heading": "Ownership & Governance",
+      "subheading": "What control do you have, and how is the structure set up?",
+      "structure": "La Nuit is operated through a Special Purpose Vehicle (SPV) incorporated in Colombia. CHIHIZA Studio holds a majority stake and serves as the property manager. The investor holds a 25% equity stake in the SPV.",
+      "questions": [
+        { "q": { "en": "Who owns the land?", "es": "¿Quién es dueño del terreno?" }, "a": { "en": "The land is owned by the SPV, which acquired it from a private seller in Q3 2026. The title is clear and registered with the Colombian Cadastral Office.", "es": "El terreno es propiedad del SPV, que lo adquirió de un vendedor privado en Q3 2026. El título está libre y registrado en la Oficina de Catastro de Colombia." } },
+        { "q": { "en": "Who owns the buildings?", "es": "¿Quién es dueño de los edificios?" }, "a": { "en": "The buildings will be owned by the SPV upon completion of construction. Construction is being managed by a licensed Colombian contractor under a fixed-price contract.", "es": "Los edificios serán propiedad del SPV al completar la construcción. La construcción es gestionada por un contratista colombiano licenciado bajo un contrato de precio fijo." } },
+        { "q": { "en": "Who owns the operating company?", "es": "¿Quién es dueño de la empresa operadora?" }, "a": { "en": "The operating company is a separate entity controlled by CHIHIZA Studio. It holds the management contract with the SPV and operates the property under a 10-year management agreement.", "es": "La empresa operadora es una entidad separada controlada por CHIHIZA Studio. Tiene el contrato de administración con el SPV y opera la propiedad bajo un acuerdo de administración de 10 años." } },
+        { "q": { "en": "Who signs contracts?", "es": "¿Quién firma los contratos?" }, "a": { "en": "The SPV signs all property-level contracts (construction, permits, utilities). The operating company signs all operational contracts (staff, vendors, marketing). The investor has veto rights on contracts above USD 10,000.", "es": "El SPV firma todos los contratos a nivel de propiedad (construcción, permisos, servicios). La empresa operadora firma todos los contratos operativos (personal, proveedores, marketing). El inversionista tiene derecho de veto sobre contratos superiores a USD 10,000." } },
+        { "q": { "en": "How are profits distributed?", "es": "¿Cómo se distribuyen las ganancias?" }, "a": { "en": "Profits are distributed as quarterly dividends after operational reserves (6 months of operating expenses) are maintained. The distribution waterfall prioritizes: (1) operational reserves, (2) investor return of capital, (3) profit distributions.", "es": "Las ganancias se distribuyen como dividendos trimestrales después de mantener las reservas operativas (6 meses de gastos operativos). El orden de distribución prioriza: (1) reservas operativas, (2) retorno de capital del inversionista, (3) distribución de ganancias." } },
+        { "q": { "en": "Who appoints management?", "es": "¿Quién nombra a la administración?" }, "a": { "en": "CHIHIZA Studio appoints the General Manager and operational staff. The investor has the right to approve the General Manager and any changes to the management team.", "es": "CHIHIZA Studio nombra al Director General y al personal operativo. El inversionista tiene derecho a aprobar el Director General y cualquier cambio en el equipo de administración." } },
+        { "q": { "en": "Who can sell the asset?", "es": "¿Quién puede vender el activo?" }, "a": { "en": "The SPV can sell the asset with investor consent (majority vote). Tag-along and drag-along rights apply. The operator has a right of first refusal on any sale.", "es": "El SPV puede vender el activo con el consentimiento del inversionista (votación mayoritaria). Se aplican derechos de arrastre y acompañamiento. El operador tiene derecho de primera negativa sobre cualquier venta." } },
+        { "q": { "en": "What decisions require investor approval?", "es": "¿Qué decisiones requieren la aprobación del inversionista?" }, "a": { "en": "Capital expenditures above USD 10,000, changes to the management team, sale or refinancing of the asset, and any material change to the business model.", "es": "Gastos de capital superiores a USD 10,000, cambios en el equipo de administración, venta o refinanciación del activo, y cualquier cambio material en el modelo de negocio." } }
+      ]
+    },
+    "es": {
+      "heading": "Propiedad y Gobernanza",
+      "subheading": "¿Qué control tienes y cómo está estructurada la operación?",
+      "structure": "La Nuit opera a través de un Vehicleo de Propósito Especial (SPV) constituido en Colombia. CHIHIZA Studio posee una participación mayoritaria y actúa como administrador de la propiedad. El inversionista posee una participación del 25% en el SPV.",
+      "questions": [
+        { "q": { "en": "Who owns the land?", "es": "¿Quién es dueño del terreno?" }, "a": { "en": "The land is owned by the SPV, which acquired it from a private seller in Q3 2026. The title is clear and registered with the Colombian Cadastral Office.", "es": "El terreno es propiedad del SPV, que lo adquirió de un vendedor privado en Q3 2026. El título está libre y registrado en la Oficina de Catastro de Colombia." } },
+        { "q": { "en": "Who owns the buildings?", "es": "¿Quién es dueño de los edificios?" }, "a": { "en": "The buildings will be owned by the SPV upon completion of construction. Construction is being managed by a licensed Colombian contractor under a fixed-price contract.", "es": "Los edificios serán propiedad del SPV al completar la construcción. La construcción es gestionada por un contratista colombiano licenciado bajo un contrato de precio fijo." } },
+        { "q": { "en": "Who owns the operating company?", "es": "¿Quién es dueño de la empresa operadora?" }, "a": { "en": "The operating company is a separate entity controlled by CHIHIZA Studio. It holds the management contract with the SPV and operates the property under a 10-year management agreement.", "es": "La empresa operadora es una entidad separada controlada por CHIHIZA Studio. Tiene el contrato de administración con el SPV y opera la propiedad bajo un acuerdo de administración de 10 años." } },
+        { "q": { "en": "Who signs contracts?", "es": "¿Quién firma los contratos?" }, "a": { "en": "The SPV signs all property-level contracts (construction, permits, utilities). The operating company signs all operational contracts (staff, vendors, marketing). The investor has veto rights on contracts above USD 10,000.", "es": "El SPV firma todos los contratos a nivel de propiedad (construcción, permisos, servicios). La empresa operadora firma todos los contratos operativos (personal, proveedores, marketing). El inversionista tiene derecho de veto sobre contratos superiores a USD 10,000." } },
+        { "q": { "en": "How are profits distributed?", "es": "¿Cómo se distribuyen las ganancias?" }, "a": { "en": "Profits are distributed as quarterly dividends after operational reserves (6 months of operating expenses) are maintained. The distribution waterfall prioritizes: (1) operational reserves, (2) investor return of capital, (3) profit distributions.", "es": "Las ganancias se distribuyen como dividendos trimestrales después de mantener las reservas operativas (6 meses de gastos operativos). El orden de distribución prioriza: (1) reservas operativas, (2) retorno de capital del inversionista, (3) distribución de ganancias." } },
+        { "q": { "en": "Who appoints management?", "es": "¿Quién nombra a la administración?" }, "a": { "en": "CHIHIZA Studio appoints the General Manager and operational staff. The investor has the right to approve the General Manager and any changes to the management team.", "es": "CHIHIZA Studio nombra al Director General y al personal operativo. El inversionista tiene derecho a aprobar el Director General y cualquier cambio en el equipo de administración." } },
+        { "q": { "en": "Who can sell the asset?", "es": "¿Quién puede vender el activo?" }, "a": { "en": "The SPV can sell the asset with investor consent (majority vote). Tag-along and drag-along rights apply. The operator has a right of first refusal on any sale.", "es": "El SPV puede vender el activo con el consentimiento del inversionista (votación mayoritaria). Se aplican derechos de arrastre y acompañamiento. El operador tiene derecho de primera negativa sobre cualquier venta." } },
+        { "q": { "en": "What decisions require investor approval?", "es": "¿Qué decisiones requieren la aprobación del inversionista?" }, "a": { "en": "Capital expenditures above USD 10,000, changes to the management team, sale or refinancing of the asset, and any material change to the business model.", "es": "Gastos de capital superiores a USD 10,000, cambios en el equipo de administración, venta o refinanciación del activo, y cualquier cambio material en el modelo de negocio." } }
+      ]
+    }
+  },
+  "investor_returns": {
+    "en": {
+      "heading": "Investor Returns",
+      "subheading": "How do you make money?",
+      "intro": "Three investment models are presented below. Conrad can choose the model that best fits his objectives. Each model is based on the same underlying financial projections."
+    },
+    "es": {
+      "heading": "Rendimientos para el Inversionista",
+      "subheading": "¿Cómo ganas dinero?",
+      "intro": "Se presentan tres modelos de inversión a continuación. Conrad puede elegir el modelo que mejor se adapte a sus objetivos. Cada modelo se basa en las mismas proyecciones financieras subyacentes."
+    },
+    "models": [
+      {
+        "name": { "en": "Model A — Income Investor", "es": "Modelo A — Inversionista de Ingresos" },
+        "strategy": { "en": "Quarterly dividends. Maintain ownership. No obligation to sell.", "es": "Dividendos trimestrales. Mantener la participación. Sin obligación de vender." },
+        "irr": "14.8%",
+        "moic": "2.4x",
+        "cash_flow": { "en": "USD 82,000/year (Year 3+)", "es": "USD 82,000/año (Año 3+)" },
+        "exit": { "en": "None required. Hold indefinitely or exit via refinancing.", "es": "No se requiere salida. Mantener indefinidamente o salir mediante refinanciación." },
+        "best_for": { "en": "Investors seeking steady cash flow with moderate growth.", "es": "Inversionistas que buscan flujo de caja constante con crecimiento moderado." }
+      },
+      {
+        "name": { "en": "Model B — Growth Investor", "es": "Modelo B — Inversionista de Crecimiento" },
+        "strategy": { "en": "Reinvest all profits. Exit at Year 7–10 via sale.", "es": "Reinvertir todas las ganancias. Salida en el Año 7–10 mediante venta." },
+        "irr": "22.1%",
+        "moic": "3.2x",
+        "cash_flow": { "en": "USD 0/year (reinvested). USD 340,000 EBITDA at exit (Year 5+).", "es": "USD 0/año (reinvertido). USD 340,000 EBITDA en la salida (Año 5+)." },
+        "exit": { "en": "Sell property at 5x EBITDA multiple. Target exit Year 7–10.", "es": "Vender la propiedad a 5x EBITDA. Meta de salida Año 7–10." },
+        "best_for": { "en": "Investors seeking maximum capital appreciation over time.", "es": "Inversionistas que buscan la máxima apreciación de capital a largo plazo." }
+      },
+      {
+        "name": { "en": "Model C — Hybrid", "es": "Modelo C — Híbrido" },
+        "strategy": { "en": "Dividends + right to exit. Flexible approach.", "es": "Dividendos + derecho de salida. Enfoque flexible." },
+        "irr": "17.5%",
+        "moic": "2.7x",
+        "cash_flow": { "en": "USD 45,000/year (Year 3+). Exit option available from Year 5.", "es": "USD 45,000/año (Año 3+). Opción de salida disponible desde el Año 5." },
+        "exit": { "en": "Investor can exercise exit option from Year 5 onward at 5x EBITDA.", "es": "El inversionista puede ejercer la opción de salida desde el Año 5 a 5x EBITDA." },
+        "best_for": { "en": "Investors seeking a balance between income and capital appreciation.", "es": "Inversionistas que buscan un equilibrio entre ingresos y apreciación de capital." }
+      }
+    ],
+    "owner_benefits": {
+      "en": {
+        "heading": "Owner Benefits",
+        "subheading": "Personal use of the property",
+        "items": [
+          "14 nights per year of complimentary accommodation",
+          "Priority reservation window (30 days before public booking)",
+          "20% discount on all spa and dining services",
+          "Ability to transfer unused nights to family members",
+          "Complimentary airport transfer on arrival and departure",
+          "Personal concierge service for booking experiences and restaurant reservations"
+        ],
+        "restrictions": "Nights are non-transferable during peak season (December–January, July–August). A maximum of 4 nights per visit during peak season."
+      },
+      "es": {
+        "heading": "Beneficios del Propietario",
+        "subheading": "Uso personal de la propiedad",
+        "items": [
+          "14 noches al año de alojamiento gratuito",
+          "Ventana de reserva prioritario (30 días antes de la reserva pública)",
+          "20% de descuento en todos los servicios de spa y restaurante",
+          "Posibilidad de transferir noches no utilizadas a familiares",
+          "Traslado aeropuerto gratuito en llegada y salida",
+          "Servicio de concierge personal para reservar experiencias y restaurantes"
+        ],
+        "restrictions": "Las noches son intransferibles durante la temporada alta (diciembre–enero, julio–agosto). Un máximo de 4 noches por visita durante la temporada alta."
+      }
+    }
+  },
+  "risks": {
+    "en": {
+      "heading": "Investment Risks",
+      "subheading": "We disclose risks transparently because we believe it builds trust",
+      "items": [
+        { "risk": { "en": "Construction delays", "es": "Retrasos en la construcción" }, "impact": { "en": "Medium — pushes break-even by 3–6 months", "es": "Medio — retrasa el punto de equilibrio por 3–6 meses" }, "probability": { "en": "Moderate (30%)", "es": "Moderado (30%)" }, "mitigation": { "en": "Fixed-price construction contract with penalty clauses for delays. Contingency budget of 10%.", "es": "Contrato de construcción de precio fijo con cláusulas de penalización por retrasos. Presupuesto de contingencia del 10%." } },
+        { "risk": { "en": "Cost overruns", "es": "Sobrecostos" }, "impact": { "en": "Medium — reduces Year 1–2 margins", "es": "Medio — reduce los márgenes del Año 1–2" }, "probability": { "en": "Moderate (25%)", "es": "Moderado (25%)" }, "mitigation": { "en": "Detailed construction budget with line-item tracking. Monthly budget reviews with investor.", "es": "Presupuesto de construcción detallado con seguimiento por partida. Revisiones mensuales del presupuesto con el inversionista." } },
+        { "risk": { "en": "Lower-than-expected occupancy", "es": "Ocupación menor a la esperada" }, "impact": { "en": "High — delays break-even and reduces IRR", "es": "Alto — retrasa el punto de equilibrio y reduce el IRR" }, "probability": { "en": "Low-Moderate (20%)", "es": "Bajo-Moderado (20%)" }, "mitigation": { "en": "Pre-opening marketing campaign. Partnership with booking platforms. Flexible pricing strategy.", "es": "Campaña de marketing previa a la apertura. Alianzas con plataformas de reservas. Estrategia de precios flexible." } },
+        { "risk": { "en": "Currency fluctuation (COP/USD)", "es": "Fluctuación cambiaria (COP/USD)" }, "impact": { "en": "Low — all revenue is in USD; most costs are in COP", "es": "Bajo — todos los ingresos son en USD; la mayoría de los costos son en COP" }, "probability": { "en": "Moderate (40%)", "es": "Moderado (40%)" }, "mitigation": { "en": "Hedging strategy through forward contracts. Revenue is USD-denominated, providing natural hedge.", "es": "Estrategia de cobertura mediante contratos a plazo. Los ingresos están denominados en USD, lo que proporciona una cobertura natural." } },
+        { "risk": { "en": "Regulatory changes", "es": "Cambios regulatorios" }, "impact": { "en": "Low — hospitality regulations in Colombia are stable", "es": "Bajo — las regulaciones hospitalarias en Colombia son estables" }, "probability": { "en": "Low (10%)", "es": "Bajo (10%)" }, "mitigation": { "en": "Local legal counsel retained. All permits and licenses being secured before construction.", "es": "Asesoría legal local contratada. Todos los permisos y licencias se están obteniendo antes de la construcción." } },
+        { "risk": { "en": "Climate events", "es": "Eventos climáticos" }, "impact": { "en": "Low — property is in a low-risk zone for extreme weather", "es": "Bajo — la propiedad está en una zona de bajo riesgo para fenómenos climáticos extremos" }, "probability": { "en": "Low (15%)", "es": "Bajo (15%)" }, "mitigation": { "en": "Property insurance includes natural disaster coverage. Site selected for minimal flood and seismic risk.", "es": "El seguro de propiedad incluye cobertura por desastres naturales. El sitio fue seleccionado para minimizar el riesgo de inundación y sísmico." } }
+      ]
+    },
+    "es": {
+      "heading": "Riesgos de Inversión",
+      "subheading": "Divulgamos riesgos de forma transparente porque creemos que eso genera confianza",
+      "items": [
+        { "risk": { "en": "Construction delays", "es": "Retrasos en la construcción" }, "impact": { "en": "Medium — pushes break-even by 3–6 months", "es": "Medio — retrasa el punto de equilibrio por 3–6 meses" }, "probability": { "en": "Moderate (30%)", "es": "Moderado (30%)" }, "mitigation": { "en": "Fixed-price construction contract with penalty clauses for delays. Contingency budget of 10%.", "es": "Contrato de construcción de precio fijo con cláusulas de penalización por retrasos. Presupuesto de contingencia del 10%." } },
+        { "risk": { "en": "Cost overruns", "es": "Sobrecostos" }, "impact": { "en": "Medium — reduces Year 1–2 margins", "es": "Medio — reduce los márgenes del Año 1–2" }, "probability": { "en": "Moderate (25%)", "es": "Moderado (25%)" }, "mitigation": { "en": "Detailed construction budget with line-item tracking. Monthly budget reviews with investor.", "es": "Presupuesto de construcción detallado con seguimiento por partida. Revisiones mensuales del presupuesto con el inversionista." } },
+        { "risk": { "en": "Lower-than-expected occupancy", "es": "Ocupación menor a la esperada" }, "impact": { "en": "High — delays break-even and reduces IRR", "es": "Alto — retrasa el punto de equilibrio y reduce el IRR" }, "probability": { "en": "Low-Moderate (20%)", "es": "Bajo-Moderado (20%)" }, "mitigation": { "en": "Pre-opening marketing campaign. Partnership with booking platforms. Flexible pricing strategy.", "es": "Campaña de marketing previa a la apertura. Alianzas con plataformas de reservas. Estrategia de precios flexible." } },
+        { "risk": { "en": "Currency fluctuation (COP/USD)", "es": "Fluctuación cambiaria (COP/USD)" }, "impact": { "en": "Low — all revenue is in USD; most costs are in COP", "es": "Bajo — todos los ingresos son en USD; la mayoría de los costos son en COP" }, "probability": { "en": "Moderate (40%)", "es": "Moderado (40%)" }, "mitigation": { "en": "Hedging strategy through forward contracts. Revenue is USD-denominated, providing natural hedge.", "es": "Estrategia de cobertura mediante contratos a plazo. Los ingresos están denominados en USD, lo que proporciona una cobertura natural." } },
+        { "risk": { "en": "Regulatory changes", "es": "Cambios regulatorios" }, "impact": { "en": "Low — hospitality regulations in Colombia are stable", "es": "Bajo — las regulaciones hospitalarias en Colombia son estables" }, "probability": { "en": "Low (10%)", "es": "Bajo (10%)" }, "mitigation": { "en": "Local legal counsel retained. All permits and licenses being secured before construction.", "es": "Asesoría legal local contratada. Todos los permisos y licencias se están obteniendo antes de la construcción." } },
+        { "risk": { "en": "Climate events", "es": "Eventos climáticos" }, "impact": { "en": "Low — property is in a low-risk zone for extreme weather", "es": "Bajo — la propiedad está en una zona de bajo riesgo para fenómenos climáticos extremos" }, "probability": { "en": "Low (15%)", "es": "Bajo (15%)" }, "mitigation": { "en": "Property insurance includes natural disaster coverage. Site selected for minimal flood and seismic risk.", "es": "El seguro de propiedad incluye cobertura por desastres naturales. El sitio fue seleccionado para minimizar el riesgo de inundación y sísmico." } }
+      ]
+    }
+  },
+  "financials": {
+    "revenue": { "year_1": 180000, "year_2": 245000, "year_3": 290000, "year_4": 320000, "year_5": 340000 },
+    "ebitda": { "year_1": -45000, "year_2": 62000, "year_3": 116000, "year_4": 148000, "year_5": 170000 },
+    "cash_flow": { "year_1": -120000, "year_2": -28000, "year_3": 42000, "year_4": 78000, "year_5": 95000 },
+    "dividends": { "year_1": 0, "year_2": 0, "year_3": 32000, "year_4": 48000, "year_5": 58000 }
+  },
+  "exit_scenarios": [
+    { "name": { "en": "Scenario A — Hold", "es": "Escenario A — Mantener" }, "irr": "16.2%", "moic": "2.8x", "cash_flow": { "en": "USD 145,000/year (Year 5+)", "es": "USD 145,000/año (Año 5+)" }, "description": { "en": "Hold indefinitely. Collect distributions. Exit via refinancing at Year 7.", "es": "Mantener indefinidamente. Recoger distribuciones. Salida mediante refinanciación en el Año 7." } },
+    { "name": { "en": "Scenario B — Sell", "es": "Escenario B — Vender" }, "irr": "22.1%", "moic": "3.2x", "cash_flow": { "en": "USD 340,000 EBITDA exit (Year 5)", "es": "USD 340,000 EBITDA en la salida (Año 5)" }, "description": { "en": "Sell property at 5x EBITDA multiple. Exit at Year 5.", "es": "Vender la propiedad a 5x EBITDA. Salida en el Año 5." } },
+    { "name": { "en": "Scenario C — Refinancing", "es": "Escenario C — Refinanciación" }, "irr": "14.8%", "moic": "2.4x", "cash_flow": { "en": "USD 82,000/year (Year 3+)", "es": "USD 82,000/año (Año 3+)" }, "description": { "en": "Refinance at Year 4. Extract equity through dividend recapitalization.", "es": "Refinanciar en el Año 4. Extraer equity mediante recapitalización de dividendos." } }
+  ],
+  "sensitivity": {
+    "base_occupancy": 55,
+    "base_adr": 280,
+    "base_irr": 19.4,
+    "matrix": [
+      [18.2, 19.4, 20.8],
+      [16.5, 17.8, 19.1],
+      [14.1, 15.3, 16.5]
+    ],
+    "occupancy_range": [45, 55, 65],
+    "adr_range": [240, 280, 320]
+  },
+  "documents": [
+    { "name": { "en": "Executive Summary", "es": "Resumen Ejecutivo" }, "status": { "en": "Complete", "es": "Completo" }, "date": "2026-07-15", "version": "v2.1", "pages": 12 },
+    { "name": { "en": "Investment Memorandum", "es": "Memorando de Inversión" }, "status": { "en": "Complete", "es": "Completo" }, "date": "2026-07-10", "version": "v3.0", "pages": 45 },
+    { "name": { "en": "Construction Budget", "es": "Presupuesto de Construcción" }, "status": { "en": "Complete", "es": "Completo" }, "date": "2026-06-28", "version": "v1.4", "pages": 28 },
+    { "name": { "en": "Legal Due Diligence", "es": "Debida Diligencia Legal" }, "status": { "en": "Complete", "es": "Completo" }, "date": "2026-07-01", "version": "v2.0", "pages": 36 },
+    { "name": { "en": "Environmental Assessment", "es": "Evaluación Ambiental" }, "status": { "en": "Complete", "es": "Completo" }, "date": "2026-06-15", "version": "v1.2", "pages": 18 },
+    { "name": { "en": "Corporate Structure", "es": "Estructura Corporativa" }, "status": { "en": "Complete", "es": "Completo" }, "date": "2026-07-12", "version": "v1.0", "pages": 8 },
+    { "name": { "en": "Hospitality Plan", "es": "Plan de Hospitalidad" }, "status": { "en": "In Review", "es": "En Revisión" }, "date": "2026-07-20", "version": "v0.9", "pages": 22 }
+  ],
+  "timeline": [
+    { "phase": { "en": "Acquisition", "es": "Adquisición" }, "date": "Q3 2026", "status": { "en": "Complete", "es": "Completo" } },
+    { "phase": { "en": "Design & Permits", "es": "Diseño y Permisos" }, "date": "Q4 2026 – Q1 2027", "status": { "en": "In Progress", "es": "En Progreso" } },
+    { "phase": { "en": "Construction", "es": "Construcción" }, "date": "Q2 2027 – Q4 2027", "status": { "en": "Planned", "es": "Planeado" } },
+    { "phase": { "en": "Fit-Out & FF&E", "es": "Acondicionamiento y Equipamiento" }, "date": "Q1 2028", "status": { "en": "Planned", "es": "Planeado" } },
+    { "phase": { "en": "Soft Opening", "es": "Apertura Suave" }, "date": "Q2 2028", "status": { "en": "Planned", "es": "Planeado" } },
+    { "phase": { "en": "Grand Opening", "es": "Gran Apertura" }, "date": "Q3 2028", "status": { "en": "Planned", "es": "Planeado" } }
+  ],
+  "next_meeting": {
+    "en": "We would welcome the opportunity to walk through this data room together. Please let us know your availability for a 45-minute call or in-person meeting.",
+    "es": "Agradeceremos la oportunidad de recorrer esta sala de datos juntos. Por favor, indíquenos su disponibilidad para una llamada de 45 minutos o una reunión presencial."
+  },
+  "labels": {
+    "password_placeholder": { "en": "Enter access code", "es": "Ingrese el código de acceso" },
+    "password_button": { "en": "Enter", "es": "Entrar" },
+    "password_error": { "en": "Incorrect access code.", "es": "Código de acceso incorrecto." },
+    "footer": { "en": "La Nuit — Confidential Investment Data Room — Prepared by CHIHIZA Studio", "es": "La Nuit — Sala de Datos de Inversión Confidencial — Preparado por CHIHIZA Studio" },
+    "th_risk": { "en": "Risk", "es": "Riesgo" },
+    "th_impact": { "en": "Impact", "es": "Impacto" },
+    "th_probability": { "en": "Probability", "es": "Probabilidad" },
+    "th_mitigation": { "en": "Mitigation", "es": "Mitigación" }
+  }
+}

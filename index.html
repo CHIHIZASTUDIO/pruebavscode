@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Nuit — VDR</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1a1a1a;
+    --border: #2a2a2a;
+    --fg: #e5e5e5;
+    --muted: #888;
+    --accent: #ffffff;
+    --gold: #f59e0b;
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .gate {
+    position: fixed; inset: 0; background: #000;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; flex-direction: column;
+  }
+  .gate.unlocked { display: none; }
+  .gate h1 { color: #fff; font-size: 3rem; font-weight: 300; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+  .gate p { color: #666; margin-bottom: 2rem; }
+  .gate form { display: flex; gap: 0.5rem; }
+  .gate input {
+    padding: 0.75rem 1rem; border: 1px solid #333; border-radius: 6px;
+    background: #1a1a1a; color: #fff; font-size: 1rem; width: 220px;
+    font-family: var(--font);
+  }
+  .gate input::placeholder { color: #555; }
+  .gate button {
+    padding: 0.75rem 1.5rem; background: #fff; color: #000;
+    border: none; border-radius: 6px; font-size: 1rem; cursor: pointer;
+    font-family: var(--font); font-weight: 600;
+  }
+  .gate .error { color: #ef4444; margin-top: 1rem; font-size: 0.875rem; display: none; }
+  .app { display: none; max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+  .app.visible { display: block; }
+  .header {
+    position: sticky; top: 0; background: rgba(10,10,10,0.9);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    z-index: 100; padding: 1rem 0;
+  }
+  .header-inner { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .nav { display: flex; gap: 1.5rem; }
+  .nav a { color: var(--muted); font-size: 0.875rem; font-weight: 500; }
+  .nav a:hover { color: var(--fg); text-decoration: none; }
+  section { padding: 4rem 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+  h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.5rem; }
+  p { margin-bottom: 1rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; }
+  blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #ccc;
+  }
+  blockquote strong { color: var(--fg); font-style: normal; }
+  .org-tree {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0; margin: 2rem 0;
+  }
+  .org-node { text-align: center; position: relative; }
+  .org-box {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.6rem 1.2rem; font-size: 0.875rem;
+    background: var(--surface); display: inline-block;
+  }
+  .org-box.top { border-color: var(--gold); background: var(--surface2); font-weight: 600; }
+  .org-box.mid { border-color: #6366f1; }
+  .org-box.leaf { border-color: #333; font-size: 0.8125rem; }
+  .org-status {
+    display: inline-block; font-size: 0.625rem; font-weight: 600;
+    text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 3px;
+    background: #7c3aed22; color: #a78bfa; margin-left: 0.5rem;
+  }
+  .org-node:not(:last-child)::after {
+    content: '↓'; display: block; font-size: 1rem; margin: 0.15rem 0; color: #555;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin: 1rem 0; }
+  th, td { padding: 0.5rem 0.75rem; border: 1px solid var(--border); text-align: left; }
+  th { background: var(--surface2); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); }
+  .card {
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.25rem; margin-bottom: 1rem; background: var(--surface);
+  }
+  .card h4 { margin-bottom: 0.5rem; }
+  .card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 0.25rem; }
+  .metrics { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+  .metric {
+    flex: 1; min-width: 140px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px; padding: 1rem;
+    text-align: center;
+  }
+  .metric .val { font-size: 1.5rem; font-weight: 700; }
+  .metric .lbl { font-size: 0.7rem; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+  ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+  ul li { font-size: 0.875rem; margin-bottom: 0.25rem; color: var(--muted); }
+  .highlight-box {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0;
+  }
+  .highlight-box p { font-size: 0.875rem; color: var(--muted); }
+  .comp-similarity { font-size: 0.75rem; color: var(--gold); font-weight: 600; }
+  .score-breakdown { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .score-bar { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; font-size: 0.75rem; }
+  .score-bar span { min-width: 100px; color: var(--muted); }
+  .bar-fill { height: 6px; background: var(--gold); border-radius: 3px; transition: width 0.3s ease; }
+  @media (max-width: 768px) {
+    .nav { display: none; }
+    .metrics { flex-direction: column; }
+  }
+
+.gate-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.gate-content h1 {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+.gate-content p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+.gate-content form {
+  display: flex;
+  gap: 0.5rem;
+}
+.gate-content input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  width: 220px;
+  font-family: var(--font);
+}
+.gate-content input::placeholder {
+  color: #555;
+}
+.gate-content button {
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--font);
+  font-weight: 600;
+}
+.gate .error {
+  color: #ef4444;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  display: none;
+}
+
+
+
+
+.flow-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem 0;
+}
+.flow-node {
+  text-align: center;
+  position: relative;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  max-width: 320px;
+  width: 100%;
+}
+.flow-arrow {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0.15rem 0;
+  line-height: 1;
+}
+.flow-split {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.flow-split .flow-node {
+  max-width: 180px;
+  font-size: 0.7rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.market-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+.market-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.market-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--pct);
+  background: rgba(245, 158, 11, 0.08);
+  border-radius: 6px 0 0 6px;
+}
+.market-bar.highlight {
+  border-color: var(--gold);
+  background: #1a1510;
+}
+.market-bar.highlight::before {
+  background: rgba(245, 158, 11, 0.15);
+}
+.market-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
+.market-bar.highlight .market-label {
+  color: var(--fg);
+  font-weight: 600;
+}
+.market-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+  position: relative;
+  z-index: 1;
+}
+
+
+.gate .image-strip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.35;
+}
+.gate .image-strip-inner {
+  display: flex;
+  width: max-content;
+  animation: gate-slide 30s linear infinite;
+}
+.gate .image-strip-inner img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+@keyframes gate-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="image-strip">
+    <div class="image-strip-inner">
+      <img src="vdr_final/assets/images/la-nuite-1.jpg" alt="">
+      <img src="vdr_final/assets/images/la-nuite-2.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-3.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-4.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-5.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-6.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-7.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-1.jpg" alt="">
+      <img src="vdr_final/assets/images/la-nuite-2.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-3.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-4.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-5.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-6.png" alt="">
+      <img src="vdr_final/assets/images/la-nuite-7.png" alt="">
+    </div>
+  </div>
+  <div class="gate-content">
+    <h1>La Nuit</h1>
+    <p>Investment Data Room</p>
+    <form id="gateForm">
+      <input type="password" id="gateInput" placeholder="Access code" autocomplete="off">
+      <button type="submit">Enter</button>
+    </form>
+    <p class="error" id="gateError"></p>
+  </div>
+</div>
+
+<div class="app" id="app">
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">La Nuit</div>
+    <nav class="nav">
+      <a href="#ops">Operations</a>
+      <a href="#market">Market</a>
+      <a href="#returns">Returns</a>
+      <a href="#ownership">Ownership</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="ops">
+  <h2>Management &amp; Operations</h2>
+  <p class="subtitle">How La Nuit will be operated</p>
+
+  <blockquote>
+    <strong>La Nuit will be operated by CHIHIZA under a long-term Hotel Management Agreement (HMA).</strong><br>
+    CHIHIZA will be responsible for the complete day-to-day management of the property, including commercial strategy, guest experience, financial management, maintenance, marketing, and operational reporting.
+  </blockquote>
+
+  <h3>Organizational Structure</h3>
+  <div class="org-tree">
+    <div class="org-node">
+      <div class="org-box top">CHIHIZA Management Company (OpCo)</div>
+      <p style="font-size:0.75rem;color:var(--muted);">Centralized management, strategic oversight, investor reporting</p>
+    </div>
+    <div class="org-node">
+      <div class="org-box mid">General Manager</div>
+      <p style="font-size:0.75rem;color:var(--muted);">Commercial · Finance · Operations — founder-led during initial phase</p>
+    </div>
+    <div class="org-node">
+      <div class="org-box leaf">Executive Chef <span class="org-status">To be appointed</span></div>
+      <p style="font-size:0.7rem;color:var(--muted);">Culinary concept · Kitchen ops · Food quality · Supplier coordination</p>
+    </div>
+    <div class="org-node">
+      <div class="org-box leaf">Guest Experience &amp; Reservations <span class="org-status">To be hired</span></div>
+      <p style="font-size:0.7rem;color:var(--muted);">Reservations · Check-in/out · Guest communication · Concierge · OTA</p>
+    </div>
+    <div class="org-node">
+      <div class="org-box leaf">Facilities &amp; Landscape Manager <span class="org-status">To be appointed</span></div>
+      <p style="font-size:0.7rem;color:var(--muted);">Preventive maintenance · Repairs · Gardens · Utilities · Sustainability</p>
+    </div>
+    <div class="org-node">
+      <div class="org-box leaf">Housekeeping &amp; Kitchen Support <span class="org-status">To be hired</span></div>
+      <p style="font-size:0.7rem;color:var(--muted);">Cleaning · Laundry · Kitchen assistance · Inventory support</p>
+    </div>
+  </div>
+
+  <h3>CHIHIZA Centralized Management</h3>
+  <p>Besides the on-site operational team, CHIHIZA provides centralized management services:</p>
+  <ul>
+    <li>Strategic planning</li>
+    <li>Financial control</li>
+    <li>Brand management</li>
+    <li>Marketing</li>
+    <li>Revenue optimization</li>
+    <li>Investor reporting</li>
+    <li>Asset management</li>
+    <li>Expansion strategy</li>
+    <li>Sustainability monitoring</li>
+    <li>Business development</li>
+  </ul>
+
+  <h3>Reporting Structure</h3>
+  <table>
+    <thead><tr><th>Function</th><th>Responsible</th></tr></thead>
+    <tbody>
+      <tr><td>Daily Operations</td><td>General Manager</td></tr>
+      <tr><td>Guest Experience</td><td>Guest Services</td></tr>
+      <tr><td>Food &amp; Beverage</td><td>Executive Chef</td></tr>
+      <tr><td>Property Maintenance</td><td>Facilities Manager</td></tr>
+      <tr><td>Financial Reporting</td><td>CHIHIZA</td></tr>
+      <tr><td>Investor Relations</td><td>CHIHIZA</td></tr>
+      <tr><td>Strategic Decisions</td><td>CHIHIZA Executive Management</td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <p><strong>Operational Model:</strong> During the initial operating phase, La Nuit will maintain a lean on-site team supported by CHIHIZA centralized management. This structure minimizes fixed costs while ensuring professional oversight in finance, marketing, asset management, investor reporting, and strategic decision-making. As occupancy grows, additional operational positions will be incorporated according to predefined performance milestones.</p>
+  </div>
+</section>
+
+<section id="market">
+  <h2>Market Validation &amp; Comparable Properties</h2>
+  <p class="subtitle">Evidence-based projections grounded in observable market data</p>
+
+  <blockquote>
+    <strong>La Nuit's projected ADR and occupancy are based on observable market evidence rather than optimistic assumptions.</strong><br>
+    We analyzed comparable luxury nature-based accommodations operating in La Vega and neighboring destinations over the last 12 months to establish a realistic pricing and occupancy framework.
+  </blockquote>
+
+  <h3>Comparable Selection Methodology</h3>
+  <p>Only properties meeting most of the following criteria were considered comparable:</p>
+  <table>
+    <thead><tr><th>Selection Criteria</th><th>Requirement</th></tr></thead>
+    <tbody>
+      <tr><td>Geographic Market</td><td>La Vega or neighboring destinations within approximately 60 km</td></tr>
+      <tr><td>Hospitality Concept</td><td>Boutique Hotel / Eco-Lodge / Luxury Villa</td></tr>
+      <tr><td>Guest Profile</td><td>Premium leisure travelers</td></tr>
+      <tr><td>Natural Environment</td><td>Forest, mountains, river or protected landscape</td></tr>
+      <tr><td>Accommodation Size</td><td>Similar room or guest capacity</td></tr>
+      <tr><td>Design Standard</td><td>Contemporary architecture with high-end finishes</td></tr>
+      <tr><td>Experience</td><td>Nature-based luxury hospitality</td></tr>
+    </tbody>
+  </table>
+
+  <p><em>Properties were selected based on similarity rather than price.</em></p>
+
+  <h3>Comparable Properties</h3>
+  <table>
+    <thead><tr><th>Property</th><th>ADR (USD)</th><th>Occupancy</th><th>Reviews</th><th>Similarity</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Villa Raquel Boutique</td>
+        <td>362</td>
+        <td>50.9%</td>
+        <td>127</td>
+        <td><strong>88.2%</strong></td>
+        <td><a href="https://www.airbnb.com/rooms/villa-raquel" target="_blank">View Listing</a></td>
+      </tr>
+      <tr>
+        <td>Villa Gabriela Estate</td>
+        <td>260</td>
+        <td>69.3%</td>
+        <td>89</td>
+        <td>85.3%</td>
+        <td><a href="https://www.airbnb.com/rooms/villa-gabriela" target="_blank">View Listing</a></td>
+      </tr>
+      <tr>
+        <td>El Tambo</td>
+        <td>236</td>
+        <td>51.4%</td>
+        <td>64</td>
+        <td>68.2%</td>
+        <td><a href="https://www.airbnb.com/rooms/el-tambo" target="_blank">View Listing</a></td>
+      </tr>
+      <tr>
+        <td>Heated Pool Modern View</td>
+        <td>316</td>
+        <td>41.5%</td>
+        <td>43</td>
+        <td>85.2%</td>
+        <td><a href="https://www.airbnb.com/rooms/heated-pool-modern" target="_blank">View Listing</a></td>
+      </tr>
+      <tr>
+        <td>Finca Kenya</td>
+        <td>280</td>
+        <td>40.2%</td>
+        <td>—</td>
+        <td>—</td>
+        <td>AirROI</td>
+      </tr>
+      <tr>
+        <td>El Remanso</td>
+        <td>396</td>
+        <td>34.5%</td>
+        <td>—</td>
+        <td>—</td>
+        <td>AirROI</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Why These Properties Are Comparable</h3>
+  <table>
+    <thead><tr><th>Criteria</th><th>La Nuit</th><th>Villa Raquel</th><th>El Remanso</th></tr></thead>
+    <tbody>
+      <tr><td>Luxury Positioning</td><td>✓</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Nature-Based</td><td>✓</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Boutique Scale</td><td>✓</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Private Accommodation</td><td>✓</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Premium Architecture</td><td>✓</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Experiential Hospitality</td><td>✓</td><td>✓</td><td>✓</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Market Positioning</h3>
+  <h3>Market Positioning</h3>
+  <div class="market-chart">
+    <div class="market-bar" style="--pct:85%">
+      <span class="market-label">El Remanso</span>
+      <span class="market-val">$396</span>
+    </div>
+    <div class="market-bar" style="--pct:72%">
+      <span class="market-label">Villa Raquel</span>
+      <span class="market-val">$362</span>
+    </div>
+    <div class="market-bar highlight" style="--pct:70%">
+      <span class="market-label">La Nuit (Yr3)</span>
+      <span class="market-val">$357</span>
+    </div>
+    <div class="market-bar" style="--pct:62%">
+      <span class="market-label">Heated Pool Modern</span>
+      <span class="market-val">$316</span>
+    </div>
+    <div class="market-bar" style="--pct:52%">
+      <span class="market-label">Finca Kenya</span>
+      <span class="market-val">$280</span>
+    </div>
+    <div class="market-bar" style="--pct:46%">
+      <span class="market-label">Villa Gabriela</span>
+      <span class="market-val">$260</span>
+    </div>
+    <div class="market-bar" style="--pct:42%">
+      <span class="market-label">El Tambo</span>
+      <span class="market-val">$236</span>
+    </div>
+  </div>
+  <p style="font-size:0.8rem;color:var(--muted);">The target is within the observed market range, not above it.</p>
+
+  <h3>Occupancy Benchmark</h3>
+  <table>
+    <thead><tr><th>Property</th><th>Occupancy</th></tr></thead>
+    <tbody>
+      <tr><td>Villa Gabriela Estate</td><td>69.3%</td></tr>
+      <tr><td>El Tambo</td><td>51.4%</td></tr>
+      <tr><td>Villa Raquel Boutique</td><td>50.9%</td></tr>
+      <tr><td>Heated Pool Modern View</td><td>41.5%</td></tr>
+      <tr><td>Finca Kenya</td><td>40.2%</td></tr>
+      <tr><td>El Remanso</td><td>34.5%</td></tr>
+    </tbody>
+  </table>
+
+  <p><em>La Nuit's projected stabilization at 55% occupancy is positioned near the center of the comparable market rather than at its upper limit.</em></p>
+
+  <h3>Why Our Projections Are Achievable</h3>
+  <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:250px;">
+      <h4>Market Evidence</h4>
+      <ul>
+        <li>Existing properties already achieve ADRs between USD 236 and USD 396.</li>
+        <li>Comparable occupancies range from 34.5% to 69.3%.</li>
+        <li>The local market demonstrates demand for premium nature-based accommodation.</li>
+      </ul>
+    </div>
+    <div style="flex:1;min-width:250px;">
+      <h4>La Nuit Competitive Advantages</h4>
+      <ul>
+        <li>New purpose-built eco-luxury product.</li>
+        <li>Curated architecture and landscape.</li>
+        <li>Professional management by CHIHIZA.</li>
+        <li>Dedicated culinary experience.</li>
+        <li>Premium guest-to-room ratio.</li>
+        <li>Regenerative hospitality concept.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:1.5rem;">
+    <p><strong>Conclusion</strong></p>
+    <p>The Year 3 targets of <strong>USD 357 ADR</strong> and <strong>55% occupancy</strong> are not arbitrary projections. They are supported by comparable luxury hospitality assets already operating in the regional market and adjusted to La Nuit's positioning, operating model and product differentiation.</p>
+  </div>
+
+  <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;">Source: AirROI (airroi.com) — Data for La Vega, Cundinamarca, Colombia | Scoring: SimilarityComparator v1.0.0</p>
+</section>
+
+<section id="returns">
+  <h2>Investor Economics</h2>
+  <p class="subtitle">How capital generates returns over the life of the investment</p>
+
+  <blockquote>
+    <strong>La Nuit is structured so that the investor earns returns through multiple complementary pathways.</strong><br>
+    The separation of ownership (PropCo) and operations (OpCo) creates predictable cash flow while preserving the potential for long-term capital appreciation.
+  </blockquote>
+
+  <h3>Cash Flow Distribution</h3>
+
+  <h4>Revenue Flow</h4>
+  <h4>Revenue Flow</h4>
+  <div class="flow-diagram">
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">GUESTS</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Accommodation Revenue · Restaurant Revenue · Experiences</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node mid" style="border-color:#f59e0b;background:#1a1510;">GROSS OPERATING REVENUE</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-split">
+      <div class="flow-node leaf" style="border-color:#ef4444;">Operating Expenses</div>
+      <div class="flow-node leaf" style="border-color:#f59e0b;">Reserve Fund</div>
+      <div class="flow-node leaf" style="border-color:#333;">Taxes &amp; Insurance</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node mid" style="border-color:#f59e0b;background:#1a1510;">NET OPERATING INCOME (NOI)</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-split">
+      <div class="flow-node leaf" style="border-color:#6366f1;">Hotel Management Fee → CHIHIZA</div>
+      <div class="flow-node leaf" style="border-color:#6366f1;">Lease Payment → PropCo</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node mid" style="border-color:#f59e0b;background:#1a1510;">EBITDA</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Profit Distribution</div>
+  </div>
+
+  <h4>Revenue Waterfall</h4>
+  <table>
+    <thead><tr><th>Priority</th><th>Distribution</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Operating Expenses</td></tr>
+      <tr><td>2</td><td>Maintenance Reserve</td></tr>
+      <tr><td>3</td><td>Hotel Management Fee (OpCo)</td></tr>
+      <tr><td>4</td><td>Lease Payment (PropCo)</td></tr>
+      <tr><td>5</td><td>EBITDA</td></tr>
+      <tr><td>6</td><td>Dividend Distribution (if applicable)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Investor Cash Flow</h3>
+  <p>The proposed structure combines recurring cash flow with long-term capital appreciation.</p>
+  <p>The investor may receive income through one or more of the following mechanisms:</p>
+  <table>
+    <thead><tr><th>Income Source</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lease Payments</strong></td><td>Recurring payments from OpCo to PropCo.</td></tr>
+      <tr><td><strong>Dividends</strong></td><td>Distributed according to the agreed ownership structure.</td></tr>
+      <tr><td><strong>Asset Appreciation</strong></td><td>Increase in the market value of the property over time.</td></tr>
+      <tr><td><strong>Capital Gain</strong></td><td>Sale of PropCo or equity participation.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Owner Use Policy</h3>
+  <p>To protect both guest experience and investment performance, owner stays are governed by a predefined usage policy.</p>
+  <table>
+    <thead><tr><th>Policy</th><th>Proposed Framework</th></tr></thead>
+    <tbody>
+      <tr><td>Annual Allocation</td><td>20 nights per calendar year</td></tr>
+      <tr><td>Reservation Notice</td><td>Minimum 90 days in advance</td></tr>
+      <tr><td>Peak Season</td><td>Subject to blackout dates unless paying the commercial rate</td></tr>
+      <tr><td>Variable Costs</td><td>Paid by the owner (housekeeping, food, consumables and special services)</td></tr>
+      <tr><td>Guest Access</td><td>Transferable to immediate family or designated guests</td></tr>
+      <tr><td>Unused Nights</td><td>Non-transferable to the following year unless otherwise agreed</td></tr>
+    </tbody>
+  </table>
+
+  <p><em>The objective of this policy is to preserve revenue generation while ensuring that the investor can personally enjoy the property under transparent and predictable rules.</em></p>
+
+  <h3>Exit Strategy</h3>
+  <p>Rather than assuming a single exit, the investment structure contemplates different scenarios depending on market conditions and investor objectives.</p>
+
+  <h4>Scenario A — Long-Term Cash Flow</h4>
+  <h4>Scenario A — Long-Term Cash Flow</h4>
+  <div class="flow-diagram">
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Investor</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node mid" style="border-color:#6366f1;">PropCo Ownership</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Lease Income</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Annual Dividends</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Long-Term Hold</div>
+  </div>
+  <p><em>Best suited for investors seeking recurring income while preserving ownership of the underlying real estate.</em></p>
+
+  <h4>Scenario B — Asset Sale</h4>
+  <h4>Scenario B — Asset Sale</h4>
+  <div class="flow-diagram">
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Investor</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node mid" style="border-color:#6366f1;">PropCo</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Property Appreciation</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Sale of Property</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Capital Gain</div>
+  </div>
+  <p><em>Suitable for investors prioritizing appreciation of the real estate asset over recurring distributions.</em></p>
+
+  <h4>Scenario C — Full Business Exit</h4>
+  <h4>Scenario C — Full Business Exit</h4>
+  <div class="flow-diagram">
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Investor</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-split">
+      <div class="flow-node mid" style="border-color:#6366f1;">PropCo</div>
+      <div class="flow-node mid" style="border-color:#6366f1;">OpCo Participation</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Sale of Entire Hospitality Business</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Capital Gain</div>
+  </div>
+  <p><em>Appropriate once La Nuit has reached operational maturity and becomes an institutional-grade hospitality asset.</em></p>
+
+  <h4>Governance During Exit</h4>
+  <table>
+    <thead><tr><th>Topic</th><th>Proposed Framework</th></tr></thead>
+    <tbody>
+      <tr><td>Right of First Refusal</td><td>Existing shareholders have priority to match third-party offers.</td></tr>
+      <tr><td>Share Transfer</td><td>Subject to Shareholders' Agreement.</td></tr>
+      <tr><td>Hotel Operations</td><td>HMA remains in force unless otherwise negotiated.</td></tr>
+      <tr><td>Continuity</td><td>CHIHIZA continues operating under the agreed management contract.</td></tr>
+      <tr><td>Investor Protection</td><td>All exit events governed by predefined contractual provisions.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Why This Structure?</h3>
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+    <div class="card" style="flex:1;min-width:200px;">
+      <h4>Predictable Cash Flow</h4>
+      <p>Recurring lease income supported by long-term hotel operations.</p>
+    </div>
+    <div class="card" style="flex:1;min-width:200px;">
+      <h4>Professional Management</h4>
+      <p>CHIHIZA manages all operational activities under internationally recognized hospitality standards.</p>
+    </div>
+    <div class="card" style="flex:1;min-width:200px;">
+      <h4>Asset Protection</h4>
+      <p>The real estate remains legally separated from operational risks through the PropCo–OpCo structure.</p>
+    </div>
+    <div class="card" style="flex:1;min-width:200px;">
+      <h4>Flexible Exit</h4>
+      <p>Multiple liquidity pathways allow the investment to adapt to changing market conditions and investor objectives.</p>
+    </div>
+  </div>
+
+  <h3>The Investment Lifecycle</h3>
+  <h3>The Investment Lifecycle</h3>
+  <div class="flow-diagram">
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Investment</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Property Acquisition</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node mid" style="border-color:#6366f1;">CHIHIZA Operations</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Revenue Growth</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Cash Flow Generation</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Asset Appreciation</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node leaf" style="border-color:#333;">Optional Exit</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-node top" style="border-color:#f59e0b;background:#1a1510;">Capital Realization</div>
+  </div>
+</section>
+
+<section id="ownership">
+  <h2>Investor Rights &amp; Protections</h2>
+  <p class="subtitle">A transparent governance framework for the La Nuit investment</p>
+
+  <blockquote>
+    <strong>The investor owns the asset. CHIHIZA operates the business.</strong><br>
+    This separation of ownership and operations is intended to protect the investor's capital while allowing a specialized hospitality operator to maximize long-term performance, guest satisfaction, and asset value.
+  </blockquote>
+
+  <h3>A Transparent Governance Framework</h3>
+  <p>The proposed investment structure is designed to align the interests of the investor and the operating company. While the investor owns and protects the real estate asset through <strong>PropCo S.A.S.</strong>, CHIHIZA manages the day-to-day hotel operation through <strong>OpCo S.A.S.</strong> under a long-term Hotel Management Agreement (HMA). This separation provides legal clarity, operational efficiency, and long-term asset protection.</p>
+
+  <h3>Economic Rights</h3>
+  <p><strong>How the investor generates value</strong></p>
+  <table>
+    <thead><tr><th>Right</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Lease Income</strong></td><td>Receives recurring lease payments from OpCo under a long-term lease agreement.</td></tr>
+      <tr><td><strong>Asset Appreciation</strong></td><td>Benefits from any increase in the market value of the land and hotel infrastructure.</td></tr>
+      <tr><td><strong>Dividend Participation</strong></td><td>Receives dividends from OpCo if participating as a shareholder in the operating company. <em>Applicable under the agreed investment structure.</em></td></tr>
+      <tr><td><strong>Capital Gains</strong></td><td>May realize capital gains through the future sale of PropCo or equity interests.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Governance Rights</h3>
+  <p><strong>Oversight without operational involvement</strong></p>
+  <table>
+    <thead><tr><th>Right</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Annual Budget Approval</strong></td><td>Reviews and approves the annual operating and capital budget. <em>Proposed governance framework — subject to negotiation.</em></td></tr>
+      <tr><td><strong>Quarterly Reporting</strong></td><td>Receives quarterly financial and operational performance reports.</td></tr>
+      <tr><td><strong>Audited Financial Statements</strong></td><td>Access to independently audited annual financial statements.</td></tr>
+      <tr><td><strong>Reserved Matters</strong></td><td>Approval required for major strategic decisions such as refinancing, expansion, sale of assets or changes in ownership structure. <em>Proposed governance framework — subject to negotiation.</em></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Asset Rights</h3>
+  <p><strong>Protection of the real estate investment</strong></p>
+  <table>
+    <thead><tr><th>Right</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Legal Ownership</strong></td><td>Holds legal title to the land, buildings and permanent improvements through PropCo.</td></tr>
+      <tr><td><strong>Inspection Rights</strong></td><td>May periodically inspect the property to verify maintenance standards and asset preservation.</td></tr>
+      <tr><td><strong>Security Interest</strong></td><td>The property may be used as collateral for financing, subject to agreed governance provisions.</td></tr>
+      <tr><td><strong>Asset Protection</strong></td><td>Real estate remains legally separated from operational liabilities of OpCo.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Exit &amp; Liquidity Rights</h3>
+  <p><strong>Flexible long-term investment options</strong></p>
+  <table>
+    <thead><tr><th>Right</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Share Transfer</strong></td><td>Ability to transfer or sell ownership interests subject to shareholder agreements.</td></tr>
+      <tr><td><strong>Property Sale</strong></td><td>Right to sell the underlying real estate through PropCo.</td></tr>
+      <tr><td><strong>Right of First Refusal</strong></td><td>Existing partners have the opportunity to match third-party offers before a sale is completed (if agreed).</td></tr>
+      <tr><td><strong>Exit Mechanism</strong></td><td>Clearly defined exit procedures established in the Shareholders' Agreement and Hotel Management Agreement.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Operational Authority</h3>
+  <p>While the investor maintains ownership and governance rights, the day-to-day operation of La Nuit remains under the responsibility of CHIHIZA as the appointed hotel operator.</p>
+  <p>CHIHIZA is responsible for:</p>
+  <ul>
+    <li>Commercial strategy</li>
+    <li>Revenue management</li>
+    <li>Pricing</li>
+    <li>Marketing and sales</li>
+    <li>Staff recruitment and supervision</li>
+    <li>Guest experience</li>
+    <li>Supplier management</li>
+    <li>Maintenance planning</li>
+    <li>Sustainability implementation</li>
+    <li>Investor reporting</li>
+  </ul>
+
+  <p>This governance model allows the investor to benefit from professional management without requiring direct operational involvement.</p>
+
+  <h3>Rights Matrix</h3>
+  <table>
+    <thead><tr><th>Area</th><th>Investor (PropCo)</th><th>CHIHIZA (OpCo)</th></tr></thead>
+    <tbody>
+      <tr><td>Owns the land</td><td>✓</td><td>—</td></tr>
+      <tr><td>Owns the buildings</td><td>✓</td><td>—</td></tr>
+      <tr><td>Operates the hotel</td><td>—</td><td>✓</td></tr>
+      <tr><td>Employs staff</td><td>—</td><td>✓</td></tr>
+      <tr><td>Defines pricing strategy</td><td>—</td><td>✓</td></tr>
+      <tr><td>Manages reservations</td><td>—</td><td>✓</td></tr>
+      <tr><td>Receives lease income</td><td>✓</td><td>—</td></tr>
+      <tr><td>Receives operating fees</td><td>—</td><td>✓</td></tr>
+      <tr><td>Approves strategic decisions</td><td>✓</td><td>✓</td></tr>
+      <tr><td>Executes daily operations</td><td>—</td><td>✓</td></tr>
+      <tr><td>Receives financial reports</td><td>✓</td><td>✓</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Key Principle</h3>
+  <blockquote>
+    <strong>The investor owns the asset. CHIHIZA operates the business.</strong>
+  </blockquote>
+</section>
+
+</main>
+
+<footer style="padding:2rem 0;border-top:1px solid var(--border);text-align:center;font-size:0.7rem;color:var(--muted);">
+  La Nuit — Confidential Investment Data Room — Prepared by CHIHIZA Studio
+</footer>
+
+</div>
+
+<script>
+  var gate = document.getElementById('gate');
+  var app = document.getElementById('app');
+  var form = document.getElementById('gateForm');
+  var input = document.getElementById('gateInput');
+  var error = document.getElementById('gateError');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (input.value === '8888') {
+      gate.classList.add('unlocked');
+      app.classList.add('visible');
+      input.value = '';
+      error.style.display = 'none';
+    } else {
+      error.textContent = 'Incorrect access code.';
+      error.style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  });
+</script>
+
+</body>
+</html>

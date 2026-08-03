@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANUKWE — Private Investment Opportunity | CHIHIZA</title>
+  <meta name="description" content="ANUKWE: Luxury eco-hospitality development in Sierra Nevada de Santa Marta, Colombia. $2.32M valuation. Private equity investment opportunity.">
+  <link rel="canonical" href="https://chihiza.com/projects/anukwe.html">
+  <meta property="og:title" content="ANUKWE — Private Investment Opportunity">
+  <meta property="og:description" content="Luxury eco-hospitality development in Sierra Nevada de Santa Marta, Colombia.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://chihiza.com/proyectos/ánukwe/1.png">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .exec-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .exec-summary-text p { font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem; }
+    .exec-card { background: var(--white); border: 1px solid var(--border-light); border-radius: 16px; padding: 2.5rem; box-shadow: var(--shadow-md); }
+    .exec-card-row { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--border-light); }
+    .exec-card-row:last-child { border-bottom: none; }
+    .exec-card-label { font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+    .exec-card-value { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+    .exec-card-value.accent { color: var(--accent); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .benefit-card { background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s var(--ease); }
+    .benefit-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+    .benefit-icon { display: none; }
+    .benefit-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+    .benefit-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+    .structure-flow { display: flex; flex-direction: column; align-items: center; gap: 0; max-width: 400px; margin: 3rem auto; }
+    .structure-node { background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.2rem 2rem; text-align: center; width: 100%; font-size: 0.95rem; font-weight: 500; color: var(--text); }
+    .structure-node.highlight { border-color: var(--accent); background: var(--accent-light); }
+    .structure-arrow { color: var(--text-muted); font-size: 1.2rem; padding: 0.4rem 0; }
+    .snapshot-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; }
+    .snapshot-card { background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 2rem 1.2rem; text-align: center; box-shadow: var(--shadow-xs); }
+    .snapshot-value { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; color: var(--accent); margin-bottom: 0.3rem; }
+    .snapshot-label { font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); line-height: 1.4; }
+    .doc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .doc-card { background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s var(--ease); cursor: default; }
+    .doc-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+    .doc-icon { display: none; }
+    .doc-title { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+    .steps-inline { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin: 3rem 0; }
+    .step-box { background: var(--white); border: 1px solid var(--border-light); border-radius: 8px; padding: 1rem 1.5rem; text-align: center; font-size: 0.8rem; font-weight: 500; color: var(--text); white-space: nowrap; }
+    .step-box.active { border-color: var(--accent); background: var(--accent-light); }
+    .step-arr { color: var(--text-muted); font-size: 1.2rem; flex-shrink: 0; }
+    .own-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .own-card { background: var(--white); border: 1px solid var(--border-light); border-radius: 12px; padding: 1.5rem; text-align: center; }
+    .own-card .own-icon { display: none; }
+    .own-card .own-label { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+    .asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .asset-image { width: 100%; border-radius: 12px; overflow: hidden; }
+    .asset-image img { width: 100%; height: 240px; object-fit: cover; display: block; border-radius: 12px; }
+    .asset-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .asset-info-item { background: var(--white); border: 1px solid var(--border-light); border-radius: 10px; padding: 1rem; text-align: center; }
+    .asset-info-value { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .asset-info-label { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+    .btn-download { background: var(--accent); color: #fff; border: none; padding: 1rem 2.5rem; border-radius: 50px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s var(--ease); text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; }
+    .btn-download:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .btn-outline-light { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 0.9rem 2rem; border-radius: 50px; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s var(--ease); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+    @media (max-width: 768px) {
+      .exec-summary { grid-template-columns: 1fr; gap: 2rem; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .snapshot-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .snapshot-value { font-size: 1.4rem; }
+      .doc-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .own-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .asset-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .steps-inline { gap: 0.3rem; }
+      .step-box { padding: 0.7rem 1rem; font-size: 0.7rem; }
+      .step-arr { font-size: 0.9rem; }
+    }
+    @media (max-width: 480px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .doc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="../index.html" class="logo">CHIHIZA</a>
+    <nav class="nav">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html" class="active">Projects</a>
+      <a href="../about.html">About</a>
+      <a href="../process.html">Process</a>
+      <a href="../research.html">Research</a>
+      <a href="../legacy.html">Legal</a>
+      <a href="../guide.html">Guide</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="background: linear-gradient(135deg, rgba(26,26,26,0.4) 0%, rgba(26,26,26,0.15) 100%), url('../proyectos/ánukwe/1.png') center/cover no-repeat;">
+    <div class="hero-content">
+      <span class="section-tag" style="color: rgba(255,255,255,0.6); letter-spacing: 4px;">Private Investment Opportunity</span>
+      <p class="hero-sub" style="color: rgba(255,255,255,0.85); max-width: 500px; margin: 0 auto 2.5rem;">Luxury Eco-Hospitality Development<br>Santa Marta, Colombia</p>
+      <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem;">Presented by CHIHIZA</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Request Investment Deck</a>
+      </div>
+    </div>
+    <div class="scroll-indicator"><span>Scroll</span></div>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1100px;">
+      <span class="section-tag">Executive Summary</span>
+      <h2 class="section-title">Opportunity Overview</h2>
+      <div class="exec-summary">
+        <div class="exec-summary-text">
+          <p>ANUKWE is a private eco-hospitality development located in the Sierra Nevada de Santa Marta, Colombia. The project combines conservation, sustainable tourism, and long-term value creation through a private equity investment structure.</p>
+          <p>Situated on 22 hectares of protected natural environment, ANUKWE offers a unique value proposition: direct equity participation in a luxury eco-hospitality asset with significant appreciation potential driven by Colombia's growing international tourism market.</p>
+          <p>The investment structure is designed for institutional and accredited investors seeking exposure to Latin America's sustainable tourism sector with clear exit pathways through asset appreciation or strategic sale.</p>
+        </div>
+        <div class="exec-card">
+          <div class="exec-card-row">
+            <span class="exec-card-label">Investment Required</span>
+            <span class="exec-card-value accent">$16,237 USD</span>
+          </div>
+          <div class="exec-card-row">
+            <span class="exec-card-label">Equity Offered</span>
+            <span class="exec-card-value">0.7%</span>
+          </div>
+          <div class="exec-card-row">
+            <span class="exec-card-label">Project Valuation</span>
+            <span class="exec-card-value">$2,319,538 USD</span>
+          </div>
+          <div class="exec-card-row">
+            <span class="exec-card-label">Land</span>
+            <span class="exec-card-value">22 Hectares</span>
+          </div>
+          <div class="exec-card-row">
+            <span class="exec-card-label">Investment Structure</span>
+            <span class="exec-card-value">Private Equity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS OPPORTUNITY -->
+  <section class="section fade-in">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Value Proposition</span>
+      <h2 class="section-title">Why this opportunity</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">🌿</div>
+          <div class="benefit-title">Sustainable Tourism</div>
+          <div class="benefit-desc">Eco-conscious development aligned with global demand for responsible travel.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏔</div>
+          <div class="benefit-title">Sierra Nevada</div>
+          <div class="benefit-desc">World-class biodiversity and cultural heritage in Colombia's most iconic mountain range.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📈</div>
+          <div class="benefit-title">Long-term Appreciation</div>
+          <div class="benefit-desc">Equity participation in an asset designed for sustained capital growth.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🌎</div>
+          <div class="benefit-title">International Market</div>
+          <div class="benefit-desc">Access to Colombia's rapidly growing luxury eco-tourism market.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🌱</div>
+          <div class="benefit-title">Protected Environment</div>
+          <div class="benefit-desc">22 hectares of conserved natural landscape as the project's core asset.</div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🤝</div>
+          <div class="benefit-title">Equity Participation</div>
+          <div class="benefit-desc">Direct ownership stake with transparent governance and reporting.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170534.png'); height: 70vh;"></div>
+
+  <!-- INVESTMENT STRUCTURE -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-tag">Structure</span>
+      <h2 class="section-title">Investment Structure</h2>
+      <div class="structure-flow">
+        <div class="structure-node highlight">INVESTOR</div>
+        <div class="structure-arrow">↓</div>
+        <div class="structure-node">$16,237 USD</div>
+        <div class="structure-arrow">↓</div>
+        <div class="structure-node">0.7% Equity</div>
+        <div class="structure-arrow">↓</div>
+        <div class="structure-node">Shareholder</div>
+        <div class="structure-arrow">↓</div>
+        <div class="structure-node">Project Development</div>
+        <div class="structure-arrow">↓</div>
+        <div class="structure-node">Asset Appreciation</div>
+        <div class="structure-arrow">↓</div>
+        <div class="structure-node">Profit Distribution</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170618.png'); height: 80vh;"></div>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170651.png'); height: 80vh;"></div>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170854.png'); height: 70vh;"></div>
+
+  <!-- FINANCIAL SNAPSHOT -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Financials</span>
+      <h2 class="section-title">Financial Snapshot</h2>
+      <div class="snapshot-grid">
+        <div class="snapshot-card">
+          <div class="snapshot-value">$16,237</div>
+          <div class="snapshot-label">Minimum Investment</div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snapshot-value">0.7%</div>
+          <div class="snapshot-label">Equity</div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snapshot-value">$2.32M</div>
+          <div class="snapshot-label">Project Valuation</div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snapshot-value">22 ha</div>
+          <div class="snapshot-label">Asset</div>
+        </div>
+        <div class="snapshot-card">
+          <div class="snapshot-value" style="font-size: 0.9rem;">Private Equity</div>
+          <div class="snapshot-label">Development Model</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">22 ha &mdash; Total Area</span>
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">45 min &mdash; Santa Marta</span>
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">60 min &mdash; Airport</span>
+        <span style="font-size: 0.85rem; color: var(--text-secondary);">30 min &mdash; Beach</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OWNERSHIP BENEFITS -->
+  <section class="section fade-in">
+    <div class="section-inner" style="max-width: 700px;">
+      <span class="section-tag">Benefits</span>
+      <h2 class="section-title">Ownership Benefits</h2>
+      <div class="own-grid">
+        <div class="own-card">
+          <div class="own-icon">✔</div>
+          <div class="own-label">Shareholder</div>
+        </div>
+        <div class="own-card">
+          <div class="own-icon">✔</div>
+          <div class="own-label">Preferred Rates</div>
+        </div>
+        <div class="own-card">
+          <div class="own-icon">✔</div>
+          <div class="own-label">Owner Stay</div>
+        </div>
+        <div class="own-card">
+          <div class="own-icon">✔</div>
+          <div class="own-label">Long-Term Appreciation</div>
+        </div>
+        <div class="own-card">
+          <div class="own-icon">✔</div>
+          <div class="own-label">Sustainable Investment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170722.png'); height: 80vh;"></div>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170928.png'); height: 70vh;"></div>
+
+  <!-- DEVELOPMENT TIMELINE -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 1000px;">
+      <span class="section-tag">Timeline</span>
+      <h2 class="section-title">Development Timeline</h2>
+      <div class="steps-inline">
+        <div class="step-box active">Land</div>
+        <div class="step-arr">→</div>
+        <div class="step-box">Licenses</div>
+        <div class="step-arr">→</div>
+        <div class="step-box">Infrastructure</div>
+        <div class="step-arr">→</div>
+        <div class="step-box">Construction</div>
+        <div class="step-arr">→</div>
+        <div class="step-box">Operation</div>
+        <div class="step-arr">→</div>
+        <div class="step-box">Revenue</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMG DIVIDER -->
+  <div class="img-divider" style="background-image: url('../proyectos/ánukwe/Captura de pantalla 2026-07-29 170756.png'); height: 80vh;"></div>
+
+  <!-- DOCUMENTS -->
+  <section class="section fade-in">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-tag">Documents</span>
+      <h2 class="section-title">Investment Documents</h2>
+      <div class="doc-grid">
+        <div class="doc-card">
+          <div class="doc-icon">📄</div>
+          <div class="doc-title">Legal Structure</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">🗺</div>
+          <div class="doc-title">Masterplan</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">📊</div>
+          <div class="doc-title">Investment Deck</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">📈</div>
+          <div class="doc-title">Financial Model</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">❓</div>
+          <div class="doc-title">FAQs</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-icon">🌎</div>
+          <div class="doc-title">Environmental Info</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section fade-in" style="background: var(--bg-warm); border-top: 1px solid var(--border-light);">
+    <div class="section-inner" style="max-width: 800px;">
+      <span class="section-tag">FAQ</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <h3>How is the 0.7% equity determined?</h3>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer"><p>The 0.7% is calculated based on the total project valuation at the time of investment. The current appraisal values the project at $2,319,538 USD, and each 0.7% unit corresponds to $16,237 USD.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <h3>What rights does a partner have?</h3>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer"><p>Partners receive 5 free nights per year at the property, an estimated IRR of 12%&ndash;14%, discounted rates on food and beverages, and full shareholder oversight including regular reporting and site visits.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <h3>How are profits distributed?</h3>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer"><p>Profits are distributed in proportion to each partner&rsquo;s equity participation. Distribution schedules are outlined in the operating agreement.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <h3>Is there an exit strategy?</h3>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer"><p>Yes. The business plan targets a sale in 5 to 7 years to a hotel investment fund or international hospitality chain, providing a clear liquidity event for all partners.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <h3>How can a partner sell their stake before the exit?</h3>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer"><p>Partners may sell their participation to another existing partner at any time, or participate in the collective exit through a sale to a fund or chain. Terms are governed by the shareholders&rsquo; agreement.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <h3>What is the development timeline?</h3>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer"><p>We are currently securing resources to open with 11 operational keys by January 2027. The full build-out will follow in subsequent phases as capital is deployed.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+  <section class="cta-image-section fade-in" id="contact" style="background: linear-gradient(135deg, rgba(26,26,26,0.55) 0%, rgba(26,26,26,0.3) 100%), url('../proyectos/ánukwe/team.png') center/cover no-repeat;">
+    <div class="cta-image-content">
+      <h2 class="section-title" style="color: #fff;">Request Investment Memorandum</h2>
+      <p class="section-desc" style="margin: 0 auto 1rem; color: rgba(255,255,255,0.8);">Presented by CHIHIZA &mdash; Investment Advisory</p>
+      <p class="section-desc" style="margin: 0 auto 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.85rem;">Bogot&aacute; | Colombia</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem;">
+        <a href="https://wa.me/573219931029?text=Hello%20CHIHIZA.%20I%20would%20like%20to%20request%20the%20ANUKWE%20Investment%20Memorandum." target="_blank" rel="noopener" class="btn-download">Download Investment Memorandum</a>
+        <a href="../contact.html" class="btn-outline-light">Schedule a Private Meeting</a>
+      </div>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+        <a href="#" style="color: rgba(255,255,255,0.5); font-size: 0.75rem; text-decoration: none; letter-spacing: 1px;">Review Due Diligence</a>
+        <span style="color: rgba(255,255,255,0.2);">·</span>
+        <a href="#" style="color: rgba(255,255,255,0.5); font-size: 0.75rem; text-decoration: none; letter-spacing: 1px;">Access Investment Documents</a>
+        <span style="color: rgba(255,255,255,0.2);">·</span>
+        <a href="#" style="color: rgba(255,255,255,0.5); font-size: 0.75rem; text-decoration: none; letter-spacing: 1px;">Request Financial Model</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">CHIHIZA</div>
+        <p class="footer-text">Architecture born from the forest. Colombia</p>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <a href="natauta.html">Nataut&aacute;</a>
+        <a href="la-nuit.html">La Nuit</a>
+        <a href="el-mirador.html">El Mirador</a>
+        <a href="montvento.html">Montvento</a>
+        <a href="la-montana.html">La Monta&ntilde;a</a>
+        <a href="anukwe.html">ANUKWE</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 CHIHIZA International. All rights reserved.</span>
+      <div class="footer-socials"><a href="https://www.instagram.com/moxdesing/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/573219931029" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <div class="toast" id="toast"></div>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

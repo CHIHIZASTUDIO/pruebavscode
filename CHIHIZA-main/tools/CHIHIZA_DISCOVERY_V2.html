@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CHIHIZA Discovery V2 | Investment Intelligence</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8f7f4;--card:#ffffff;--card2:#f3f1ec;--accent:#6b8f71;--accent2:#5a7e60;--green:#2ecc71;--red:#e74c3c;--blue:#3498db;--yellow:#f1c40f;--orange:#e8740e;--purple:#9b59b6;--text:#2c2c2c;--text2:#5a5a55;--border:#e8e5df;--r:12px}
+html,body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{max-width:620px;margin:0 auto;padding:16px;padding-bottom:90px;min-height:100vh}
+.logo{text-align:center;padding:16px 0 8px}
+.logo h1{font-size:18px;font-weight:300;letter-spacing:6px;color:var(--accent);text-transform:uppercase}
+.logo p{font-size:9px;color:var(--text2);margin-top:2px;letter-spacing:2px}
+.pw{margin:12px 0}
+.pb{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .5s;width:0}
+.pt{font-size:8px;color:var(--text2);margin-top:3px;text-align:right}
+.sd{display:flex;justify-content:center;gap:5px;margin-top:6px}
+.sd span{width:7px;height:7px;border-radius:50%;background:var(--border);transition:.3s}
+.sd span.a{background:var(--accent);transform:scale(1.2)}
+.sd span.d{background:var(--green)}
+.page{display:none;animation:fi .3s}.page.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:10px}
+.card h2{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:3px}
+.card h3{font-size:11px;color:var(--text2);margin-bottom:14px;font-weight:400}
+.sec{font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin:14px 0 6px;font-weight:600}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:10px;color:var(--text2);margin-bottom:3px;font-weight:500}
+.f input,.f select,.f textarea{width:100%;padding:9px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;transition:.2s}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--accent)}
+.f textarea{min-height:70px;resize:vertical}
+.f select{cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237a7670'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.opts{display:grid;gap:6px}
+.opts.c2{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:1fr 1fr 1fr}
+.opt{padding:10px;background:var(--card2);border:2px solid var(--border);border-radius:var(--r);cursor:pointer;text-align:center;transition:.2s}
+.opt:active{transform:scale(.97)}.opt.sel{border-color:var(--accent);background:rgba(200,169,126,.08)}
+.opt .i{font-size:22px;margin-bottom:3px}.opt .l{font-size:10px;font-weight:600;color:var(--text)}.opt .d{font-size:8px;color:var(--text2);margin-top:1px}
+.rw{position:relative}
+.rw input[type=range]{width:100%;-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none;border:none;padding:0}
+.rw input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);border-radius:50%;cursor:pointer}
+.rv{text-align:center;font-size:18px;font-weight:700;color:var(--accent);margin:6px 0}
+.rl{display:flex;justify-content:space-between;font-size:8px;color:var(--text2)}
+.btn{display:block;width:100%;padding:12px;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:.2s;text-align:center}
+.btn:active{transform:scale(.97)}
+.bp{background:var(--accent);color:#ffffff}
+.bs{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.bg{background:var(--green);color:#fff}
+.br{background:var(--red);color:#fff}
+.row{display:flex;gap:8px;margin-top:14px}.row .btn{flex:1}
+.nb{position:fixed;bottom:0;left:0;right:0;background:rgba(248,247,244,.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 16px;display:none;z-index:50}
+.nb.show{display:flex;gap:8px;justify-content:center}
+.nb .btn{flex:1;max-width:200px}
+.tr{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}.tr:last-child{border:none}
+.tg{width:40px;height:22px;background:var(--border);border-radius:11px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
+.tg.on{background:var(--accent)}.tg::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s}.tg.on::after{left:21px}
+.tl{font-size:11px}
+.tag{display:inline-block;padding:2px 7px;border-radius:5px;font-size:8px;font-weight:600;margin:1px}
+.tg-g{background:rgba(46,204,113,.15);color:var(--green)}.tg-y{background:rgba(241,196,15,.15);color:var(--yellow)}.tg-r{background:rgba(231,76,60,.15);color:var(--red)}.tg-b{background:rgba(52,152,219,.15);color:var(--blue)}.tg-a{background:rgba(200,169,126,.15);color:var(--accent)}.tg-p{background:rgba(155,89,182,.15);color:var(--purple)}.tg-o{background:rgba(230,126,34,.15);color:var(--orange)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.m{background:var(--card2);border-radius:var(--r);padding:12px;text-align:center;border:1px solid var(--border)}
+.m .v{font-size:20px;font-weight:800;color:var(--accent)}.m .l{font-size:8px;color:var(--text2);margin-top:2px;text-transform:uppercase}
+.m.g .v{color:var(--green)}.m.r .v{color:var(--red)}.m.b .v{color:var(--blue)}.m.y .v{color:var(--yellow)}.m.p .v{color:var(--purple)}.m.o .v{color:var(--orange)}
+.ri{display:flex;gap:8px;padding:8px;background:var(--card2);border-radius:8px;margin-bottom:5px;border-left:3px solid var(--accent)}
+.ri .n{font-size:16px;font-weight:800;color:var(--accent);flex-shrink:0;width:22px}.ri .t{font-size:10px;line-height:1.4}
+.hid{display:none!important}
+.matrix{width:100%;border-collapse:collapse;margin:8px 0}
+.matrix th,.matrix td{padding:6px 8px;font-size:10px;text-align:left;border-bottom:1px solid var(--border)}
+.matrix th{color:var(--text2);font-weight:600;text-transform:uppercase;font-size:8px;letter-spacing:1px}
+.matrix td:last-child,.matrix th:last-child{text-align:right}
+.matrix .bar-cell{width:80px}
+.matrix .bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden}
+.matrix .bar-fill{height:100%;border-radius:3px;transition:width .5s}
+.grade-badge{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;font-size:28px;font-weight:900;border:3px solid}
+.grade-A{color:var(--green);border-color:var(--green);background:rgba(46,204,113,.1)}
+.grade-B{color:var(--blue);border-color:var(--blue);background:rgba(52,152,219,.1)}
+.grade-C{color:var(--yellow);border-color:var(--yellow);background:rgba(241,196,15,.1)}
+.grade-D{color:var(--red);border-color:var(--red);background:rgba(231,76,60,.1)}
+.risk-table{width:100%;border-collapse:collapse;margin:8px 0}
+.risk-table th,.risk-table td{padding:6px;font-size:9px;text-align:left;border-bottom:1px solid var(--border)}
+.risk-table th{color:var(--text2);font-weight:600;font-size:8px;text-transform:uppercase}
+.risk-badge{padding:2px 6px;border-radius:4px;font-size:8px;font-weight:700}
+.risk-alto{background:rgba(231,76,60,.2);color:var(--red)}
+.risk-medio{background:rgba(241,196,15,.2);color:var(--yellow)}
+.risk-bajo{background:rgba(46,204,113,.2);color:var(--green)}
+.sens-row{display:flex;gap:6px;margin:6px 0}
+.sens-card{flex:1;padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border)}
+.sens-card .scenario{font-size:8px;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:4px}
+.sens-card .value{font-size:16px;font-weight:800}
+.sens-card.best{border-color:var(--green);background:rgba(46,204,113,.05)}.sens-card.best .scenario{color:var(--green)}.sens-card.best .value{color:var(--green)}
+.sens-card.base{border-color:var(--accent);background:rgba(200,169,126,.05)}.sens-card.base .scenario{color:var(--accent)}.sens-card.base .value{color:var(--accent)}
+.sens-card.worst{border-color:var(--red);background:rgba(231,76,60,.05)}.sens-card.worst .scenario{color:var(--red)}.sens-card.worst .value{color:var(--red)}
+.source-note{font-size:8px;color:var(--text2);font-style:italic;margin-top:4px;padding:4px 6px;background:rgba(200,169,126,.05);border-radius:4px;border-left:2px solid var(--accent2)}
+.go-badge{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:var(--r);font-size:18px;font-weight:900;letter-spacing:2px}
+.go-go{background:rgba(46,204,113,.15);color:var(--green);border:2px solid var(--green)}
+.go-cond{background:rgba(241,196,15,.15);color:var(--yellow);border:2px solid var(--yellow)}
+.go-nogo{background:rgba(231,76,60,.15);color:var(--red);border:2px solid var(--red)}
+.exit-card{padding:10px;background:var(--card2);border-radius:8px;margin-bottom:6px;border-left:3px solid var(--accent)}
+.exit-card .exit-title{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:3px}
+.exit-card .exit-desc{font-size:9px;color:var(--text2);line-height:1.5}
+.exit-card .exit-tag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:8px;font-weight:600;margin-top:4px}
+.exec-box{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:20px;margin-bottom:12px;position:relative;overflow:hidden}
+.exec-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green),var(--accent))}
+.exec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(200,169,126,.15)}
+.exec-row:last-child{border:none}
+.exec-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+.exec-value{font-size:13px;font-weight:700;color:var(--accent)}
+.exec-value.green{color:var(--green)}.exec-value.red{color:var(--red)}.exec-value.yellow{color:var(--yellow)}
+.criteria-table{width:100%;border-collapse:collapse;margin:10px 0}
+.criteria-table th,.criteria-table td{padding:8px 10px;font-size:10px;text-align:left;border-bottom:1px solid var(--border)}
+.criteria-table th{color:var(--text2);font-weight:600;font-size:8px;text-transform:uppercase}
+.criteria-status{text-align:center;font-size:14px}
+.criteria-status.pass{color:var(--green)}.criteria-status.warn{color:var(--yellow)}.criteria-status.fail{color:var(--red)}
+.chart-container{position:relative;width:100%;margin:10px 0}
+.chart-container canvas{width:100%!important;height:auto!important}
+.process-flow{display:flex;flex-direction:column;gap:4px;margin:10px 0}
+.process-step{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--card2);border-radius:6px;border-left:3px solid var(--accent)}
+.process-step.active{border-left-color:var(--green);background:rgba(46,204,113,.08)}
+.process-step .step-num{font-size:10px;font-weight:700;color:var(--accent);width:20px;text-align:center}
+.process-step .step-text{font-size:10px;color:var(--text);flex:1}
+.process-step .step-icon{font-size:12px}
+.process-arrow{text-align:center;color:var(--accent);font-size:10px}
+.timeline{position:relative;padding-left:20px;margin:10px 0}
+.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--border)}
+.timeline-item{position:relative;padding:8px 0 8px 16px;border-bottom:1px solid var(--border)}
+.timeline-item::before{content:'';position:absolute;left:-17px;top:12px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.timeline-item.done::before{background:var(--green)}
+.timeline-item.current::before{background:var(--yellow);box-shadow:0 0 8px var(--yellow)}
+.timeline-label{font-size:8px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.timeline-text{font-size:10px;color:var(--text);margin-top:2px}
+.timeline-sub{font-size:8px;color:var(--text2);margin-top:1px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="logo"><h1>CHIHIZA</h1><p>Discovery Intelligence V2</p></div>
+<div class="pw"><div class="pb"><div class="pf" id="pf"></div></div><div class="pt" id="pt"></div><div class="sd" id="sd"></div></div>
+
+<!-- PAGE 0: WELCOME -->
+<div class="page active" id="p0">
+<div class="card">
+<h2>Investment Discovery</h2>
+<h3>CHIHIZA International | Metodologia Propia</h3>
+<p style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:14px">
+Herramienta de analisis inteligente para evaluar oportunidades de inversion inmobiliaria en Colombia. 
+Adapta sus preguntas segun el perfil del cliente y genera un Investment Memorandum completo.
+</p>
+<div class="sec">METODOLOGIA CHIHIZA</div>
+<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:14px">
+<span class="tag tg-a">Discovery</span><span class="tag tg-b">Score</span><span class="tag tg-g">Grade</span>
+<span class="tag tg-y">Mercado</span><span class="tag tg-r">Riesgos</span><span class="tag tg-p">ROI</span>
+<span class="tag tg-o">Exit</span>
+</div>
+<div class="sec">QUE GENERA</div>
+<div style="font-size:10px;color:var(--text2);line-height:1.8">
+<div>1. Perfil del cliente y objetivo</div>
+<div>2. Opportunity Score (matriz dinamica, 8 variables)</div>
+<div>3. Investment Grade (A/B/C/D)</div>
+<div>4. Analisis de mercado y comparables</div>
+<div>5. Matriz de riesgos con mitigacion</div>
+<div>6. ROI con escenarios de sensibilidad</div>
+<div>7. Estrategia de salida (Exit Strategy)</div>
+<div>8. Decision GO / NO GO</div>
+<div>9. Servicios CHIHIZA recomendados</div>
+</div>
+<div class="row"><button class="btn bp" onclick="next()">Comenzar Discovery</button></div>
+</div>
+</div>
+
+<!-- PAGE 1: CLIENT PROFILE -->
+<div class="page" id="p1">
+<div class="card">
+<h2>1. Perfil del Cliente</h2>
+<h3>Informacion basica para personalizar el analisis</h3>
+<div class="f"><label>Nombre completo</label><input type="text" id="nombre" placeholder="Ej: John Smith"></div>
+<div class="f"><label>Correo electronico</label><input type="email" id="email" placeholder="correo@ejemplo.com"></div>
+<div class="f"><label>Nacionalidad</label>
+<select id="nacionalidad"><option value="">Seleccionar...</option><option value="US">Estados Unidos</option><option value="CA">Canada</option><option value="UK">Reino Unido</option><option value="CO">Colombia</option><option value="MX">Mexico</option><option value="ES">Espana</option><option value="DE">Alemania</option><option value="FR">Francia</option><option value="AU">Australia</option><option value="OTHER">Otro</option></select></div>
+<div class="f"><label>Rango de edad</label>
+<div class="opts c3"><div class="opt" onclick="sel('edad','25-40',this)"><div class="l">25-40</div><div class="d">Activo</div></div><div class="opt" onclick="sel('edad','40-55',this)"><div class="l">40-55</div><div class="d">Madurez</div></div><div class="opt" onclick="sel('edad','55+',this)"><div class="l">55+</div><div class="d">Senior</div></div></div></div>
+<div class="f"><label>Experiencia en inversiones inmobiliarias</label>
+<div class="opts c3"><div class="opt" onclick="sel('exp_inv','nada',this)"><div class="l">Ninguna</div></div><div class="opt" onclick="sel('exp_inv','poca',this)"><div class="l">1-2 proyectos</div></div><div class="opt" onclick="sel('exp_inv','mucha',this)"><div class="l">3+ proyectos</div></div></div></div>
+</div>
+</div>
+
+<!-- PAGE 2: OBJECTIVE -->
+<div class="page" id="p2">
+<div class="card">
+<h2>2. Objetivo Principal</h2>
+<h3>Que busca el cliente en Colombia?</h3>
+<div class="f"><label>Seleccione el objetivo</label>
+<div class="opts" id="o-obj">
+<div class="opt" onclick="selObj('inversion',this)"><div class="i">📈</div><div class="l">Inversion Inmobiliaria</div><div class="d">Comprar, desarrollar y vender con retorno</div></div>
+<div class="opt" onclick="selObj('vivienda',this)"><div class="i">🏡</div><div class="l">Vivienda Principal</div><div class="d">Mudarse a Colombia a vivir</div></div>
+<div class="opt" onclick="selObj('vacacional',this)"><div class="i">🌴</div><div class="l">Vivienda Vacacional</div><div class="d">Segunda casa / retiro</div></div>
+<div class="opt" onclick="selObj('airbnb',this)"><div class="i">🏠</div><div class="l">Renta Turistica</div><div class="d">Ingresos por corto plazo</div></div>
+<div class="opt" onclick="selObj('glamping',this)"><div class="i">⛺</div><div class="l">Glamping / Eco-Turismo</div><div class="d">Proyecto turistico</div></div>
+<div class="opt" onclick="selObj('desarrollo',this)"><div class="i">🏗️</div><div class="l">Desarrollo Inmobiliario</div><div class="d">Parcelar y vender lotes</div></div>
+</div></div>
+<div id="inv-sub" class="hid">
+<div class="sec">Tipo de inversion</div>
+<div class="f"><div class="opts c2">
+<div class="opt" onclick="sel('tipo_inv','lote',this)"><div class="l">Solo Lote</div><div class="d">Comprar terreno</div></div>
+<div class="opt" onclick="sel('tipo_inv','lote_proy',this)"><div class="l">Lote + Proyecto</div><div class="d">Terreno con diseno</div></div>
+<div class="opt" onclick="sel('tipo_inv','construccion',this)"><div class="l">Construccion</div><div class="d">Todo llave en mano</div></div>
+<div class="opt" onclick="sel('tipo_inv','masterplan',this)"><div class="l">Master Plan</div><div class="d">Desarrollo completo</div></div>
+</div></div>
+<div class="sec">Horizonte de retorno</div>
+<div class="f"><div class="opts c3">
+<div class="opt" onclick="sel('horizonte','6-12',this)"><div class="l">6-12 meses</div><div class="d">Corto</div></div>
+<div class="opt" onclick="sel('horizonte','12-24',this)"><div class="l">12-24 meses</div><div class="d">Mediano</div></div>
+<div class="opt" onclick="sel('horizonte','24-36',this)"><div class="l">24-36 meses</div><div class="d">Largo</div></div>
+</div></div>
+</div>
+</div>
+</div>
+
+<!-- PAGE 3: BUDGET -->
+<div class="page" id="p3">
+<div class="card">
+<h2>3. Presupuesto</h2>
+<h3>Capacidad financiera y estructura de fondeo</h3>
+<div class="f"><label>Presupuesto total disponible</label>
+<div class="rw"><div class="rv" id="pv">$100,000,000</div>
+<input type="range" id="presupuesto" min="20000000" max="2000000000" step="10000000" value="100000000" oninput="updP()">
+<div class="rl"><span>$20M COP</span><span>$500M COP</span><span>$2B COP</span></div></div></div>
+<div class="f"><label>Moneda preferida</label>
+<div class="opts c2"><div class="opt" onclick="sel('moneda','COP',this)"><div class="l">COP</div><div class="d">Pesos colombianos</div></div><div class="opt" onclick="sel('moneda','USD',this)"><div class="l">USD</div><div class="d">Dolares</div></div></div></div>
+<div class="f"><label>Fondeo</label>
+<div class="opts c2">
+<div class="opt" onclick="sel('fondeo','ahorros',this)"><div class="l">Ahorros</div></div>
+<div class="opt" onclick="sel('fondeo','credito',this)"><div class="l">Credito</div></div>
+<div class="opt" onclick="sel('fondeo','inversionistas',this)"><div class="l">Inversionistas</div></div>
+<div class="opt" onclick="sel('fondeo','mixto',this)"><div class="l">Mixto</div></div>
+</div></div>
+<div class="f"><label>Dispuesto a invertir en etapas?</label>
+<div class="tr"><span class="tl">Inversion escalonada (30/40/30)</span><div class="tg on" id="t-etapas" onclick="tg2('etapas')"></div></div></div>
+</div>
+</div>
+
+<!-- PAGE 4: LOCATION -->
+<div class="page" id="p4">
+<div class="card">
+<h2>4. Ubicacion y Terreno</h2>
+<h3>Donde y sobre que se va a invertir?</h3>
+<div class="f"><label>Region preferida</label>
+<div class="opts c2">
+<div class="opt" onclick="sel('region','santander',this)"><div class="l">Santander</div><div class="d">Canon Chicamocha</div></div>
+<div class="opt" onclick="sel('region','antioquia',this)"><div class="l">Antioquia</div><div class="d">Oriente</div></div>
+<div class="opt" onclick="sel('region','boyaca',this)"><div class="l">Boyaca</div><div class="d">Colonial</div></div>
+<div class="opt" onclick="sel('region','cundinamarca',this)"><div class="l">Cundinamarca</div><div class="d">Cercania Bogota</div></div>
+<div class="opt" onclick="sel('region','coffee',this)"><div class="l">Eje Cafetero</div><div class="d">Templado</div></div>
+<div class="opt" onclick="sel('region','caribe',this)"><div class="l">Caribe</div><div class="d">Costa</div></div>
+<div class="opt" onclick="sel('region','any',this)"><div class="l">Sin preferencia</div><div class="d">Mejor oportunidad</div></div>
+</div></div>
+<div class="f"><label>Clima preferido</label>
+<div class="opts c3"><div class="opt" onclick="sel('clima','frio',this)"><div class="l">Frio</div><div class="d">10-18C</div></div><div class="opt" onclick="sel('clima','templado',this)"><div class="l">Templado</div><div class="d">18-24C</div></div><div class="opt" onclick="sel('clima','calido',this)"><div class="l">Calido</div><div class="d">24-32C</div></div></div></div>
+<div class="sec">Requisitos del terreno</div>
+<div class="tr"><span class="tl">Vista panoramica</span><div class="tg on" id="t-vista" onclick="tg2('vista')"></div></div>
+<div class="tr"><span class="tl">Acceso pavimentado</span><div class="tg on" id="t-pavimento" onclick="tg2('pavimento')"></div></div>
+<div class="tr"><span class="tl">Agua y energia</span><div class="tg on" id="t-servicios" onclick="tg2('servicios')"></div></div>
+<div class="tr"><span class="tl">Topografia plana (reduce costos)</span><div class="tg" id="t-plana" onclick="tg2('plana')"></div></div>
+<div class="tr"><span class="tl">Zona sin riesgo natural</span><div class="tg on" id="t-sinriesgo" onclick="tg2('sinriesgo')"></div></div>
+<div class="tr"><span class="tl">Internet fibra optica</span><div class="tg" id="t_internet" onclick="tg2('internet')"></div></div>
+<div class="tr"><span class="tl">Seguridad / cerramiento</span><div class="tg" id="t_seguridad" onclick="tg2('seguridad')"></div></div>
+<div class="f"><label>Tiene terreno?</label>
+<div class="opts c2"><div class="opt" onclick="sel('tiene_terreno','si',this)"><div class="l">Si, ya tengo</div></div><div class="opt" onclick="sel('tiene_terreno','no',this)"><div class="l">No, buscar</div></div></div></div>
+<div id="terreno-ex" class="hid">
+<div class="sec">Datos del terreno</div>
+<div class="f"><label>Area (m2)</label><input type="number" id="area_terreno" placeholder="500"></div>
+<div class="f"><label>Valor compra (COP)</label><input type="number" id="valor_terreno" placeholder="80000000"></div>
+<div class="f"><label>Certificado libertad y tradicion?</label>
+<div class="opts c2"><div class="opt" onclick="sel('doc_terreno','si',this)"><div class="l">Si</div></div><div class="opt" onclick="sel('doc_terreno','no',this)"><div class="l">No / No se</div></div></div></div>
+</div>
+</div>
+</div>
+
+<!-- PAGE 5: PROJECT -->
+<div class="page" id="p5">
+<div class="card">
+<h2>5. Proyecto Deseado</h2>
+<h3>Que se va a construir?</h3>
+<div class="f"><label>Tipo de vivienda</label>
+<div class="opts c2">
+<div class="opt" onclick="sel('tipo_viv','campestre',this)"><div class="i">🌿</div><div class="l">Campestre</div></div>
+<div class="opt" onclick="sel('tipo_viv','minimalista',this)"><div class="i">⬜</div><div class="l">Minimalista</div></div>
+<div class="opt" onclick="sel('tipo_viv','contemporanea',this)"><div class="i">🔷</div><div class="l">Contemporanea</div></div>
+<div class="opt" onclick="sel('tipo_viv','bioclimatica',this)"><div class="i">🌱</div><div class="l">Bioclimatica</div></div>
+<div class="opt" onclick="sel('tipo_viv','colonial',this)"><div class="i">🏛️</div><div class="l">Colonial Moderno</div></div>
+<div class="opt" onclick="sel('tipo_viv','industrial',this)"><div class="i">🏭</div><div class="l">Industrial</div></div>
+</div></div>
+<div class="f"><label>Area construida deseada (m2)</label>
+<div class="rw"><div class="rv" id="av">120 m2</div>
+<input type="range" id="area_const" min="60" max="500" step="10" value="120" oninput="updA()">
+<div class="rl"><span>60 m2</span><span>280 m2</span><span>500 m2</span></div></div></div>
+<div class="f"><label>Niveles</label>
+<div class="opts c3"><div class="opt" onclick="sel('niveles','1',this)"><div class="l">1 Nivel</div></div><div class="opt" onclick="sel('niveles','2',this)"><div class="l">2 Niveles</div></div><div class="opt" onclick="sel('niveles','3',this)"><div class="l">3 Niveles</div></div></div></div>
+<div class="sec">Espacios especiales</div>
+<div class="tr"><span class="tl">Piscina</span><div class="tg" id="t-piscina" onclick="tg2('piscina')"></div></div>
+<div class="tr"><span class="tl">Garaje 2 vehiculos</span><div class="tg on" id="t-garaje" onclick="tg2('garaje')"></div></div>
+<div class="tr"><span class="tl">Terraza / Deck</span><div class="tg on" id="t-terraza" onclick="tg2('terraza')"></div></div>
+<div class="tr"><span class="tl">Cubierta verde</span><div class="tg" id="t-cubierta" onclick="tg2('cubierta')"></div></div>
+<div class="tr"><span class="tl">Paneles solares</span><div class="tg" id="t-solares" onclick="tg2('solares')"></div></div>
+<div class="tr"><span class="tl">Home office</span><div class="tg on" id="t-office" onclick="tg2('office')"></div></div>
+</div>
+</div>
+
+<!-- PAGE 6: SERVICES -->
+<div class="page" id="p6">
+<div class="card">
+<h2>6. Servicios CHIHIZA</h2>
+<h3>Que necesita el cliente?</h3>
+<div class="sec">Servicios requeridos</div>
+<div class="tr"><span class="tl">Busqueda de terreno</span><div class="tg" id="t-s_busq" onclick="tg2('s_busq')"></div></div>
+<div class="tr"><span class="tl">Due Diligence legal y tecnico</span><div class="tg on" id="t-s_due" onclick="tg2('s_due')"></div></div>
+<div class="tr"><span class="tl">Diseno arquitectonico</span><div class="tg on" id="t-s_diseno" onclick="tg2('s_diseno')"></div></div>
+<div class="tr"><span class="tl">Presupuesto y APU</span><div class="tg on" id="t-s_presup" onclick="tg2('s_presup')"></div></div>
+<div class="tr"><span class="tl">Direccion de obra</span><div class="tg" id="t-s_direcc" onclick="tg2('s_direcc')"></div></div>
+<div class="tr"><span class="tl">Gerencia de proyecto</span><div class="tg" id="t-s_gerenc" onclick="tg2('s_gerenc')"></div></div>
+<div class="tr"><span class="tl">Comercializacion / Venta</span><div class="tg" id="t-s_venta" onclick="tg2('s_venta')"></div></div>
+<div class="tr"><span class="tl">Construccion llave en mano</span><div class="tg" id="t-s_const" onclick="tg2('s_const')"></div></div>
+<div class="f"><label>Plazo de entrega</label>
+<select id="plazo"><option value="">Seleccionar...</option><option value="6">6 meses</option><option value="9">9 meses</option><option value="12">12 meses</option><option value="18">18 meses</option><option value="24">24 meses</option></select></div>
+<div class="f"><label>Nivel de acabados</label>
+<div class="opts c3"><div class="opt" onclick="sel('acabados','basico',this)"><div class="l">Basico</div><div class="d">$800K/m2</div></div><div class="opt" onclick="sel('acabados','estandar',this)"><div class="l">Estandar</div><div class="d">$1.2M/m2</div></div><div class="opt" onclick="sel('acabados','premium',this)"><div class="l">Premium</div><div class="d">$2M/m2</div></div></div></div>
+</div>
+</div>
+
+<!-- PAGE 7: INVESTOR PROFILE -->
+<div class="page" id="p7">
+<div class="card">
+<h2>7. Perfil de Inversionista</h2>
+<h3>Preguntas clave para evaluacion de rentabilidad</h3>
+<div class="f"><label>Rentabilidad minima esperada (%)</label>
+<div class="rw"><div class="rv" id="rv-minroi">20%</div>
+<input type="range" id="min_roi" min="5" max="50" step="5" value="20" oninput="document.getElementById('rv-minroi').textContent=this.value+'%'">
+<div class="rl"><span>5%</span><span>25%</span><span>50%</span></div></div></div>
+<div class="f"><label>Plazo maximo para vender despues de terminada</label>
+<div class="opts c3">
+<div class="opt" onclick="sel('plazo_venta','3',this)"><div class="l">3 meses</div></div>
+<div class="opt" onclick="sel('plazo_venta','6',this)"><div class="l">6 meses</div></div>
+<div class="opt" onclick="sel('plazo_venta','12',this)"><div class="l">12 meses</div></div>
+</div></div>
+<div class="f"><label>Acepta construir por etapas?</label>
+<div class="opts c2"><div class="opt" onclick="sel('acepta_etapas','si',this)"><div class="l">Si</div><div class="d">Reducir riesgo inicial</div></div><div class="opt" onclick="sel('acepta_etapas','no',this)"><div class="l">No</div><div class="d">Todo de una vez</div></div></div></div>
+<div class="f"><label>Nivel de tolerancia al riesgo</label>
+<div class="opts c3"><div class="opt" onclick="sel('riesgo','bajo',this)"><div class="l">Bajo</div><div class="d">Seguro</div></div><div class="opt" onclick="sel('riesgo','medio',this)"><div class="l">Medio</div><div class="d">Equilibrado</div></div><div class="opt" onclick="sel('riesgo','alto',this)"><div class="l">Alto</div><div class="d">Maximo retorno</div></div></div></div>
+<div class="f"><label>Reinvierte las utilidades?</label>
+<div class="opts c2"><div class="opt" onclick="sel('reinvierte','si',this)"><div class="l">Si</div><div class="d">Siguiente proyecto</div></div><div class="opt" onclick="sel('reinvierte','no',this)"><div class="l">No</div><div class="d">Retira utilidades</div></div></div></div>
+<div class="sec">Contexto adicional</div>
+<div class="f"><label>Situacion del cliente</label><textarea id="notas" placeholder="Ej: Busca primera inversion en Colombia. Quiere diversificar portafolio. Trabaja remoto."></textarea></div>
+</div>
+</div>
+
+<!-- PAGE 8: RESULTS -->
+<div class="page" id="p8">
+<div id="results"></div>
+<div class="row" style="margin-top:16px">
+<button class="btn bp" onclick="exportTXT()">Exportar Reporte TXT</button>
+<button class="btn bs" onclick="resetAll()">Nuevo Cliente</button>
+</div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nb" id="nb"><button class="btn bs" onclick="prev()">Anterior</button><button class="btn bp" onclick="next()">Siguiente</button></div>
+</div>
+
+<script>
+let cp=0;const tp=9;
+let D={nombre:'',email:'',nacionalidad:'',edad:'',exp_inv:'',
+objetivo:'',tipo_inv:'',horizonte:'',
+presupuesto:100000000,moneda:'COP',fondeo:'',etapas:true,
+region:'',clima:'',vista:true,pavimento:true,servicios:true,plana:true,sinriesgo:true,
+internet:false,seguridad:false,
+tiene_terreno:'',area_terreno:0,valor_terreno:0,doc_terreno:'',
+tipo_viv:'',area_const:120,niveles:'2',
+piscina:false,garaje:true,terraza:true,cubierta:false,solares:false,office:true,
+s_busq:false,s_due:true,s_diseno:true,s_presup:true,s_direcc:false,s_gerenc:false,s_venta:false,s_const:false,
+plazo:'',acabados:'estandar',
+min_roi:20,plazo_venta:'',acepta_etapas:'',riesgo:'',reinvierte:'',notas:''};
+let T={etapas:true,vista:true,pavimento:true,servicios:true,plana:true,sinriesgo:true,
+internet:false,seguridad:false,
+piscina:false,garaje:true,terraza:true,cubierta:false,solares:false,office:true,
+s_busq:false,s_due:true,s_diseno:true,s_presup:true,s_direcc:false,s_gerenc:false,s_venta:false,s_const:false};
+
+function updProg(){const p=((cp)/(tp-1))*100;document.getElementById('pf').style.width=p+'%';
+document.getElementById('pt').textContent=`Paso ${cp+1} de ${tp}`;
+const s=document.getElementById('sd');s.innerHTML='';
+for(let i=0;i<tp;i++){const d=document.createElement('span');d.className=i===cp?'a':i<cp?'d':'';s.appendChild(d)}}
+function show(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('p'+n).classList.add('active');cp=n;updProg();
+const nb=document.getElementById('nb');n===0||n===tp-1?nb.classList.remove('show'):nb.classList.add('show');
+window.scrollTo(0,0)}
+function next(){collect();if(cp<tp-1)show(cp+1);if(cp===tp-1)genResults()}
+function prev(){if(cp>0)show(cp-1)}
+
+function collect(){
+D.nombre=document.getElementById('nombre').value;
+D.email=document.getElementById('email').value;
+D.nacionalidad=document.getElementById('nacionalidad').value;
+D.presupuesto=parseInt(document.getElementById('presupuesto').value)||100000000;
+D.area_const=parseInt(document.getElementById('area_const').value)||120;
+D.area_terreno=parseInt(document.getElementById('area_terreno').value)||0;
+D.valor_terreno=parseInt(document.getElementById('valor_terreno').value)||0;
+D.plazo=document.getElementById('plazo').value;
+D.min_roi=parseInt(document.getElementById('min_roi').value)||20;
+D.notas=document.getElementById('notas').value;
+Object.keys(T).forEach(k=>D[k]=T[k])}
+function sel(f,v,e){D[f]=v;e.parentElement.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));e.classList.add('sel');
+if(f==='objetivo')document.getElementById('inv-sub').classList.toggle('hid',v!=='inversion');
+if(f==='tiene_terreno')document.getElementById('terreno-ex').classList.toggle('hid',v!=='si')}
+function selObj(v,e){sel('objetivo',v,e)}
+function tg2(k){T[k]=!T[k];const e=document.getElementById('t-'+k);if(e)e.classList.toggle('on',T[k])}
+function updP(){const v=parseInt(document.getElementById('presupuesto').value);D.presupuesto=v;document.getElementById('pv').textContent='$'+v.toLocaleString('es-CO')}
+function updA(){const v=parseInt(document.getElementById('area_const').value);D.area_const=v;document.getElementById('av').textContent=v+' m2'}
+
+function costM2(){const b={basico:800000,estandar:1200000,premium:2000000};let c=b[D.acabados]||1200000;
+if(D.piscina)c+=150000;if(D.cubierta)c+=80000;if(D.solares)c+=120000;if(D.garaje)c+=50000;if(D.terraza)c+=30000;if(D.office)c+=40000;return c}
+function costos(){const cm=costM2();const cc=D.area_const*cm;const ct=D.tiene_terreno==='si'?D.valor_terreno:D.presupuesto*0.30;
+const dis=cc*0.08;const dir=cc*0.05;const per=8000000;const con=(cc+dis)*0.10;
+return{terreno:ct,construccion:cc,diseno:dis,direccion:dir,permisos:per,contingencia:con,total:ct+cc+dis+dir+per+con}}
+
+// DYNAMIC OPPORTUNITY SCORE (8 variables)
+function oppScore(){
+const m=[];
+// Mercado (15 pts)
+let mkt=8;
+if(D.objetivo==='inversion')mkt=14;else if(D.objetivo==='airbnb')mkt=12;else if(D.objetivo==='glamping')mkt=11;
+else if(D.objetivo==='desarrollo')mkt=12;else if(D.objetivo==='vacacional')mkt=10;else mkt=8;
+m.push({var:'Mercado',peso:15,obs:mkt,razon:D.objetivo==='inversion'?'Alta demanda inversionistas':'Mercado moderado',fuente:'Analisis interno CHIHIZA + portales inmobiliarios'});
+// Acceso (10 pts)
+let acc=D.pavimento?9:5;
+m.push({var:'Acceso',peso:10,obs:acc,razon:D.pavimento?'Pavimentado, acceso directo':'Mejorable, requiere invertir',fuente:'Verificacion terreno + Google Maps'});
+// Agua/Servicios (10 pts)
+let srv=(D.servicios&&D.sinriesgo)?9:5;
+m.push({var:'Servicios',peso:10,obs:srv,razon:D.servicios?'Red agua/energia disponible':'Verificar disponibilidad',fuente:'Empresas municipales + visita tecnica'});
+// Normativa (15 pts)
+let norm=8;
+if(D.doc_terreno==='si')norm=14;else if(D.tiene_terreno==='no')norm=10;else norm=8;
+m.push({var:'Normativa',peso:15,obs:norm,razon:D.doc_terreno==='si'?'Documentacion al dia':'Requiere verificacion',fuente:'Registro + Oficina de Planeacion + Curador'});
+// Topografia (10 pts)
+let top=D.plana?9:6;
+m.push({var:'Topografia',peso:10,obs:top,razon:D.plana?'Plana, bajo costo fundacion':'Pendiente media, fundacion reforzada',fuente:'Topografia preliminar + mapa pendientes'});
+// ROI esperado (15 pts)
+const r=roiCalc();let roi_s=r.roi>=40?14:r.roi>=25?11:r.roi>=15?8:4;
+m.push({var:'ROI Esperado',peso:15,obs:roi_s,razon:`ROI ${r.roi.toFixed(0)}% proyectado`,fuente:'Modelo financiero CHIHIZA + comparables'});
+// Infraestructura digital (10 pts) - NUEVO
+let infra=4;
+if(D.internet&&D.pavimento)infra=9;else if(D.internet||D.pavimento)infra=7;else infra=4;
+m.push({var:'Infraestructura',peso:10,obs:infra,razon:D.internet?'Fibra optica disponible':'Sin confirmar conectividad',fuente:'Proveedores locales + encuesta'});
+// Seguridad/Turismo (15 pts) - NUEVO
+let seg_tur=5;
+if(D.seguridad&&D.vista)seg_tur=13;else if(D.seguridad||D.vista)seg_tur=9;else seg_tur=5;
+m.push({var:'Seguridad+Turismo',peso:15,obs:seg_tur,razon:(D.seguridad&&D.vista)?'Cerramiento + vista premium':D.seguridad?'Seguridad confirmada':'Sin confirmar',fuente:'Registro + PNC + ANALISIS turistico CHIHIZA'});
+const total=m.reduce((s,v)=>s+v.obs,0);
+return{matrix:m,total:total,max:100}}
+
+// INVESTMENT GRADE
+function invGrade(){
+const os=oppScore().total;
+const r=roiCalc();
+let liq=D.plazo_venta&&parseInt(D.plazo_venta)<=6?85:D.plazo_venta&&parseInt(D.plazo_venta)<=12?70:50;
+let val=D.region==='santander'||D.region==='antioquia'?80:D.region==='coffee'?75:65;
+let dem=D.objetivo==='inversion'?85:D.objetivo==='airbnb'?80:65;
+let comp=D.objetivo==='inversion'?60:D.objetivo==='airbnb'?55:70;
+let riesgo=D.riesgo==='bajo'?85:D.riesgo==='medio'?65:45;
+const avg=(liq+val+dem+comp+riesgo)/5;
+const grade=avg>=80?'A':avg>=65?'B':avg>=50?'C':'D';
+return{grade,liq,val,dem,comp,riesgo,avg}}
+
+function roiCalc(){
+const c=costos();
+const utilBase=c.total*0.35;
+const valBase=c.total*1.35;
+const roi=(utilBase/c.total)*100;
+const meses=parseInt(D.plazo)||12;
+const roiAn=(roi/meses)*12;
+return{costoTotal:c.total,valorVenta:valBase,utilidad:utilBase,roi,roiAn,meses}}
+
+function sensitivity(){
+const c=costos();
+const base=roiCalc();
+const best={valor:c.total*1.50,util:c.total*0.50,roi:50};
+const worst={valor:c.total*1.15,util:c.total*0.15,roi:15};
+return{best,base:{valor:base.valorVenta,util:base.utilidad,roi:base.roi},worst}}
+
+function risks(){
+return[
+{nombre:'Licencias y permisos',prob:30,impact:'Alto',mitigacion:'Iniciar tramites 3 meses antes. Contar con abogado urbanista.',fuente:'Registro + normativa municipal'},
+{nombre:'Retrasos de construccion',prob:50,impact:'Medio',mitigacion:'Incluir penalidades en contrato. Direccion de obra profesional.',fuente:'Experiencia proyectos similares CHIHIZA'},
+{nombre:'Variacion de costos (+15%)',prob:40,impact:'Alto',mitigacion:'Contingencia 10%. Presupuesto con margen. Precios cerrados.',fuente:'Indice precios construccion DANE + Homecenter 2026'},
+{nombre:'Condiciones de mercado',prob:25,impact:'Alto',mitigacion:'Estudio de mercado previo. Precio competitivo. Flexibilidad en venta.',fuente:'Comparables portales inmobiliarios + tendencia regional'},
+{nombre:'Clima (lluvias)',prob:35,impact:'Bajo',mitigacion:'Calendarizar obras en temporada seca. Techos temporales.',fuente:'IDEAM + historial climatico zona'},
+{nombre:'Disponibilidad mano de obra',prob:20,impact:'Medio',mitigacion:'Contratar equipo con antelacion. Tener respaldo de subcontratistas.',fuente:'Encuesta proveedores locales'}
+]}
+
+function comparables(){
+const regiones={
+santander:{precio_m2:1800000,tiempo_venta:6,compradores:'Inversionistas nacionales, parejas jovenes',demanda:'Alta',tendencia:'Creciente',fuente:'Portales inmobiliarios + transacciones CHIHIZA'},
+antioquia:{precio_m2:2000000,tiempo_venta:5,compradores:'Extranjeros, colombianos en exterior',demanda:'Muy Alta',tendencia:'Creciente',fuente:'Portales inmobiliarios + transacciones CHIHIZA'},
+boyaca:{precio_m2:1500000,tiempo_venta:8,compradores:'Retirados, familias urbanas',demanda:'Media',tendencia:'Estable',fuente:'Portales inmobiliarios + transacciones CHIHIZA'},
+cundinamarca:{precio_m2:1600000,tiempo_venta:7,compradores:'Familias bogotanas, inversionistas',demanda:'Alta',tendencia:'Creciente',fuente:'Portales inmobiliarios + transacciones CHIHIZA'},
+coffee:{precio_m2:1700000,tiempo_venta:6,compradores:'Extranjeros, turismo',demanda:'Alta',tendencia:'Creciente',fuente:'Portales inmobiliarios + transacciones CHIHIZA'},
+caribe:{precio_m2:1900000,tiempo_venta:5,compradores:'Turismo, inversionistas',demanda:'Muy Alta',tendencia:'Creciente',fuente:'Portales inmobiliarios + transacciones CHIHIZA'},
+any:{precio_m2:1700000,tiempo_venta:7,compradores:'Mixto',demanda:'Media-Alta',tendencia:'Estable',fuente:'Promedio regional CHIHIZA'}
+};return regiones[D.region]||regiones.any}
+
+// EXIT STRATEGY
+function exitStrategy(){
+const opts=[];
+if(D.objetivo==='inversion'){
+opts.push({titulo:'Venta sobre planos',desc:'Vender antes de construir. Reduce riesgo y genera capital para ejecucion. Ideal para proyectos con alta demanda.',tag:'Recomendado',tagClass:'tg-g',roi:'+5-10% vs venta terminada',fuente:'Benchmarking proyectos similares'});
+opts.push({titulo:'Venta en etapa gris',desc:'Vender con estructura lista. El comprador ve el avance y paga mas. Equilibrio entre riesgo y retorno.',tag:'Equilibrado',tagClass:'tg-y',roi:'+3-7% vs venta terminada',fuente:'Benchmarking proyectos similares'});
+opts.push({titulo:'Venta llave en mano',desc:'Construir completo y vender. Mayor retorno pero requiere capital y tiempo. Incluye acabados premium.',tag:'Mayor retorno',tagClass:'tg-b',roi:'ROI base del modelo',fuente:'Modelo financiero CHIHIZA'});
+opts.push({titulo:'Renta temporal + venta',desc:'Alquiler corto plazo (Airbnb) mientras se aprecia el terreno. Genera ingreso recurrente.',tag:'Ingresos mixtos',tagClass:'tg-p',roi:'Ingreso mensual + valorizacion',fuente:'AirDNA + analisis local'});
+opts.push({titulo:'Subdivision / Loteo',desc:'Si el terreno es grande, dividir en lotes menores. Multiplica unidades de venta.',tag:'Para terrenos grandes',tagClass:'tg-o',roi:'+20-40% vs venta unica',fuente:'Normativa urbanistica + demanda lotes'});
+}else{
+opts.push({titulo:'Uso personal',desc:'Proyecto para vivienda propia. Sin presion de venta. Retorno en calidad de vida.',tag:'Personal',tagClass:'tg-a',roi:'N/A - Valorizacion',fuente:'N/A'});
+opts.push({titulo:'Renta vacacional',desc:'Alquiler por dias/semanas. Ingresos estacionales. Requiere administracion.',tag:'Turismo',tagClass:'tg-p',roi:'8-15% anual',fuente:'AirDNA + analisis local'});
+}
+return opts}
+
+// GO / NO GO DECISION
+function goDecision(){
+const os=oppScore();
+const ig=invGrade();
+const r=roiCalc();
+const c=costos();
+let score=0;
+const razones=[];
+const criteria=[];
+// Opportunity Score
+if(os.total>=70){score++;criteria.push({name:'Mercado',status:'pass',icon:'✅'})}
+else if(os.total>=50){criteria.push({name:'Mercado',status:'warn',icon:'⚠️'})}
+else{criteria.push({name:'Mercado',status:'fail',icon:'❌'})}
+// Presupuesto
+if(D.presupuesto>=c.total*0.90){score++;criteria.push({name:'Presupuesto',status:'pass',icon:'✅'})}
+else if(D.presupuesto>=c.total*0.70){criteria.push({name:'Presupuesto',status:'warn',icon:'⚠️'})}
+else{criteria.push({name:'Presupuesto',status:'fail',icon:'❌'})}
+// ROI
+if(r.roi>=D.min_roi){score++;criteria.push({name:'ROI',status:'pass',icon:'✅'})}
+else{criteria.push({name:'ROI',status:'fail',icon:'❌'})}
+// Riesgos
+if(os.total>=60){score++;criteria.push({name:'Riesgos',status:'pass',icon:'✅'})}
+else{criteria.push({name:'Riesgos',status:'warn',icon:'⚠️'})}
+// Factibilidad
+if(D.presupuesto>=c.total*0.70){score++;criteria.push({name:'Factibilidad',status:'pass',icon:'✅'})}
+else{criteria.push({name:'Factibilidad',status:'fail',icon:'❌'})}
+// Comercializacion
+if(D.plazo_venta&&parseInt(D.plazo_venta)<=6){score++;criteria.push({name:'Comercializacion',status:'pass',icon:'✅'})}
+else if(D.plazo_venta){criteria.push({name:'Comercializacion',status:'warn',icon:'⚠️'})}
+else{criteria.push({name:'Comercializacion',status:'fail',icon:'❌'})}
+// Liquidez
+if(ig.liq>=70){score++;criteria.push({name:'Liquidez',status:'pass',icon:'✅'})}
+else{criteria.push({name:'Liquidez',status:'warn',icon:'⚠️'})}
+// Razones
+if(os.total>=70)razones.push('Opportunity Score alto ('+os.total+'/100) indica condiciones favorables');
+else if(os.total>=50)razones.push('Opportunity Score medio ('+os.total+'/100), viable con precauciones');
+else{razones.push('Opportunity Score bajo ('+os.total+'/100), requiere ajustes significativos')}
+if(D.presupuesto>=c.total*0.90)razones.push('Presupuesto cubre '+((D.presupuesto/c.total)*100).toFixed(0)+'% del costo total');
+else if(D.presupuesto>=c.total*0.70)razones.push('Presupuesto cubre '+((D.presupuesto/c.total)*100).toFixed(0)+'%, requiere fondeo adicional');
+else{razones.push('Presupuesto insuficiente: cubre solo '+((D.presupuesto/c.total)*100).toFixed(0)+'% del costo total')}
+if(r.roi>=D.min_roi)razones.push('ROI proyectado ('+r.roi.toFixed(0)+'%) supera el minimo esperado ('+D.min_roi+'%)');
+else{razones.push('ROI proyectado ('+r.roi.toFixed(0)+'%) por debajo del minimo ('+D.min_roi+'%)')}
+// Decision
+let decision='';
+if(score>=6)decision='GO';
+else if(score>=4)decision='GO CONDICIONAL';
+else decision='NO GO';
+return{decision,score,max:7,razones,criteria}}
+
+function genResults(){
+collect();
+const os=oppScore();
+const ig=invGrade();
+const roi=roiCalc();
+const sens=sensitivity();
+const rsks=risks();
+const comp=comparables();
+const c=costos();
+const cm=costM2();
+const gd=goDecision();
+const exits=exitStrategy();
+const objMap={inversion:'Inversion Inmobiliaria',vivienda:'Vivienda Principal',vacacional:'Vacacional',airbnb:'Renta Turistica',glamping:'Glamping/Eco-Turismo',desarrollo:'Desarrollo Inmobiliario'};
+const natMap={US:'Estados Unidos',CA:'Canada',UK:'Reino Unido',CO:'Colombia',MX:'Mexico',ES:'Espana',DE:'Alemania',FR:'Francia',AU:'Australia',OTHER:'Otro'};
+const servNames={s_busq:'Busqueda de Terreno',s_due:'Due Diligence',s_diseno:'Diseno Arquitectonico',s_presup:'Presupuesto y APU',s_direcc:'Direccion de Obra',s_gerenc:'Gerencia de Proyecto',s_venta:'Comercializacion',s_const:'Construccion'};
+const servCosts={s_busq:5000000,s_due:8000000,s_diseno:c.diseno,s_presup:3000000,s_direcc:c.direccion,s_gerenc:c.construccion*0.08,s_venta:roi.utilidad*0.05,s_const:c.construccion};
+const activeServ=Object.keys(servNames).filter(k=>D[k]);
+const totalServ=activeServ.reduce((s,k)=>s+(servCosts[k]||0),0);
+
+let h='';
+
+// 1. EXECUTIVE SUMMARY (first page)
+h+=`<div class="exec-box">
+<div style="text-align:center;margin-bottom:12px">
+<div style="font-size:8px;color:var(--text2);text-transform:uppercase;letter-spacing:3px;margin-bottom:4px">CHIHIZA International</div>
+<div style="font-size:14px;font-weight:700;color:var(--accent)">RESUMEN EJECUTIVO</div>
+<div style="font-size:9px;color:var(--text2);margin-top:2px">${new Date().toLocaleDateString('es-CO')}</div>
+</div>
+<div class="exec-row"><div class="exec-label">Proyecto</div><div class="exec-value">${D.tipo_viv||'Por definir'} ${D.area_const}m2 | ${D.region||'-'}</div></div>
+<div class="exec-row"><div class="exec-label">Capital</div><div class="exec-value">$${(D.presupuesto/1e6).toFixed(0)}M COP</div></div>
+<div class="exec-row"><div class="exec-label">Costo Estimado</div><div class="exec-value ${c.total>D.presupuesto?'red':'green'}">$${(c.total/1e6).toFixed(0)}M COP</div></div>
+<div class="exec-row"><div class="exec-label">ROI Proyectado</div><div class="exec-value ${roi.roi>=D.min_roi?'green':'red'}">${roi.roi.toFixed(1)}%</div></div>
+<div class="exec-row"><div class="exec-label">Recomendacion</div><div class="exec-value ${gd.decision==='GO'?'green':gd.decision==='GO CONDICIONAL'?'yellow':'red'}">${gd.decision}</div></div>
+<div class="exec-row"><div class="exec-label">Razon Principal</div><div class="exec-value" style="font-size:10px;text-align:right;max-width:60%">${gd.razones[0]||'Analisis pendiente'}</div></div>
+</div>`;
+
+// 2. OPPORTUNITY SCORE (with radar chart)
+h+=`<div class="card"><div class="sec">OPPORTUNITY SCORE</div>
+<div style="text-align:center;margin:10px 0">
+<div style="font-size:42px;font-weight:900;color:${os.total>=70?'var(--green)':os.total>=50?'var(--yellow)':'var(--red)'}">${os.total}/100</div>
+<div style="font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:2px">Puntuacion General (8 variables)</div>
+</div>
+<div class="chart-container"><canvas id="chart-radar"></canvas></div>
+<table class="matrix">
+<tr><th>Variable</th><th>Peso</th><th>Obtenido</th><th class="bar-cell"></th></tr>`;
+os.matrix.forEach(r=>{
+const pct=(r.obs/r.peso)*100;
+const color=r.obs>=r.peso*0.8?'var(--green)':r.obs>=r.peso*0.5?'var(--yellow)':'var(--red)';
+h+=`<tr><td style="color:var(--text)">${r.var}</td><td>${r.peso}</td><td style="color:${color};font-weight:700">${r.obs}</td>
+<td class="bar-cell"><div class="bar"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div></td>
+<td style="font-size:8px;color:var(--text2)">${r.razon}</td></tr>`});
+h+=`</table>
+<div class="source-note">Fuente: ${os.matrix[0].fuente} | Algoritmo propietario CHIHIZA v2.0 (8 variables ponderadas)</div></div>`;
+
+// INVESTMENT GRADE
+h+=`<div class="card"><div class="sec">INVESTMENT GRADE</div>
+<div style="text-align:center;margin:10px 0">
+<div class="grade-badge grade-${ig.grade}">${ig.grade}</div>
+<div style="font-size:10px;color:var(--text2);margin-top:6px">Score: ${ig.avg.toFixed(0)}/100</div>
+</div>
+<div class="chart-container"><canvas id="chart-grade"></canvas></div>
+<div class="source-note">Metodologia: Promedio ponderado de 5 factores. A: 80-100 (Excelente) | B: 65-79 (Bueno) | C: 50-64 (Aceptable) | D: &lt;50 (Revisar)</div></div>`;
+
+// FACTIBILIDAD (with pie chart)
+const factible=D.presupuesto>=c.total*0.70;
+const dif=D.presupuesto-c.total;
+h+=`<div class="card"><div class="sec">ANALISIS DE FACTIBILIDAD</div>
+<div class="mg">
+<div class="m ${factible?'g':'r'}"><div class="v">${factible?'FACTIBLE':'AJUSTAR'}</div><div class="l">Viabilidad</div></div>
+<div class="m"><div class="v">$${(cm/1000000).toFixed(1)}M</div><div class="l">Costo/m2</div></div>
+<div class="m"><div class="v">$${(c.total/1000000).toFixed(0)}M</div><div class="l">Costo Total</div></div>
+<div class="m ${dif>=0?'g':'r'}"><div class="v">$${(dif/1000000).toFixed(0)}M</div><div class="l">${dif>=0?'Sobrante':'Faltante'}</div></div>
+</div>
+<div class="chart-container"><canvas id="chart-budget"></canvas></div>
+<div class="source-note">Costos: Homecenter Colombia 2026 + mano de obra regional. Todos los valores en COP.</div></div>`;
+
+// ROI + SENSITIVITY (with chart)
+h+=`<div class="card"><div class="sec">ANALISIS DE RENTABILIDAD</div>
+<div class="mg">
+<div class="m g"><div class="v">${roi.roi.toFixed(1)}%</div><div class="l">ROI Base</div></div>
+<div class="m b"><div class="v">${roi.roiAn.toFixed(1)}%</div><div class="l">ROI Anual</div></div>
+<div class="m"><div class="v">$${(roi.valorVenta/1e6).toFixed(0)}M</div><div class="l">Valor Venta</div></div>
+<div class="m g"><div class="v">$${(roi.utilidad/1e6).toFixed(0)}M</div><div class="l">Utilidad</div></div>
+</div>
+<div class="sec">SENSIBILIDAD DE MERCADO</div>
+<div class="chart-container"><canvas id="chart-sensitivity"></canvas></div>
+<div class="sens-row">
+<div class="sens-card best"><div class="scenario">Optimista</div><div class="value">${sens.best.roi}%</div><div style="font-size:8px;color:var(--text2);margin-top:2px">$${(sens.best.valor/1e6).toFixed(0)}M venta | $${(sens.best.util/1e6).toFixed(0)}M util</div></div>
+<div class="sens-card base"><div class="scenario">Base</div><div class="value">${sens.base.roi.toFixed(0)}%</div><div style="font-size:8px;color:var(--text2);margin-top:2px">$${(sens.base.valor/1e6).toFixed(0)}M venta | $${(sens.base.util/1e6).toFixed(0)}M util</div></div>
+<div class="sens-card worst"><div class="scenario">Conservador</div><div class="value">${sens.worst.roi}%</div><div style="font-size:8px;color:var(--text2);margin-top:2px">$${(sens.worst.valor/1e6).toFixed(0)}M venta | $${(sens.worst.util/1e6).toFixed(0)}M util</div></div>
+</div>
+<div class="source-note">Comparables: $${(comp.precio_m2/1e6).toFixed(1)}M/m2 en ${D.region||'zona'} | Venta: ${comp.tiempo_venta} meses | Fuente: portales inmobiliarios</div></div>`;
+
+// MARKET
+h+=`<div class="card"><div class="sec">ANALISIS DE MERCADO</div>
+<div class="mg">
+<div class="m"><div class="v">$${(comp.precio_m2/1e6).toFixed(1)}M</div><div class="l">Precio/m2 Zona</div></div>
+<div class="m b"><div class="v">${comp.tiempo_venta} meses</div><div class="l">Tiempo Venta</div></div>
+<div class="m"><div class="v">${comp.demanda}</div><div class="l">Demanda</div></div>
+<div class="m g"><div class="v">${comp.tendencia}</div><div class="l">Tendencia</div></div>
+</div>
+<div style="font-size:9px;color:var(--text2);line-height:1.6">
+<div><strong>Compradores tipicos:</strong> ${comp.compradores}</div>
+<div><strong>Comparables:</strong> Proyectos similares en ${D.region||'zona'} vendidos en los ultimos 12 meses</div>
+</div>
+<div class="source-note">${comp.fuente} | Precios promedio ultimos 6 meses. Tiempo de venta estimado segun absorption de proyectos similares.</div></div>`;
+
+// RISKS
+h+=`<div class="card"><div class="sec">MATRIZ DE RIESGOS</div>
+<table class="risk-table"><tr><th>Riesgo</th><th>Prob.</th><th>Impacto</th><th>Mitigacion</th></tr>`;
+rsks.forEach(r=>{
+const cls=r.prob>=40?'risk-alto':r.prob>=25?'risk-medio':'risk-bajo';
+h+=`<tr><td style="font-weight:600">${r.nombre}</td><td><span class="risk-badge ${cls}">${r.prob}%</span></td>
+<td>${r.impact}</td><td style="font-size:8px;color:var(--text2)">${r.mitigacion}</td></tr>`});
+h+=`</table>
+<div class="source-note">${rsks[0].fuente} | Probabilidad estimada segun experiencia CHIHIZA y factores externos. Impacto: Alto/Medio/Bajo.</div></div>`;
+
+// EXIT STRATEGY
+h+=`<div class="card"><div class="sec">ESTRATEGIA DE SALIDA (EXIT STRATEGY)</div>`;
+exits.forEach(ex=>{
+h+=`<div class="exit-card">
+<div class="exit-title">${ex.titulo}</div>
+<div class="exit-desc">${ex.desc}</div>
+<div style="display:flex;gap:4px;margin-top:4px">
+<span class="exit-tag ${ex.tagClass}">${ex.tag}</span>
+<span style="font-size:8px;color:var(--green);font-weight:600">${ex.roi}</span>
+</div>
+<div class="source-note">${ex.fuente}</div>
+</div>`});
+h+=`</div>`;
+
+// SERVICES
+h+=`<div class="card"><div class="sec">SERVICIOS CHIHIZA</div>`;
+activeServ.forEach(k=>{
+h+=`<div class="ri"><div class="t"><strong style="color:var(--accent)">${servNames[k]}</strong><div style="font-size:9px;color:var(--green);margin-top:2px">$${(servCosts[k]/1e6).toFixed(1)}M</div></div></div>`});
+h+=`<div style="margin-top:8px;padding:8px;background:var(--card2);border-radius:8px;display:flex;justify-content:space-between">
+<span style="font-size:10px;font-weight:700">TOTAL SERVICIOS</span>
+<span style="font-size:10px;font-weight:700;color:var(--accent)">$${(totalServ/1e6).toFixed(1)}M</span></div></div>`;
+
+// GO / NO GO DECISION (with criteria table)
+const goClass=gd.decision==='GO'?'go-go':gd.decision==='GO CONDICIONAL'?'go-cond':'go-nogo';
+const goColor=gd.decision==='GO'?'var(--green)':gd.decision==='GO CONDICIONAL'?'var(--yellow)':'var(--red)';
+h+=`<div class="card" style="border-color:${goColor}"><div class="sec">DECISION DE INVERSION</div>
+<div style="text-align:center;margin:14px 0">
+<div class="go-badge ${goClass}">${gd.decision}</div>
+<div style="font-size:9px;color:var(--text2);margin-top:6px">Basado en ${gd.score}/${gd.max} criterios favorables</div>
+</div>
+<div class="sec">CRITERIOS DE EVALUACION</div>
+<table class="criteria-table">
+<tr><th>Criterio</th><th style="text-align:center">Estado</th></tr>`;
+gd.criteria.forEach(cr=>{
+h+=`<tr><td>${cr.name}</td><td class="criteria-status ${cr.status}">${cr.icon}</td></tr>`});
+h+=`</table>
+<div class="sec">RAZONES</div>`;
+gd.razones.forEach((r,i)=>{
+h+=`<div class="ri"><div class="n">${i+1}</div><div class="t">${r}</div></div>`});
+h+=`<div class="source-note">Decision generada por algoritmo CHIHIZA v2.0. Recomendamos revision manual antes de presentar al cliente.</div></div>`;
+
+// 90-DAY ACTION PLAN
+h+=`<div class="card"><div class="sec">PLAN DE ACCION - 90 DIAS</div>
+<div class="timeline">
+<div class="timeline-item current">
+<div class="timeline-label">Semana 1-2</div>
+<div class="timeline-text">Busqueda y seleccion de lotes</div>
+<div class="timeline-sub">Identificar 3-5 opciones en ${D.region||'zona objetivo'}. Evaluar precio, ubicacion, documentacion.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-label">Semana 3-4</div>
+<div class="timeline-text">Due Diligence tecnico y legal</div>
+<div class="timeline-sub">Verificacion documental. Estudio topografico. Verificacion servicios. Analisis riesgos.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-label">Mes 2</div>
+<div class="timeline-text">Diseno preliminar y presupuesto</div>
+<div class="timeline-sub">Anteproyecto arquitectonico. Presupuesto detallado. Cronograma de ejecucion.</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-label">Mes 3</div>
+<div class="timeline-text">Decision de inversion y estructuracion</div>
+<div class="timeline-sub">Aprobacion final. Estructuracion financiera. Contratacion equipo. Inicio permisos.</div>
+</div>
+</div>
+<div class="source-note">Cronograma estimado. Sujeto a disponibilidad de lotes y tiempos administrativos.</div></div>`;
+
+// CHIHIZA PROCESS FLOW
+h+=`<div class="card"><div class="sec">PROCESO CHIHIZA COMPLETO</div>
+<div style="font-size:9px;color:var(--text2);margin-bottom:8px">Metodologia propia: desde la captacion del cliente hasta la venta final.</div>
+<div class="process-flow">
+<div class="process-step active"><div class="step-num">1</div><div class="step-text"><strong>Discovery</strong> - Captacion y calificacion</div><div class="step-icon">✓</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step active"><div class="step-num">2</div><div class="step-text"><strong>Opportunity Score</strong> - Evaluacion (8 variables)</div><div class="step-icon">✓</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step active"><div class="step-num">3</div><div class="step-text"><strong>Investment Memorandum</strong> - Este documento</div><div class="step-icon">✓</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">4</div><div class="step-text"><strong>Busqueda de Lote</strong> - Seleccion activa</div><div class="step-icon">→</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">5</div><div class="step-text"><strong>Due Diligence</strong> - Analisis profundo</div><div class="step-icon">→</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">6</div><div class="step-text"><strong>Diseno Arquitectonico</strong> - Anteproyecto</div><div class="step-icon">→</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">7</div><div class="step-text"><strong>Presupuesto y APU</strong> - Detalle constructivo</div><div class="step-icon">→</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">8</div><div class="step-text"><strong>Construccion</strong> - Ejecucion de obra</div><div class="step-icon">→</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">9</div><div class="step-text"><strong>Comercializacion</strong> - Marketing y venta</div><div class="step-icon">→</div></div>
+<div class="process-arrow">↓</div>
+<div class="process-step"><div class="step-num">10</div><div class="step-text"><strong>Venta y ROI Final</strong> - Cierre y retorno</div><div class="step-icon">→</div></div>
+</div>
+<div class="source-note">CHIHIZA International: Metodologia integral de inversion inmobiliaria. Cada paso genera valor y reduce riesgo.</div></div>`;
+
+// CHIHIZA OPPORTUNITY
+const chiIngr=totalServ+(roi.utilidad*0.05);
+h+=`<div class="card" style="border-color:var(--accent)"><div class="sec">OPORTUNIDAD CHIHIZA</div>
+<div class="mg">
+<div class="m g"><div class="v">$${(chiIngr/1e6).toFixed(0)}M</div><div class="l">Ingreso Potencial</div></div>
+<div class="m"><div class="v">${activeServ.length}</div><div class="l">Servicios</div></div>
+</div>
+<div style="font-size:9px;color:var(--text2);line-height:1.6">
+<div>Proyecto: <strong style="color:var(--accent)">CHIHIZA Investment Project</strong></div>
+<div>Cliente: ${D.nombre||'Por definir'} | Score: ${os.total}/100 | Grade: ${ig.grade}</div>
+<div>Potencial relacion largo plazo: <strong style="color:${D.objetivo==='inversion'?'var(--green)':'var(--yellow)'}">${D.objetivo==='inversion'?'ALTO':'MEDIO'}</strong></div>
+</div></div>`;
+
+document.getElementById('results').innerHTML=h;
+
+// RENDER CHARTS
+setTimeout(()=>{
+// Radar chart for Opportunity Score
+const radarLabels=os.matrix.map(r=>r.var);
+const radarData=os.matrix.map(r=>({obs:r.obs,peso:r.peso,max:r.peso}));
+drawRadar('chart-radar',radarData,radarLabels);
+
+// Bar chart for Investment Grade
+const gradeData=[
+{label:'Liquidez',value:ig.liq},
+{label:'Valorizacion',value:ig.val},
+{label:'Demanda',value:ig.dem},
+{label:'Competencia',value:ig.comp},
+{label:'Riesgo',value:ig.riesgo}
+];
+const gradeColors=gradeData.map(v=>v.value>=70?'#2ecc71':v.value>=50?'#f1c40f':'#e74c3c');
+drawBars('chart-grade',gradeData,gradeColors);
+
+// Pie chart for budget
+const budgetData=[c.terreno,c.construccion,c.diseno,c.direccion,c.permisos,c.contingencia];
+const budgetColors=['#6b8f71','#2ecc71','#3498db','#9b59b6','#e8740e','#e74c3c'];
+const budgetLabels=['Terreno','Construccion','Diseno','Direccion','Permisos','Contingencia'];
+drawPie('chart-budget',budgetData,budgetColors,budgetLabels);
+
+// Sensitivity chart
+drawSensitivity('chart-sensitivity',sens.best,sens.base,sens.worst);
+},100)}
+
+function exportTXT(){
+collect();const os=oppScore();const ig=invGrade();const roi=roiCalc();const sens=sensitivity();const rsks=risks();const comp=comparables();const c=costos();const gd=goDecision();const exits=exitStrategy();
+const objMap={inversion:'Inversion Inmobiliaria',vivienda:'Vivienda Principal',vacacional:'Vacacional',airbnb:'Renta Turistica',glamping:'Glamping/Eco-Turismo',desarrollo:'Desarrollo Inmobiliario'};
+const natMap={US:'Estados Unidos',CA:'Canada',UK:'Reino Unido',CO:'Colombia',MX:'Mexico',ES:'Espana',DE:'Alemania',FR:'Francia',AU:'Australia',OTHER:'Otro'};
+const servNames={s_busq:'Busqueda de Terreno',s_due:'Due Diligence',s_diseno:'Diseno Arquitectonico',s_presup:'Presupuesto y APU',s_direcc:'Direccion de Obra',s_gerenc:'Gerencia de Proyecto',s_venta:'Comercializacion',s_const:'Construccion'};
+const activeServ=Object.keys(servNames).filter(k=>D[k]);
+
+let t=`================================================================================
+CHIHIZA DISCOVERY V2 - INVESTMENT MEMORANDUM
+================================================================================
+Fecha: ${new Date().toLocaleDateString('es-CO')}
+Cliente: ${D.nombre||'-'}
+Codigo: CHI-${Date.now().toString(36).toUpperCase()}
+Decision: ${gd.decision} (${gd.score}/${gd.max} criterios)
+
+1. PERFIL DEL CLIENTE
+${'='.repeat(50)}
+Nombre: ${D.nombre||'-'}
+Email: ${D.email||'-'}
+Nacionalidad: ${natMap[D.nacionalidad]||'-'}
+Edad: ${D.edad||'-'}
+Experiencia inversion: ${D.exp_inv||'-'}
+Objetivo: ${objMap[D.objetivo]||'-'}
+${D.objetivo==='inversion'?`Tipo inversion: ${D.tipo_inv||'-'}
+Horizonte: ${D.horizonte||'-'} meses`:''}
+
+2. PRESUPUESTO
+${'='.repeat(50)}
+Total: $${D.presupuesto.toLocaleString('es-CO')} COP
+Moneda: ${D.moneda} | Fondeo: ${D.fondeo||'-'}
+Etapas: ${D.etapas?'Si':'No'}
+
+3. UBICACION
+${'='.repeat(50)}
+Region: ${D.region||'-'} | Clima: ${D.clima||'-'}
+Vista: ${D.vista?'Si':'No'} | Acceso: ${D.pavimento?'Pavimentado':'No'}
+Servicios: ${D.servicios?'Si':'No'} | Topografia: ${D.plana?'Plana':'Pendiente'}
+Internet: ${D.internet?'Fibra optica':'No confirmado'} | Seguridad: ${D.seguridad?'Si':'No'}
+Tiene terreno: ${D.tiene_terreno==='si'?'Si':'No'}
+${D.tiene_terreno==='si'?`Area: ${D.area_terreno} m2 | Valor: $${D.valor_terreno.toLocaleString('es-CO')} | Docs: ${D.doc_terreno||'-'}`:''}
+
+4. PROYECTO
+${'='.repeat(50)}
+Tipo: ${D.tipo_viv||'-'} | Area: ${D.area_const} m2 | Niveles: ${D.niveles||'-'}
+Piscina: ${D.piscina?'Si':'No'} | Garaje: ${D.garaje?'Si':'No'} | Terraza: ${D.terraza?'Si':'No'}
+Cubierta verde: ${D.cubierta?'Si':'No'} | Solares: ${D.solares?'Si':'No'} | Office: ${D.office?'Si':'No'}
+Acabados: ${D.acabados||'-'} | Plazo: ${D.plazo||'-'} meses
+
+5. SERVICIOS CHIHIZA
+${'='.repeat(50)}
+${activeServ.map(k=>'- '+servNames[k]).join('\n')}
+
+6. OPPORTUNITY SCORE: ${os.total}/100
+${'='.repeat(50)}
+${os.matrix.map(r=>`  ${r.var}: ${r.obs}/${r.peso} (${r.razon})`).join('\n')}
+  Fuente: ${os.matrix[0].fuente} | Algoritmo CHIHIZA v2.0
+
+7. INVESTMENT GRADE: ${ig.grade}
+${'='.repeat(50)}
+  Liquidez: ${ig.liq}/100
+  Valorizacion: ${ig.val}/100
+  Demanda: ${ig.dem}/100
+  Competencia: ${ig.comp}/100
+  Riesgo: ${ig.riesgo}/100
+  Promedio: ${ig.avg.toFixed(0)}/100
+
+8. FACTIBILIDAD
+${'='.repeat(50)}
+Costo/m2: $${costM2().toLocaleString('es-CO')}
+Costo total: $${c.total.toLocaleString('es-CO')}
+Presupuesto: $${D.presupuesto.toLocaleString('es-CO')}
+Diferencia: $${(D.presupuesto-c.total).toLocaleString('es-CO')}
+Viabilidad: ${D.presupuesto>=c.total*0.70?'FACTIBLE':'REQUIERE AJUSTES'}
+Fuente: Precios Homecenter Colombia 2026 + mano de obra regional
+
+9. RENTABILIDAD
+${'='.repeat(50)}
+ROI Base: ${roi.roi.toFixed(1)}%
+ROI Anual: ${roi.roiAn.toFixed(1)}%
+Valor venta: $${roi.valorVenta.toLocaleString('es-CO')}
+Utilidad: $${roi.utilidad.toLocaleString('es-CO')}
+
+SENSIBILIDAD:
+  Optimista: ${sens.best.roi}% ROI ($${(sens.best.valor/1e6).toFixed(0)}M venta)
+  Base: ${sens.base.roi.toFixed(0)}% ROI ($${(sens.base.valor/1e6).toFixed(0)}M venta)
+  Conservador: ${sens.worst.roi}% ROI ($${(sens.worst.valor/1e6).toFixed(0)}M venta)
+  Fuente: ${comp.fuente}
+
+10. MERCADO
+${'='.repeat(50)}
+Precio/m2 zona: $${comp.precio_m2.toLocaleString('es-CO')}
+Tiempo venta: ${comp.tiempo_venta} meses
+Demanda: ${comp.demanda} | Tendencia: ${comp.tendencia}
+Compradores: ${comp.compradores}
+Fuente: ${comp.fuente}
+
+11. RIESGOS
+${'='.repeat(50)}
+${rsks.map(r=>`- ${r.nombre}: ${r.prob}% prob, ${r.impact} impacto\n  Mitigacion: ${r.mitigacion}\n  Fuente: ${r.fuente}`).join('\n')}
+
+12. ESTRATEGIA DE SALIDA
+${'='.repeat(50)}
+${exits.map(ex=>`- ${ex.titulo}: ${ex.desc}\n  ROI: ${ex.roi}\n  Fuente: ${ex.fuente}`).join('\n')}
+
+13. DECISION: ${gd.decision}
+${'='.repeat(50)}
+Score: ${gd.score}/${gd.max} criterios favorables
+Razones:
+${gd.razones.map((r,i)=>`  ${i+1}. ${r}`).join('\n')}
+
+14. PROXIMOS PASOS
+${'='.repeat(50)}
+1. Enviar Investment Memorandum al cliente
+2. Agendar reunion de seguimiento
+3. Iniciar proceso de busqueda/analisis
+4. Definir cronograma
+
+15. NOTAS
+${'='.repeat(50)}
+${D.notas||'Sin notas'}
+
+================================================================================
+CHIHIZA International | Ecological Architecture & Development
+Metodologia de Inversion Inmobiliaria Propia
+Algoritmo CHIHIZA Investment Intelligence v2.0
+================================================================================`;
+const blob=new Blob([t],{type:'text/plain'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+a.download=`CHIHIZA_MEMO_${(D.nombre||'cliente').replace(/\s+/g,'_')}_${new Date().toISOString().split('T')[0]}.txt`;
+a.click()}
+
+function resetAll(){if(!confirm('Nuevo cliente?'))return;location.reload()}
+
+// CHART DRAWING FUNCTIONS
+function drawPie(canvasId,data,colors,labels){
+const canvas=document.getElementById(canvasId);if(!canvas)return;
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const w=canvas.parentElement.offsetWidth;
+canvas.width=w*dpr;canvas.height=w*dpr;
+canvas.style.width=w+'px';canvas.style.height=w+'px';
+ctx.scale(dpr,dpr);
+const cx=w/2,cy=w/2,r=w*0.35;
+const total=data.reduce((s,v)=>s+v,0);
+let angle=-Math.PI/2;
+data.forEach((v,i)=>{
+const slice=(v/total)*Math.PI*2;
+ctx.beginPath();ctx.moveTo(cx,cy);
+ctx.arc(cx,cy,r,angle,angle+slice);ctx.closePath();
+ctx.fillStyle=colors[i];ctx.fill();
+const mid=angle+slice/2;
+const lx=cx+Math.cos(mid)*(r*0.65);
+const ly=cy+Math.sin(mid)*(r*0.65);
+if(slice>0.3){ctx.fillStyle='#fff';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillText(((v/total)*100).toFixed(0)+'%',lx,ly)}
+angle+=slice});
+let ly=w-20;
+labels.forEach((l,i)=>{
+ctx.fillStyle=colors[i];ctx.fillRect(10,ly-8+i*14,8,8);
+ctx.fillStyle='#5a5a55';ctx.font='9px Segoe UI';ctx.textAlign='left';
+ctx.fillText(l+' ($'+(data[i]/1e6).toFixed(0)+'M)',22,ly+i*14)})}
+
+function drawRadar(canvasId,data,labels){
+const canvas=document.getElementById(canvasId);if(!canvas)return;
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const w=canvas.parentElement.offsetWidth;
+canvas.width=w*dpr;canvas.height=w*dpr;
+canvas.style.width=w+'px';canvas.style.height=w+'px';
+ctx.scale(dpr,dpr);
+const cx=w/2,cy=w/2,r=w*0.35;
+const n=data.length;
+const step=Math.PI*2/n;
+for(let g=1;g<=4;g++){
+ctx.beginPath();
+for(let i=0;i<=n;i++){
+const a=-Math.PI/2+step*i;
+const gr=r*(g/4);
+const x=cx+Math.cos(a)*gr;const y=cy+Math.sin(a)*gr;
+i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+ctx.strokeStyle='rgba(200,169,126,0.15)';ctx.stroke()}
+data.forEach((v,i)=>{
+const a=-Math.PI/2+step*i;
+ctx.beginPath();ctx.moveTo(cx,cy);
+ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);
+ctx.strokeStyle='rgba(200,169,126,0.2)';ctx.stroke();
+const lx=cx+Math.cos(a)*(r+14);
+const ly=cy+Math.sin(a)*(r+14);
+ctx.fillStyle='#5a5a55';ctx.font='8px Segoe UI';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillText(labels[i],lx,ly)});
+ctx.beginPath();
+data.forEach((v,i)=>{
+const a=-Math.PI/2+step*i;
+const dr=r*(v.max>0?v.obs/v.peso:0);
+const x=cx+Math.cos(a)*dr;const y=cy+Math.sin(a)*dr;
+i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});
+ctx.closePath();
+ctx.fillStyle='rgba(200,169,126,0.2)';ctx.fill();
+ctx.strokeStyle='#6b8f71';ctx.lineWidth=2;ctx.stroke();
+data.forEach((v,i)=>{
+const a=-Math.PI/2+step*i;
+const dr=r*(v.max>0?v.obs/v.peso:0);
+const x=cx+Math.cos(a)*dr;const y=cy+Math.sin(a)*dr;
+ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);
+ctx.fillStyle='#6b8f71';ctx.fill();
+ctx.strokeStyle='#e8e5df';ctx.lineWidth=2;ctx.stroke()})}
+
+function drawBars(canvasId,data,colors){
+const canvas=document.getElementById(canvasId);if(!canvas)return;
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const w=canvas.parentElement.offsetWidth;
+const h=data.length*24+20;
+canvas.width=w*dpr;canvas.height=h*dpr;
+canvas.style.width=w+'px';canvas.style.height=h+'px';
+ctx.scale(dpr,dpr);
+const barH=14;const gap=10;const labelW=90;const barW=w-labelW-40;
+data.forEach((v,i)=>{
+const y=10+i*(barH+gap);
+ctx.fillStyle='#5a5a55';ctx.font='9px Segoe UI';ctx.textAlign='right';ctx.textBaseline='middle';
+ctx.fillText(v.label,labelW-8,y+barH/2);
+ctx.fillStyle='#f3f1ec';
+ctx.fillRect(labelW,y,barW,barH);
+const fillW=barW*(v.value/100);
+ctx.fillStyle=colors[i]||'#c8a97e';
+ctx.fillRect(labelW,y,fillW,barH);
+ctx.fillStyle='#fff';ctx.font='bold 9px Segoe UI';ctx.textAlign='left';
+ctx.fillText(v.value,labelW+fillW+6,y+barH/2)})}
+
+function drawSensitivity(canvasId,best,base,worst){
+const canvas=document.getElementById(canvasId);if(!canvas)return;
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const w=canvas.parentElement.offsetWidth;
+canvas.width=w*dpr;canvas.height=120*dpr;
+canvas.style.width=w+'px';canvas.style.height='120px';
+ctx.scale(dpr,dpr);
+const values=[worst.roi,base.roi,best.roi];
+const colors=['#e74c3c','#6b8f71','#2ecc71'];
+const labels=['Conservador','Base','Optimista'];
+const barW=(w-40)/3;
+const maxVal=Math.max(...values);
+values.forEach((v,i)=>{
+const x=20+i*barW;
+const barH=(v/maxVal)*80;
+const y=90-barH;
+ctx.fillStyle=colors[i];
+ctx.fillRect(x+10,y,barW-20,barH);
+ctx.fillStyle=colors[i];ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+ctx.fillText(v.toFixed(0)+'%',x+barW/2,y-8);
+ctx.fillStyle='#5a5a55';ctx.font='8px Segoe UI';
+ctx.fillText(labels[i],x+barW/2,105)})}
+
+updProg();updP();updA();
+</script>
+</body>
+</html>

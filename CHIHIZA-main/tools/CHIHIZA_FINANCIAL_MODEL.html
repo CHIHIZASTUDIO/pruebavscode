@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CHIHIZA Financial Model</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8f7f4;--card:#ffffff;--card2:#f3f1ec;--accent:#6b8f71;--accent2:#5a7e60;--green:#2ecc71;--red:#e74c3c;--blue:#3498db;--yellow:#f1c40f;--orange:#e8740e;--purple:#9b59b6;--text:#2c2c2c;--text2:#5a5a55;--border:#e8e5df;--r:12px}
+html,body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{max-width:620px;margin:0 auto;padding:16px;padding-bottom:90px;min-height:100vh}
+.logo{text-align:center;padding:16px 0 8px}
+.logo h1{font-size:18px;font-weight:300;letter-spacing:6px;color:var(--accent);text-transform:uppercase}
+.logo p{font-size:9px;color:var(--text2);margin-top:2px;letter-spacing:2px}
+.pw{margin:12px 0}.pb{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .5s;width:0}
+.pt{font-size:8px;color:var(--text2);margin-top:3px;text-align:right}
+.sd{display:flex;justify-content:center;gap:5px;margin-top:6px}
+.sd span{width:7px;height:7px;border-radius:50%;background:var(--border);transition:.3s}
+.sd span.a{background:var(--accent);transform:scale(1.2)}
+.sd span.d{background:var(--green)}
+.page{display:none;animation:fi .3s}.page.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:10px}
+.card h2{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:3px}
+.card h3{font-size:11px;color:var(--text2);margin-bottom:14px;font-weight:400}
+.sec{font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin:14px 0 6px;font-weight:600}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:10px;color:var(--text2);margin-bottom:3px;font-weight:500}
+.f input,.f select,.f textarea{width:100%;padding:9px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;transition:.2s}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--accent)}
+.f textarea{min-height:60px;resize:vertical}
+.opts{display:grid;gap:6px}.opts.c2{grid-template-columns:1fr 1fr}
+.rw{position:relative}
+.rw input[type=range]{width:100%;-webkit-appearance:none;height:4px;background:var(--border);border-radius:2px;outline:none;border:none;padding:0}
+.rw input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--accent);border-radius:50%;cursor:pointer}
+.rv{text-align:center;font-size:18px;font-weight:700;color:var(--accent);margin:6px 0}
+.rl{display:flex;justify-content:space-between;font-size:8px;color:var(--text2)}
+.btn{display:block;width:100%;padding:12px;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:.2s;text-align:center}
+.btn:active{transform:scale(.97)}
+.bp{background:var(--accent);color:#ffffff}
+.bs{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.row{display:flex;gap:8px;margin-top:14px}.row .btn{flex:1}
+.nb{position:fixed;bottom:0;left:0;right:0;background:rgba(248,247,244,.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 16px;display:none;z-index:50}
+.nb.show{display:flex;gap:8px;justify-content:center}
+.nb .btn{flex:1;max-width:200px}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.m{background:var(--card2);border-radius:var(--r);padding:12px;text-align:center;border:1px solid var(--border)}
+.m .v{font-size:20px;font-weight:800;color:var(--accent)}.m .l{font-size:8px;color:var(--text2);margin-top:2px;text-transform:uppercase}
+.m.g .v{color:var(--green)}.m.r .v{color:var(--red)}.m.b .v{color:var(--blue)}.m.y .v{color:var(--yellow)}
+.exec-box{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:20px;margin-bottom:12px;position:relative;overflow:hidden}
+.exec-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green),var(--accent))}
+.exec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(200,169,126,.15)}
+.exec-row:last-child{border:none}
+.exec-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+.exec-value{font-size:13px;font-weight:700;color:var(--accent)}
+.exec-value.green{color:var(--green)}.exec-value.red{color:var(--red)}.exec-value.yellow{color:var(--yellow)}
+.detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:10px}
+.detail-row:last-child{border:none}
+.detail-row .label{color:var(--text2)}.detail-row .value{font-weight:700;color:var(--accent)}
+.detail-row.total{border-top:2px solid var(--accent);padding-top:8px;margin-top:4px}
+.detail-row.total .label{font-weight:700;color:var(--text)}.detail-row.total .value{font-size:14px}
+.chart-container{position:relative;width:100%;margin:10px 0}
+.chart-container canvas{width:100%!important;height:auto!important}
+.tab-bar{display:flex;gap:4px;margin-bottom:12px;overflow-x:auto}
+.tab{padding:8px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;font-size:10px;font-weight:600;color:var(--text2);cursor:pointer;white-space:nowrap;transition:.2s}
+.tab.active{background:var(--accent);color:#ffffff;border-color:var(--accent)}
+.tab-content{display:none}.tab-content.active{display:block}
+.sens-row{display:flex;gap:6px;margin:6px 0}
+.sens-card{flex:1;padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border)}
+.sens-card .scenario{font-size:8px;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:4px}
+.sens-card .value{font-size:16px;font-weight:800}
+.sens-card.best{border-color:var(--green);background:rgba(46,204,113,.05)}.sens-card.best .scenario{color:var(--green)}.sens-card.best .value{color:var(--green)}
+.sens-card.base{border-color:var(--accent);background:rgba(200,169,126,.05)}.sens-card.base .scenario{color:var(--accent)}.sens-card.base .value{color:var(--accent)}
+.sens-card.worst{border-color:var(--red);background:rgba(231,76,60,.05)}.sens-card.worst .scenario{color:var(--red)}.sens-card.worst .value{color:var(--red)}
+.source-note{font-size:8px;color:var(--text2);font-style:italic;margin-top:4px;padding:4px 6px;background:rgba(200,169,126,.05);border-radius:4px;border-left:2px solid var(--accent2)}
+.tag{display:inline-block;padding:2px 7px;border-radius:5px;font-size:8px;font-weight:600;margin:1px}
+.tg-g{background:rgba(46,204,113,.15);color:var(--green)}.tg-y{background:rgba(241,196,15,.15);color:var(--yellow)}.tg-r{background:rgba(231,76,60,.15);color:var(--red)}.tg-a{background:rgba(200,169,126,.15);color:var(--accent)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="logo"><h1>CHIHIZA</h1><p>Financial Model | Modelo Financiero</p></div>
+<div id="dbBar" style="display:none;background:rgba(107,143,113,.1);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:10px;align-items:center;justify-content:space-between">
+  <span id="dbInfo" style="color:var(--accent);font-weight:600"></span>
+  <div style="display:flex;gap:4px">
+    <button class="btn bp" style="padding:4px 10px;font-size:9px;width:auto" onclick="saveFM()">Guardar</button>
+    <button class="btn bs" style="padding:4px 10px;font-size:9px;width:auto" onclick="loadFM()">Recargar</button>
+  </div>
+</div>
+<div class="pw"><div class="pb"><div class="pf" id="pf"></div></div><div class="pt" id="pt"></div><div class="sd" id="sd"></div></div>
+
+<div class="page active" id="p0">
+<div class="card">
+<h2>Modelo Financiero</h2>
+<h3>CHIHIZA International | Analisis de Rentabilidad</h3>
+<p style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:14px">
+Modelo financiero completo: inversion total del proyecto, retorno para el cliente (ROI),
+e ingresos para CHIHIZA. Incluye analisis de sensibilidad con 3 escenarios.
+</p>
+<div class="sec">COMPONENTES</div>
+<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:14px">
+<span class="tag tg-a">Proyecto</span><span class="tag tg-a">Terreno</span><span class="tag tg-y">Diseno</span>
+<span class="tag tg-r">Construccion</span><span class="tag tg-g">Venta</span><span class="tag tg-a">CHIHIZA</span>
+<span class="tag tg-y">ROI</span><span class="tag tg-r">Sensibilidad</span>
+</div>
+<div class="sec">PASOS</div>
+<div style="font-size:10px;color:var(--text2);line-height:1.8;margin-bottom:14px">
+1. Datos del Proyecto<br>
+2. Inversion Terreno<br>
+3. Costos de Diseno<br>
+4. Costos de Construccion<br>
+5. Proyeccion de Venta<br>
+6. Ingresos CHIHIZA<br>
+7. Resultados y Dashboard
+</div>
+<div class="row"><button class="btn bp" onclick="next()">Comenzar</button></div>
+</div>
+</div>
+
+<div class="page" id="p1">
+<div class="card">
+<h2>1. Datos del Proyecto</h2>
+<h3>Informacion basica</h3>
+<div class="f"><label>Nombre del proyecto</label><input type="text" id="f_nombre" placeholder="Ej: Vivienda Campestre Montvento"></div>
+<div class="f"><label>Cliente</label><input type="text" id="f_cliente" placeholder="Nombre del cliente"></div>
+<div class="f"><label>Ubicacion</label><input type="text" id="f_ubicacion" placeholder="Ej: Santander, Colombia"></div>
+<div class="f"><label>Area terreno (m2)</label><input type="number" id="f_area_terreno" placeholder="2000" value=""></div>
+<div class="f"><label>Area construccion (m2)</label><input type="number" id="f_area_const" placeholder="120" value=""></div>
+<div class="f"><label>Horizonte de inversion (meses)</label><input type="number" id="f_horizonte" placeholder="18" value="18"></div>
+</div>
+</div>
+
+<div class="page" id="p2">
+<div class="card">
+<h2>2. Inversion Terreno</h2>
+<h3>Costo del terreno y gastos de compra</h3>
+<div class="f"><label>Valor de compra terreno (COP)</label><input type="number" id="f_terreno" placeholder="150000000"></div>
+<div class="f"><label>Impuestos transferencia (COP)</label><input type="number" id="f_imp_transf" placeholder="3000000"></div>
+<div class="f"><label>Estudios legales (COP)</label><input type="number" id="f_legales" placeholder="2000000"></div>
+<div class="f"><label>Topografia y estudios (COP)</label><input type="number" id="f_topografia" placeholder="3000000"></div>
+<div class="f"><label>Conexion servicios (COP)</label><input type="number" id="f_servicios" placeholder="5000000"></div>
+<div class="f"><label>Otros costos terreno (COP)</label><input type="number" id="f_otros_terreno" placeholder="0" value="0"></div>
+</div>
+</div>
+
+<div class="page" id="p3">
+<div class="card">
+<h2>3. Costos de Diseno</h2>
+<h3>Arquitectura, ingenieria y permisos</h3>
+<div class="f"><label>Diseno arquitectonico (COP)</label><input type="number" id="f_diseno_arq" placeholder="8000000"></div>
+<div class="f"><label>Diseno interior (COP)</label><input type="number" id="f_diseno_int" placeholder="3000000"></div>
+<div class="f"><label>Estudio estructural (COP)</label><input type="number" id="f_est_struct" placeholder="2000000"></div>
+<div class="f"><label>Estudio topografico (COP)</label><input type="number" id="f_est_topo" placeholder="1500000"></div>
+<div class="f"><label>Licencia de construccion (COP)</label><input type="number" id="f_licencia" placeholder="2500000"></div>
+<div class="f"><label>Permisos adicionales (COP)</label><input type="number" id="f_permisos" placeholder="1000000"></div>
+</div>
+</div>
+
+<div class="page" id="p4">
+<div class="card">
+<h2>4. Costos de Construccion</h2>
+<h3>Ejecucion de obra</h3>
+<div class="f"><label>Costo construccion (COP)</label><input type="number" id="f_construccion" placeholder="150000000"></div>
+<div class="f"><label>Direccion de obra (COP)</label><input type="number" id="f_dir_obra" placeholder="7500000"></div>
+<div class="f"><label>Gerencia de proyecto (COP)</label><input type="number" id="f_gerencia" placeholder="10000000"></div>
+<div class="f"><label>Contingencia (%)</label>
+<div class="rw"><div class="rv" id="rv-cont">10%</div>
+<input type="range" id="f_contingencia" min="5" max="20" step="1" value="10" oninput="document.getElementById('rv-cont').textContent=this.value+'%'">
+<div class="rl"><span>5%</span><span>12%</span><span>20%</span></div></div></div>
+<div class="f"><label>Impuesto predial anual (COP)</label><input type="number" id="f_predial" placeholder="600000"></div>
+<div class="f"><label>Mantenimiento anual (COP)</label><input type="number" id="f_mantto" placeholder="2000000"></div>
+</div>
+</div>
+
+<div class="page" id="p5">
+<div class="card">
+<h2>5. Proyeccion de Venta</h2>
+<h3>Valor estimado de salida</h3>
+<div class="f"><label>Valor estimado de venta (COP)</label><input type="number" id="f_venta" placeholder="350000000"></div>
+<div class="f"><label>Tiempo estimado de venta (meses)</label><input type="number" id="f_tiempo_venta" placeholder="6" value="6"></div>
+<div class="f"><label>Costo comercializacion (%)</label>
+<div class="rw"><div class="rv" id="rv-comm">3%</div>
+<input type="range" id="f_comision" min="1" max="8" step="0.5" value="3" oninput="document.getElementById('rv-comm').textContent=this.value+'%'">
+<div class="rl"><span>1%</span><span>4%</span><span>8%</span></div></div></div>
+<div class="sec">Alternativa: Renta temporal</div>
+<div class="f"><label>Ingreso mensual estimado (COP)</label><input type="number" id="f_renta" placeholder="2000000" value="0"></div>
+<div class="f"><label>Meses de renta</label><input type="number" id="f_meses_renta" placeholder="12" value="0"></div>
+</div>
+</div>
+
+<div class="page" id="p6">
+<div class="card">
+<h2>6. Ingresos CHIHIZA</h2>
+<h3>Nuestros honorarios y comisiones</h3>
+<div class="f"><label>Consultoria Discovery (COP)</label><input type="number" id="f_fee_disc" placeholder="5000000"></div>
+<div class="f"><label>Due Diligence (COP)</label><input type="number" id="f_fee_dd" placeholder="8000000"></div>
+<div class="f"><label>Diseno arquitectonico (COP)</label><input type="number" id="f_fee_diseno" placeholder="10000000"></div>
+<div class="f"><label>Gerencia de proyecto (COP)</label><input type="number" id="f_fee_gerencia" placeholder="15000000"></div>
+<div class="f"><label>Comision por venta (%)</label>
+<div class="rw"><div class="rv" id="rv-comp">2%</div>
+<input type="range" id="f_comision_chi" min="1" max="5" step="0.5" value="2" oninput="document.getElementById('rv-comp').textContent=this.value+'%'">
+<div class="rl"><span>1%</span><span>3%</span><span>5%</span></div></div></div>
+<div class="f"><label>Otros servicios (COP)</label><input type="number" id="f_fee_otros" placeholder="0" value="0"></div>
+</div>
+</div>
+
+<div class="page" id="p7">
+<div id="resultados"></div>
+<div class="row" style="margin-top:16px">
+<button class="btn bp" onclick="saveFM()" id="btnSaveFM" style="display:none">Guardar en BD</button>
+<button class="btn bp" onclick="exportTXT()">Exportar TXT</button>
+<button class="btn bs" onclick="if(confirm('Nuevo modelo?'))location.reload()">Nuevo</button>
+</div>
+</div>
+
+<div class="nb" id="nb">
+<button class="btn bs" onclick="prev()">Anterior</button>
+<button class="btn bp" onclick="next()">Siguiente</button>
+</div>
+</div>
+
+<script>
+var cp=0, tp=8;
+
+function val(id){var el=document.getElementById(id);if(!el)return 0;if(el.type==='range')return parseFloat(el.value)||0;if(el.type==='number')return parseFloat(el.value)||0;return el.value||''}
+
+function collect(){
+return{
+nombre:val('f_nombre'),cliente:val('f_cliente'),ubicacion:val('f_ubicacion'),
+area_terreno:val('f_area_terreno'),area_const:val('f_area_const'),horizonte:val('f_horizonte')||18,
+terreno:val('f_terreno'),imp_transf:val('f_imp_transf'),legales:val('f_legales'),
+topografia:val('f_topografia'),servicios:val('f_servicios'),otros_terreno:val('f_otros_terreno'),
+diseno_arq:val('f_diseno_arq'),diseno_int:val('f_diseno_int'),est_struct:val('f_est_struct'),
+est_topo:val('f_est_topo'),licencia:val('f_licencia'),permisos:val('f_permisos'),
+construccion:val('f_construccion'),dir_obra:val('f_dir_obra'),gerencia:val('f_gerencia'),
+contingencia:val('f_contingencia')||10,predial:val('f_predial'),mantto:val('f_mantto'),
+venta:val('f_venta'),tiempo_venta:val('f_tiempo_venta')||6,comision:val('f_comision')||3,
+renta:val('f_renta'),meses_renta:val('f_meses_renta'),
+fee_disc:val('f_fee_disc'),fee_dd:val('f_fee_dd'),fee_diseno:val('f_fee_diseno'),
+fee_gerencia:val('f_fee_gerencia'),comision_chi:val('f_comision_chi')||2,fee_otros:val('f_fee_otros')
+}}
+
+function calcInv(d){
+var terreno=d.terreno+d.imp_transf+d.legales+d.topografia+d.servicios+d.otros_terreno;
+var diseno=d.diseno_arq+d.diseno_int+d.est_struct+d.est_topo+d.licencia+d.permisos;
+var obra=d.construccion+d.dir_obra+d.gerencia;
+var cont=d.construccion*(d.contingencia/100);
+return{terreno:terreno,diseno:diseno,obra:obra,cont:cont,total:terreno+diseno+obra+cont}
+}
+
+function calcChi(d){
+var comision=d.venta*(d.comision_chi/100);
+var total=d.fee_disc+d.fee_dd+d.fee_diseno+d.fee_gerencia+comision+d.fee_otros;
+return{disc:d.fee_disc,dd:d.fee_dd,diseno:d.fee_diseno,gerencia:d.fee_gerencia,comision:comision,otros:d.fee_otros,total:total}
+}
+
+function calcCli(d,inv){
+var renta=d.renta*d.meses_renta;
+var venta_neta=d.venta-(d.venta*(d.comision/100));
+var ing=venta_neta+renta;
+var util=ing-inv.total;
+var roi=inv.total>0?(util/inv.total)*100:0;
+var roiAn=d.horizonte>0?(roi/d.horizonte)*12:0;
+return{venta_neta:venta_neta,renta:renta,ingresos:ing,utilidad:util,roi:roi,roiAn:roiAn}
+}
+
+function calcSens(d,inv){
+var base=calcCli(d,inv);
+var bV=d.venta*1.2*(1-d.comision/100);
+var bC=inv.total*0.9;
+var bU=bV-bC;
+var wV=d.venta*0.85*(1-d.comision/100);
+var wC=inv.total*1.15;
+var wU=wV-wC;
+return{
+best:{roi:bC>0?(bU/bC)*100:0,util:bV-bC,venta:bV,costos:bC},
+base:{roi:base.roi,util:base.utilidad,venta:base.venta_neta,costos:inv.total},
+worst:{roi:wC>0?(wU/wC)*100:0,util:wV-wC,venta:wV,costos:wC}
+}}
+
+function updProg(){
+var p=(cp/(tp-1))*100;
+document.getElementById('pf').style.width=p+'%';
+document.getElementById('pt').textContent='Paso '+(cp+1)+' de '+tp;
+var s=document.getElementById('sd');s.innerHTML='';
+for(var i=0;i<tp;i++){var d=document.createElement('span');d.className=i===cp?'a':i<cp?'d':'';s.appendChild(d)}
+}
+
+function show(n){
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+document.getElementById('p'+n).classList.add('active');
+cp=n;updProg();
+var nb=document.getElementById('nb');
+n===0||n===tp-1?nb.classList.remove('show'):nb.classList.add('show');
+window.scrollTo(0,0)
+}
+
+function next(){if(cp<tp-1)show(cp+1);if(cp===tp-1)genResults()}
+function prev(){if(cp>0)show(cp-1)}
+
+function fmt(v){return(v/1e6).toFixed(1)+'M'}
+function fmtC(v){return'$'+v.toLocaleString('es-CO')}
+
+function drawPie(id,data,colors,labels){
+var c=document.getElementById(id);if(!c)return;
+var ctx=c.getContext('2d');
+var dpr=window.devicePixelRatio||1;
+var w=c.parentElement.offsetWidth;
+c.width=w*dpr;c.height=w*0.6*dpr;
+c.style.width=w+'px';c.style.height=w*0.6+'px';
+ctx.scale(dpr,dpr);
+var cx=w/2,cy=w*0.3,r=w*0.22;
+var total=data.reduce(function(s,v){return s+v},0);
+if(total===0)return;
+var angle=-Math.PI/2;
+data.forEach(function(v,i){
+if(v<=0)return;
+var slice=(v/total)*Math.PI*2;
+ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+slice);ctx.closePath();
+ctx.fillStyle=colors[i];ctx.fill();
+var mid=angle+slice/2;
+var lx=cx+Math.cos(mid)*(r*0.65);
+var ly=cy+Math.sin(mid)*(r*0.65);
+if(slice>0.3){ctx.fillStyle='#fff';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.fillText(((v/total)*100).toFixed(0)+'%',lx,ly)}
+angle+=slice});
+var ly=w*0.55;
+labels.forEach(function(l,i){
+ctx.fillStyle=colors[i];ctx.fillRect(10,ly+i*14,8,8);
+ctx.fillStyle='#5a5a55';ctx.font='9px Segoe UI';ctx.textAlign='left';
+ctx.fillText(l+' ($'+(data[i]/1e6).toFixed(1)+'M)',22,ly+i*14+7)})
+}
+
+function drawBars(id,data,colors){
+var c=document.getElementById(id);if(!c)return;
+var ctx=c.getContext('2d');
+var dpr=window.devicePixelRatio||1;
+var w=c.parentElement.offsetWidth;
+var h=data.length*28+20;
+c.width=w*dpr;c.height=h*dpr;
+c.style.width=w+'px';c.style.height=h+'px';
+ctx.scale(dpr,dpr);
+var barH=16,gap=10,labelW=100,barW=w-labelW-50;
+var maxVal=Math.max.apply(null,data.map(function(d){return Math.abs(d.value)}));
+if(maxVal===0)maxVal=1;
+data.forEach(function(d,i){
+var y=10+i*(barH+gap);
+ctx.fillStyle='#5a5a55';ctx.font='9px Segoe UI';ctx.textAlign='right';ctx.textBaseline='middle';
+ctx.fillText(d.label,labelW-8,y+barH/2);
+ctx.fillStyle='#f3f1ec';ctx.fillRect(labelW,y,barW,barH);
+var fillW=(Math.abs(d.value)/maxVal)*barW;
+ctx.fillStyle=colors[i]||'#6b8f71';ctx.fillRect(labelW,y,fillW,barH);
+ctx.fillStyle='#fff';ctx.font='bold 9px Segoe UI';ctx.textAlign='left';
+ctx.fillText('$'+(d.value/1e6).toFixed(1)+'M',labelW+fillW+6,y+barH/2)})
+}
+
+function genResults(){
+var d=collect();
+var inv=calcInv(d);
+var chi=calcChi(d);
+var cli=calcCli(d,inv);
+var sens=calcSens(d,inv);
+var h='';
+
+h+='<div class="exec-box">';
+h+='<div style="text-align:center;margin-bottom:12px">';
+h+='<div style="font-size:8px;color:var(--text2);text-transform:uppercase;letter-spacing:3px;margin-bottom:4px">CHIHIZA International</div>';
+h+='<div style="font-size:14px;font-weight:700;color:var(--accent)">MODELO FINANCIERO</div>';
+h+='<div style="font-size:9px;color:var(--text2);margin-top:2px">'+(d.nombre||'Proyecto')+' | '+new Date().toLocaleDateString('es-CO')+'</div>';
+h+='</div>';
+h+='<div class="exec-row"><div class="exec-label">Cliente</div><div class="exec-value">'+(d.cliente||'-')+'</div></div>';
+h+='<div class="exec-row"><div class="exec-label">Inversion Total</div><div class="exec-value">$'+fmt(inv.total)+' COP</div></div>';
+h+='<div class="exec-row"><div class="exec-label">Valor Venta</div><div class="exec-value">$'+fmt(d.venta)+' COP</div></div>';
+h+='<div class="exec-row"><div class="exec-label">Utilidad Cliente</div><div class="exec-value '+(cli.utilidad>=0?'green':'red')+'">$'+fmt(cli.utilidad)+' COP</div></div>';
+h+='<div class="exec-row"><div class="exec-label">ROI Cliente</div><div class="exec-value '+(cli.roi>=20?'green':cli.roi>=10?'yellow':'red')+'">'+cli.roi.toFixed(1)+'%</div></div>';
+h+='<div class="exec-row"><div class="exec-label">Ingresos CHIHIZA</div><div class="exec-value green">$'+fmt(chi.total)+' COP</div></div>';
+h+='</div>';
+
+h+='<div class="tab-bar">';
+h+='<div class="tab active" onclick="showTab(\'tc\',this)">Cliente</div>';
+h+='<div class="tab" onclick="showTab(\'th\',this)">CHIHIZA</div>';
+h+='<div class="tab" onclick="showTab(\'ts\',this)">Sensibilidad</div>';
+h+='</div>';
+
+// TAB CLIENTE
+h+='<div class="tab-content active" id="tc">';
+h+='<div class="card"><div class="sec">INVERSION DEL CLIENTE</div>';
+h+='<div class="detail-row"><div class="label">Terreno</div><div class="value">$'+fmt(inv.terreno)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Diseno y Permisos</div><div class="value">$'+fmt(inv.diseno)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Construccion</div><div class="value">$'+fmt(inv.obra)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Contingencia ('+d.contingencia+'%)</div><div class="value">$'+fmt(inv.cont)+'</div></div>';
+h+='<div class="detail-row total"><div class="label">TOTAL INVERSION</div><div class="value" style="color:var(--accent)">$'+fmt(inv.total)+'</div></div>';
+h+='</div>';
+h+='<div class="card"><div class="sec">DISTRIBUCION INVERSION</div>';
+h+='<div class="chart-container"><canvas id="chart-inv"></canvas></div></div>';
+h+='<div class="card"><div class="sec">RETORNO DEL CLIENTE</div>';
+h+='<div class="detail-row"><div class="label">Valor venta estimado</div><div class="value">$'+fmt(d.venta)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Comision venta ('+d.comision+'%)</div><div class="value" style="color:var(--red)">-$'+fmt(d.venta*d.comision/100)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Venta neta</div><div class="value">$'+fmt(cli.venta_neta)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Renta temporal</div><div class="value">$'+fmt(cli.renta)+'</div></div>';
+h+='<div class="detail-row total"><div class="label">UTILIDAD NETA</div><div class="value" style="color:'+(cli.utilidad>=0?'var(--green)':'var(--red)')+'">$'+fmt(cli.utilidad)+'</div></div>';
+h+='</div>';
+h+='<div class="card"><div class="sec">INDICADORES CLAVE</div>';
+h+='<div class="mg">';
+h+='<div class="m '+(cli.roi>=20?'g':cli.roi>=10?'y':'r')+'"><div class="v">'+cli.roi.toFixed(1)+'%</div><div class="l">ROI</div></div>';
+h+='<div class="m b"><div class="v">'+cli.roiAn.toFixed(1)+'%</div><div class="l">ROI Anual</div></div>';
+h+='<div class="m"><div class="v">'+d.horizonte+'</div><div class="l">Meses</div></div>';
+h+='<div class="m '+(cli.utilidad>=0?'g':'r')+'"><div class="v">$'+fmt(cli.utilidad)+'</div><div class="l">Utilidad</div></div>';
+h+='</div>';
+h+='<div class="source-note">ROI = (Utilidad / Inversion) x 100 | Anualizado segun horizonte de '+d.horizonte+' meses</div></div>';
+h+='</div>';
+
+// TAB CHIHIZA
+h+='<div class="tab-content" id="th">';
+h+='<div class="card"><div class="sec">INGRESOS CHIHIZA</div>';
+h+='<div class="detail-row"><div class="label">Consultoria Discovery</div><div class="value">$'+fmt(chi.disc)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Due Diligence</div><div class="value">$'+fmt(chi.dd)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Diseno arquitectonico</div><div class="value">$'+fmt(chi.diseno)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Gerencia de proyecto</div><div class="value">$'+fmt(chi.gerencia)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Comision venta ('+d.comision_chi+'%)</div><div class="value" style="color:var(--green)">$'+fmt(chi.comision)+'</div></div>';
+h+='<div class="detail-row"><div class="label">Otros servicios</div><div class="value">$'+fmt(chi.otros)+'</div></div>';
+h+='<div class="detail-row total"><div class="label">TOTAL CHIHIZA</div><div class="value" style="color:var(--green)">$'+fmt(chi.total)+'</div></div>';
+h+='</div>';
+h+='<div class="card"><div class="sec">DISTRIBUCION INGRESOS CHIHIZA</div>';
+h+='<div class="chart-container"><canvas id="chart-chi"></canvas></div></div>';
+h+='<div class="card"><div class="sec">MARGEN CHIHIZA</div>';
+h+='<div class="mg">';
+h+='<div class="m g"><div class="v">$'+fmt(chi.total)+'</div><div class="l">Ingreso Total</div></div>';
+var pctSobInv=inv.total>0?((chi.total/inv.total)*100):0;
+h+='<div class="m"><div class="v">'+pctSobInv.toFixed(1)+'%</div><div class="l">% Sobre Inversion</div></div>';
+h+='</div>';
+h+='<div class="source-note">CHIHIZA gana el '+pctSobInv.toFixed(1)+'% de la inversion total del proyecto</div></div>';
+h+='</div>';
+
+// TAB SENSIBILIDAD
+h+='<div class="tab-content" id="ts">';
+h+='<div class="card"><div class="sec">ANALISIS DE SENSIBILIDAD</div>';
+h+='<div style="font-size:9px;color:var(--text2);margin-bottom:10px">Optimista (+20% venta, -10% costos) | Base | Conservador (-15% venta, +15% costos)</div>';
+h+='<div class="sens-row">';
+h+='<div class="sens-card best"><div class="scenario">Optimista</div><div class="value">'+sens.best.roi.toFixed(1)+'%</div><div style="font-size:8px;color:var(--text2);margin-top:2px">$'+fmt(sens.best.util)+' util</div></div>';
+h+='<div class="sens-card base"><div class="scenario">Base</div><div class="value">'+sens.base.roi.toFixed(1)+'%</div><div style="font-size:8px;color:var(--text2);margin-top:2px">$'+fmt(sens.base.util)+' util</div></div>';
+h+='<div class="sens-card worst"><div class="scenario">Conservador</div><div class="value">'+sens.worst.roi.toFixed(1)+'%</div><div style="font-size:8px;color:var(--text2);margin-top:2px">$'+fmt(sens.worst.util)+' util</div></div>';
+h+='</div></div>';
+h+='<div class="card"><div class="sec">COMPARATIVA</div>';
+h+='<div class="chart-container"><canvas id="chart-sens"></canvas></div></div>';
+h+='<div class="card"><div class="sec">DETALLE POR ESCENARIO</div>';
+h+='<table style="width:100%;border-collapse:collapse;font-size:9px">';
+h+='<tr style="border-bottom:1px solid var(--border)"><th style="padding:6px;text-align:left;color:var(--text2)">Concepto</th><th style="padding:6px;text-align:right;color:var(--green)">Optimista</th><th style="padding:6px;text-align:right;color:var(--accent)">Base</th><th style="padding:6px;text-align:right;color:var(--red)">Conservador</th></tr>';
+h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Venta neta</td><td style="padding:6px;text-align:right">$'+fmt(sens.best.venta)+'</td><td style="padding:6px;text-align:right">$'+fmt(sens.base.venta)+'</td><td style="padding:6px;text-align:right">$'+fmt(sens.worst.venta)+'</td></tr>';
+h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Costos totales</td><td style="padding:6px;text-align:right">$'+fmt(sens.best.costos)+'</td><td style="padding:6px;text-align:right">$'+fmt(sens.base.costos)+'</td><td style="padding:6px;text-align:right">$'+fmt(sens.worst.costos)+'</td></tr>';
+h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:6px">Utilidad</td><td style="padding:6px;text-align:right;color:var(--green)">$'+fmt(sens.best.util)+'</td><td style="padding:6px;text-align:right;color:var(--accent)">$'+fmt(sens.base.util)+'</td><td style="padding:6px;text-align:right;color:var(--red)">$'+fmt(sens.worst.util)+'</td></tr>';
+h+='<tr><td style="padding:6px;font-weight:700">ROI</td><td style="padding:6px;text-align:right;font-weight:700;color:var(--green)">'+sens.best.roi.toFixed(1)+'%</td><td style="padding:6px;text-align:right;font-weight:700;color:var(--accent)">'+sens.base.roi.toFixed(1)+'%</td><td style="padding:6px;text-align:right;font-weight:700;color:var(--red)">'+sens.worst.roi.toFixed(1)+'%</td></tr>';
+h+='</table></div></div>';
+
+document.getElementById('resultados').innerHTML=h;
+
+setTimeout(function(){
+drawPie('chart-inv',[inv.terreno,inv.diseno,inv.obra,inv.cont],['#6b8f71','#3498db','#2ecc71','#e74c3c'],['Terreno','Diseno','Construccion','Contingencia']);
+drawPie('chart-chi',[chi.disc,chi.dd,chi.diseno,chi.gerencia,chi.comision,chi.otros],['#6b8f71','#3498db','#2ecc71','#9b59b6','#f1c40f','#e8740e'],['Discovery','DD','Diseno','Gerencia','Comision','Otros']);
+drawBars('chart-sens',[{label:'Optimista',value:sens.best.util},{label:'Base',value:sens.base.util},{label:'Conservador',value:sens.worst.util}],['#2ecc71','#6b8f71','#e74c3c']);
+},150)
+}
+
+function showTab(id,el){
+document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+document.getElementById(id).classList.add('active');
+el.classList.add('active')
+}
+
+function exportTXT(){
+var d=collect();var inv=calcInv(d);var chi=calcChi(d);var cli=calcCli(d,inv);var sens=calcSens(d,inv);
+var t='================================================================================\n';
+t+='CHIHIZA FINANCIAL MODEL\n';
+t+='================================================================================\n';
+t+='Fecha: '+new Date().toLocaleDateString('es-CO')+'\n';
+t+='Proyecto: '+(d.nombre||'-')+'\n';
+t+='Cliente: '+(d.cliente||'-')+'\n';
+t+='Ubicacion: '+(d.ubicacion||'-')+'\n\n';
+t+='1. RESUMEN EJECUTIVO\n';
+t+='--------------------------------------------------\n';
+t+='Inversion Total: '+fmtC(inv.total)+'\n';
+t+='Valor Venta: '+fmtC(d.venta)+'\n';
+t+='Utilidad Cliente: '+fmtC(cli.utilidad)+'\n';
+t+='ROI Cliente: '+cli.roi.toFixed(1)+'%\n';
+t+='Ingresos CHIHIZA: '+fmtC(chi.total)+'\n\n';
+t+='2. INVERSION CLIENTE\n';
+t+='--------------------------------------------------\n';
+t+='Terreno: '+fmtC(inv.terreno)+'\n';
+t+='Diseno: '+fmtC(inv.diseno)+'\n';
+t+='Construccion: '+fmtC(inv.obra)+'\n';
+t+='Contingencia ('+d.contingencia+'%): '+fmtC(inv.cont)+'\n';
+t+='TOTAL: '+fmtC(inv.total)+'\n\n';
+t+='3. RETORNO CLIENTE\n';
+t+='--------------------------------------------------\n';
+t+='Venta neta: '+fmtC(cli.venta_neta)+'\n';
+t+='Renta temporal: '+fmtC(cli.renta)+'\n';
+t+='UTILIDAD: '+fmtC(cli.utilidad)+'\n';
+t+='ROI: '+cli.roi.toFixed(1)+'% | ROI Anual: '+cli.roiAn.toFixed(1)+'%\n\n';
+t+='4. INGRESOS CHIHIZA\n';
+t+='--------------------------------------------------\n';
+t+='Discovery: '+fmtC(chi.disc)+'\n';
+t+='DD: '+fmtC(chi.dd)+'\n';
+t+='Diseno: '+fmtC(chi.diseno)+'\n';
+t+='Gerencia: '+fmtC(chi.gerencia)+'\n';
+t+='Comision: '+fmtC(chi.comision)+'\n';
+t+='TOTAL: '+fmtC(chi.total)+'\n\n';
+t+='5. SENSIBILIDAD\n';
+t+='--------------------------------------------------\n';
+t+='Optimista: '+sens.best.roi.toFixed(1)+'% ('+fmtC(sens.best.util)+')\n';
+t+='Base: '+sens.base.roi.toFixed(1)+'% ('+fmtC(sens.base.util)+')\n';
+t+='Conservador: '+sens.worst.roi.toFixed(1)+'% ('+fmtC(sens.worst.util)+')\n\n';
+t+='================================================================================\n';
+t+='CHIHIZA International | Financial Model v1.0\n';
+t+='================================================================================';
+var blob=new Blob([t],{type:'text/plain'});
+var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+a.download='CHIHIZA_FM_'+(d.nombre||'proyecto').replace(/\s+/g,'_')+'.txt';
+a.click()
+}
+// DB INTEGRATION
+const API = 'http://localhost:5000/api';
+let DB_PROJECT_ID = null;
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const pid = params.get('project_id');
+  if (pid) {
+    DB_PROJECT_ID = parseInt(pid);
+    document.getElementById('dbBar').style.display = 'flex';
+    document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Conectado a BD';
+    document.getElementById('btnSaveFM').style.display = 'block';
+    loadFM();
+  }
+})();
+
+async function saveFM() {
+  if (!DB_PROJECT_ID) return alert('No hay proyecto vinculado. Abre desde el Dashboard.');
+  var d = collect();
+  var inv = calcInv(d);
+  var chi = calcChi(d);
+  var cli = calcCli(d, inv);
+  // Map fields to DB column names
+  var data = {
+    cliente: d.cliente, ubicacion: d.ubicacion, horizonte: d.horizonte,
+    area_terreno_fm: d.area_terreno, area_const_fm: d.area_const,
+    terreno: d.terreno, imp_transf: d.imp_transf, legales: d.legales,
+    topografia_fm: d.topografia, servicios_fm: d.servicios, otros_terreno: d.otros_terreno,
+    diseno_arq: d.diseno_arq, diseno_int: d.diseno_int, est_struct: d.est_struct,
+    est_topo: d.est_topo, licencia_fm: d.licencia, permisos_fm: d.permisos,
+    construccion: d.construccion, dir_obra: d.dir_obra, gerencia_fm: d.gerencia,
+    contingencia: d.contingencia, predial: d.predial, mantto: d.mantto,
+    venta_estimada: d.venta, tiempo_venta_fm: d.tiempo_venta, comision_venta: d.comision,
+    renta_mensual: d.renta, meses_renta: d.meses_renta,
+    fee_disc: d.fee_disc, fee_dd: d.fee_dd, fee_diseno: d.fee_diseno,
+    fee_gerencia: d.fee_gerencia, comision_chi: d.comision_chi, fee_otros: d.fee_otros,
+    inversion_total: inv.total, roi_cliente: cli.roi, roi_anual: cli.roiAn,
+    utilidad_cliente: cli.utilidad, ingresos_chihiza: chi.total
+  };
+  try {
+    const res = await fetch(API + '/projects/' + DB_PROJECT_ID + '/fm', {
+      method: 'PUT', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw await res.text();
+    document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Guardado en BD';
+  } catch(e) {
+    alert('Error al guardar: ' + e);
+  }
+}
+
+async function loadFM() {
+  if (!DB_PROJECT_ID) return;
+  try {
+    const res = await fetch(API + '/projects/' + DB_PROJECT_ID + '/fm');
+    if (!res.ok) throw await res.text();
+    const data = await res.json();
+    if (!data || Object.keys(data).length === 0) {
+      document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Sin datos previos';
+      return;
+    }
+    var map = {
+      'f_nombre':'nombre', 'f_cliente':'cliente', 'f_ubicacion':'ubicacion',
+      'f_area_terreno':'area_terreno_fm', 'f_area_const':'area_const_fm',
+      'f_horizonte':'horizonte',
+      'f_terreno':'terreno', 'f_imp_transf':'imp_transf', 'f_legales':'legales',
+      'f_topografia':'topografia_fm', 'f_servicios':'servicios_fm', 'f_otros_terreno':'otros_terreno',
+      'f_diseno_arq':'diseno_arq', 'f_diseno_int':'diseno_int', 'f_est_struct':'est_struct',
+      'f_est_topo':'est_topo', 'f_licencia':'licencia_fm', 'f_permisos':'permisos_fm',
+      'f_construccion':'construccion', 'f_dir_obra':'dir_obra', 'f_gerencia':'gerencia_fm',
+      'f_predial':'predial', 'f_mantto':'mantto',
+      'f_venta':'venta_estimada', 'f_tiempo_venta':'tiempo_venta_fm',
+      'f_renta':'renta_mensual', 'f_meses_renta':'meses_renta',
+      'f_fee_disc':'fee_disc', 'f_fee_dd':'fee_dd', 'f_fee_diseno':'fee_diseno',
+      'f_fee_gerencia':'fee_gerencia', 'f_fee_otros':'fee_otros'
+    };
+    Object.entries(map).forEach(([elId, key]) => {
+      var el = document.getElementById(elId);
+      if (el && data[key] !== undefined && data[key] !== null) el.value = data[key];
+    });
+    // Sliders
+    if (data.contingencia !== undefined) {
+      document.getElementById('f_contingencia').value = data.contingencia;
+      document.getElementById('rv-cont').textContent = data.contingencia + '%';
+    }
+    if (data.comision_venta !== undefined) {
+      document.getElementById('f_comision').value = data.comision_venta;
+      document.getElementById('rv-comm').textContent = data.comision_venta + '%';
+    }
+    if (data.comision_chi !== undefined) {
+      document.getElementById('f_comision_chi').value = data.comision_chi;
+      document.getElementById('rv-comp').textContent = data.comision_chi + '%';
+    }
+    document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Datos cargados';
+  } catch(e) {
+    console.error('Error loading FM:', e);
+  }
+}
+
+updProg();
+
+</script>
+</body>
+</html>

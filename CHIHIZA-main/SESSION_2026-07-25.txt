@@ -1,0 +1,72 @@
+CHIHIZA — SESSION LOG: 25 de Julio de 2026
+============================================
+
+RESUMEN DE CAMBIOS REALIZADOS
+------------------------------
+
+1. ELIMINADO: GEA/MOX/HOM workflow, pillar cards, social proof, y testimonial fake del homepage
+   - Se eliminaron ~200 líneas de HTML (SVGs, workflows, pillar cards)
+   - Se eliminó la sección "Research & institutional affiliations" con logos falsos
+   - Se eliminó el testimonial fake de "Maria Rodriguez"
+   - Se actualizó el hero button de "Our Method" → "Our Projects"
+   - Se limpió la FAQ de referencia a "HOM division"
+
+2. RENOMBRADO: founder.html → founders.html
+   - Emiliano Pérez + María Cortés como co-founders al mismo nivel
+   - Biografías reales de ambos
+   - Quote blocks con citas reales
+   - Credenciales con links a tesis (UDistrital + UNIOESTE)
+   - Timeline de formación
+
+3. NUEVO: research.html
+   - Tesis de maestría UNIOESTE (sostenibilidad, viviendas rurales, 103 págs)
+   - Tesis de pregrado UDistrital (arquitectura biomimética)
+   - Abstracto, hallazgos clave, conexión con metodología GEA
+
+4. ACTUALIZADO: Nav y footer en TODAS las páginas
+   - Agregado "Founders" y "Research" al nav
+   - Footer actualizado en: index, about, projects, contact, guide, legacy, research, founders
+   - Proyectos individuales (natauta, rio-frio, el-mirador, costaverde, nosara) también actualizados
+
+5. ACTUALIZADO: Lead capture en Guide y Legal
+   - Formularios de captura (Name, Email, Country) antes de descargar PDFs
+
+6. ACTUALIZADO: legacy.html
+   - Reescrito: "What we can prove — not what we promise"
+   - Solo promete cosas demostrables
+
+7. ACTUALIZADO: Founder teaser en index.html
+   - Muestra "Emiliano & María" / "Co-Founders"
+   - Link a founders.html
+
+8. CSS: Agregado founder-quote-block y responsive
+
+9. BITACORA.md actualizada con todos los cambios
+
+ESTADO ACTUAL DEL PROYECTO
+---------------------------
+- 11 páginas HTML (index, about, founders, research, projects, contact, guide, legacy, + 5 proyectos)
+- Nav consistente en todas las páginas: Home, Projects, About, Founders, Research, Legal, Guide, Contact
+- Footer consistente con Founders y Research
+- Sin referencias al viejo founder.html
+- Git: commiteado y pusheado a origin/main (commit 6e32ae4)
+
+CALIFICACIÓN DEL EXPERTO: 9.0/10
+---------------------------------
+- Diseño: 9.7
+- UX: 9.0
+- Storytelling: 8.8
+- Credibilidad: 8.2
+- Autoridad: 8.8
+- Conversión: 7.8
+- Marca: 8.8
+
+PROBLEMAS PENDIENTES (para mañana)
+------------------------------------
+1. Posicionamiento: CHIHIZA hace demasiadas cosas. Necesita una sola idea clara.
+2. Proyectos: Siguen pareciendo fichas inmobiliarias. Necesitan historia, no renders.
+3. Personas: Falta ver a Emiliano y María trabajando, en obra, con botas.
+4. Imperfección: Todo parece perfecto. Necesita mostrar errores y aprendizajes.
+5. Prueba social: No hay clientes, testimonios reales, medios, universidades.
+
+PRÓXIMO PASO: Mañana empezamos a construir los proyectos reales.

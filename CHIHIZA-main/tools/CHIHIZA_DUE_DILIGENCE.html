@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CHIHIZA Due Diligence | Analisis de Terreno</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8f7f4;--card:#ffffff;--card2:#f3f1ec;--accent:#6b8f71;--accent2:#5a7e60;--green:#2ecc71;--red:#e74c3c;--blue:#3498db;--yellow:#f1c40f;--orange:#e8740e;--purple:#9b59b6;--text:#2c2c2c;--text2:#5a5a55;--border:#e8e5df;--r:12px}
+html,body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.app{max-width:620px;margin:0 auto;padding:16px;padding-bottom:90px;min-height:100vh}
+.logo{text-align:center;padding:16px 0 8px}
+.logo h1{font-size:18px;font-weight:300;letter-spacing:6px;color:var(--accent);text-transform:uppercase}
+.logo p{font-size:9px;color:var(--text2);margin-top:2px;letter-spacing:2px}
+.pw{margin:12px 0}
+.pb{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .5s;width:0}
+.pt{font-size:8px;color:var(--text2);margin-top:3px;text-align:right}
+.sd{display:flex;justify-content:center;gap:5px;margin-top:6px}
+.sd span{width:7px;height:7px;border-radius:50%;background:var(--border);transition:.3s}
+.sd span.a{background:var(--accent);transform:scale(1.2)}
+.sd span.d{background:var(--green)}
+.page{display:none;animation:fi .3s}.page.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:10px}
+.card h2{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:3px}
+.card h3{font-size:11px;color:var(--text2);margin-bottom:14px;font-weight:400}
+.sec{font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin:14px 0 6px;font-weight:600}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:10px;color:var(--text2);margin-bottom:3px;font-weight:500}
+.f input,.f select,.f textarea{width:100%;padding:9px 12px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;transition:.2s}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--accent)}
+.f textarea{min-height:70px;resize:vertical}
+.f select{cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237a7670'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+.opts{display:grid;gap:6px}
+.opts.c2{grid-template-columns:1fr 1fr}.opts.c3{grid-template-columns:1fr 1fr 1fr}
+.opt{padding:10px;background:var(--card2);border:2px solid var(--border);border-radius:var(--r);cursor:pointer;text-align:center;transition:.2s}
+.opt:active{transform:scale(.97)}.opt.sel{border-color:var(--accent);background:rgba(200,169,126,.08)}
+.opt .l{font-size:10px;font-weight:600;color:var(--text)}.opt .d{font-size:8px;color:var(--text2);margin-top:1px}
+.btn{display:block;width:100%;padding:12px;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;transition:.2s;text-align:center}
+.btn:active{transform:scale(.97)}
+.bp{background:var(--accent);color:#ffffff}
+.bs{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.row{display:flex;gap:8px;margin-top:14px}.row .btn{flex:1}
+.nb{position:fixed;bottom:0;left:0;right:0;background:rgba(248,247,244,.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 16px;display:none;z-index:50}
+.nb.show{display:flex;gap:8px;justify-content:center}
+.nb .btn{flex:1;max-width:200px}
+.tr{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}.tr:last-child{border:none}
+.tg{width:40px;height:22px;background:var(--border);border-radius:11px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
+.tg.on{background:var(--accent)}.tg::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:.2s}.tg.on::after{left:21px}
+.tl{font-size:11px}
+.tag{display:inline-block;padding:2px 7px;border-radius:5px;font-size:8px;font-weight:600;margin:1px}
+.tg-g{background:rgba(46,204,113,.15);color:var(--green)}.tg-y{background:rgba(241,196,15,.15);color:var(--yellow)}.tg-r{background:rgba(231,76,60,.15);color:var(--red)}.tg-b{background:rgba(52,152,219,.15);color:var(--blue)}.tg-a{background:rgba(200,169,126,.15);color:var(--accent)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.m{background:var(--card2);border-radius:var(--r);padding:12px;text-align:center;border:1px solid var(--border)}
+.m .v{font-size:20px;font-weight:800;color:var(--accent)}.m .l{font-size:8px;color:var(--text2);margin-top:2px;text-transform:uppercase}
+.m.g .v{color:var(--green)}.m.r .v{color:var(--red)}.m.b .v{color:var(--blue)}.m.y .v{color:var(--yellow)}
+.ri{display:flex;gap:8px;padding:8px;background:var(--card2);border-radius:8px;margin-bottom:5px;border-left:3px solid var(--accent)}
+.ri .n{font-size:16px;font-weight:800;color:var(--accent);flex-shrink:0;width:22px}.ri .t{font-size:10px;line-height:1.4}
+.hid{display:none!important}
+.source-note{font-size:8px;color:var(--text2);font-style:italic;margin-top:4px;padding:4px 6px;background:rgba(200,169,126,.05);border-radius:4px;border-left:2px solid var(--accent2)}
+.criteria-table{width:100%;border-collapse:collapse;margin:10px 0}
+.criteria-table th,.criteria-table td{padding:8px 10px;font-size:10px;text-align:left;border-bottom:1px solid var(--border)}
+.criteria-table th{color:var(--text2);font-weight:600;font-size:8px;text-transform:uppercase}
+.criteria-status{text-align:center;font-size:14px}
+.criteria-status.pass{color:var(--green)}.criteria-status.warn{color:var(--yellow)}.criteria-status.fail{color:var(--red)}
+.exec-box{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border:2px solid var(--accent);border-radius:var(--r);padding:20px;margin-bottom:12px;position:relative;overflow:hidden}
+.exec-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green),var(--accent))}
+.exec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(200,169,126,.15)}
+.exec-row:last-child{border:none}
+.exec-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+.exec-value{font-size:13px;font-weight:700;color:var(--accent)}
+.exec-value.green{color:var(--green)}.exec-value.red{color:var(--red)}.exec-value.yellow{color:var(--yellow)}
+.verdict-box{text-align:center;padding:20px;border-radius:var(--r);margin:10px 0}
+.verdict-aprobado{background:rgba(46,204,113,.1);border:2px solid var(--green)}
+.verdict-condicional{background:rgba(241,196,15,.1);border:2px solid var(--yellow)}
+.verdict-rechazado{background:rgba(231,76,60,.1);border:2px solid var(--red)}
+.verdict-title{font-size:18px;font-weight:900;letter-spacing:2px}
+.checklist-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:10px}
+.checklist-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.checklist-icon.ok{background:rgba(46,204,113,.2);color:var(--green)}
+.checklist-icon.warn{background:rgba(241,196,15,.2);color:var(--yellow)}
+.checklist-icon.fail{background:rgba(231,76,60,.2);color:var(--red)}
+.risk-table{width:100%;border-collapse:collapse;margin:8px 0}
+.risk-table th,.risk-table td{padding:6px;font-size:9px;text-align:left;border-bottom:1px solid var(--border)}
+.risk-table th{color:var(--text2);font-weight:600;font-size:8px;text-transform:uppercase}
+.risk-badge{padding:2px 6px;border-radius:4px;font-size:8px;font-weight:700}
+.risk-alto{background:rgba(231,76,60,.2);color:var(--red)}
+.risk-medio{background:rgba(241,196,15,.2);color:var(--yellow)}
+.risk-bajo{background:rgba(46,204,113,.2);color:var(--green)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="logo"><h1>CHIHIZA</h1><p>Due Diligence | Analisis de Terreno</p></div>
+<div id="dbBar" style="display:none;background:rgba(107,143,113,.1);border:1px solid var(--accent);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:10px;align-items:center;justify-content:space-between">
+  <span id="dbInfo" style="color:var(--accent);font-weight:600"></span>
+  <div style="display:flex;gap:4px">
+    <button class="btn bp" style="padding:4px 10px;font-size:9px;width:auto" onclick="saveDD()">Guardar</button>
+    <button class="btn bs" style="padding:4px 10px;font-size:9px;width:auto" onclick="loadDD()">Recargar</button>
+  </div>
+</div>
+<div class="pw"><div class="pb"><div class="pf" id="pf"></div></div><div class="pt" id="pt"></div><div class="sd" id="sd"></div></div>
+
+<!-- PAGE 0: WELCOME -->
+<div class="page active" id="p0">
+<div class="card">
+<h2>Due Diligence Completo</h2>
+<h3>CHIHIZA International | Verificacion Integral de Terreno</h3>
+<p style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:14px">
+Analisis profundo de un terreno antes de la compra. Verifica seguridad juridica, normativa ambiental,
+infraestructura, mercado y riesgos. Cada verificacion genera un puntaje que determina el veredicto final.
+</p>
+<div class="sec">12 AREAS DE VERIFICACION</div>
+<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:14px">
+<span class="tag tg-a">Legal</span><span class="tag tg-b">Inversionista</span><span class="tag tg-g">Propiedad</span>
+<span class="tag tg-y">Urbanistico</span><span class="tag tg-r">Ambiental</span><span class="tag tg-a">Catastral</span>
+<span class="tag tg-b">Servicios</span><span class="tag tg-g">Mercado</span><span class="tag tg-y">Compra</span>
+<span class="tag tg-r">Diseno</span><span class="tag tg-a">Vida</span><span class="tag tg-b">Futuro</span>
+</div>
+<div class="row"><button class="btn bp" onclick="next()">Comenzar Analisis</button></div>
+</div>
+</div>
+
+<!-- PAGE 1: IDENTIFICACION -->
+<div class="page" id="p1">
+<div class="card">
+<h2>1. Identificacion del Terreno</h2>
+<h3>Datos basicos del inmueble</h3>
+<div class="f"><label>Nombre/Referencia del terreno</label><input type="text" id="ref_terreno" placeholder="Ej: Finca El Paraiso"></div>
+<div class="f"><label>Direccion o ubicacion</label><input type="text" id="direccion" placeholder="Ej: Vereda Las Palmas, Villa de Leyva"></div>
+<div class="f"><label>Municipio / Departamento</label><div class="opts c2">
+<div class="f" style="margin:0"><input type="text" id="municipio" placeholder="Municipio"></div>
+<div class="f" style="margin:0"><input type="text" id="departamento" placeholder="Departamento"></div>
+</div></div>
+<div class="f"><label>Coordenadas (lat, lon)</label><div class="opts c2">
+<div class="f" style="margin:0"><input type="number" id="lat" placeholder="Latitud" step="0.0001"></div>
+<div class="f" style="margin:0"><input type="number" id="lon" placeholder="Longitud" step="0.0001"></div>
+</div></div>
+<div class="f"><label>Area total del terreno (m2)</label><input type="number" id="area_total" placeholder="5000"></div>
+<div class="f"><label>Valor de venta (COP)</label><input type="number" id="valor_venta" placeholder="150000000"></div>
+<div class="f"><label>Precio por m2 (COP)</label><input type="number" id="precio_m2" placeholder="30000" readonly style="background:var(--border)"></div>
+</div>
+</div>
+
+<!-- PAGE 2: VERIFICACION LEGAL -->
+<div class="page" id="p2">
+<div class="card">
+<h2>2. Verificacion Legal</h2>
+<h3>Seguridad juridica del inmueble</h3>
+<div class="sec">Documentos</div>
+<div class="tr"><span class="tl">Escritura publica registrada</span><div class="tg" id="t_escritura" onclick="tg2('escritura')"></div></div>
+<div class="tr"><span class="tl">Certificado de tradicion y libertad</span><div class="tg" id="t_tradicion" onclick="tg2('tradicion')"></div></div>
+<div class="tr"><span class="tl">Cadena de propietarios verificada</span><div class="tg" id="t_cadena" onclick="tg2('cadena')"></div></div>
+<div class="tr"><span class="tl">Cedula catastral al dia</span><div class="tg" id="t_cedula_cat" onclick="tg2('cedula_cat')"></div></div>
+<div class="sec">Restricciones</div>
+<div class="tr"><span class="tl">Sin hipotecas vigentes</span><div class="tg" id="t_hipotecas" onclick="tg2('hipotecas')"></div></div>
+<div class="tr"><span class="tl">Sin embargos</span><div class="tg" id="t_embargos" onclick="tg2('embargos')"></div></div>
+<div class="tr"><span class="tl">Sin servidumbres ocultas</span><div class="tg" id="t_servidumbres" onclick="tg2('servidumbres')"></div></div>
+<div class="tr"><span class="tl">Sin patrimonio de familia</span><div class="tg" id="t_patrimonio" onclick="tg2('patrimonio')"></div></div>
+<div class="tr"><span class="tl">Sin procesos judiciales</span><div class="tg" id="t_procesos" onclick="tg2('procesos')"></div></div>
+<div class="f"><label>Abogado verificador</label><input type="text" id="abogado" placeholder="Nombre del abogado"></div>
+<div class="f"><label>Observaciones legales</label><textarea id="obs_legal" placeholder="Notas sobre hallazgos legales..."></textarea></div>
+</div>
+</div>
+
+<!-- PAGE 3: INVERSIONISTA -->
+<div class="page" id="p3">
+<div class="card">
+<h2>3. Derechos del Inversionista</h2>
+<h3>Proteccion legal para extranjeros</h3>
+<div class="tr"><span class="tl">El inversionista puede adquirir inmuebles</span><div class="tg on" id="t_puede_comprar" onclick="tg2('puede_comprar')"></div></div>
+<div class="tr"><span class="tl">Trato equivalente a nacionales</span><div class="tg on" id="t_trato_igual" onclick="tg2('trato_igual')"></div></div>
+<div class="tr"><span class="tl">Libertad de transferir capitales</span><div class="tg on" id="t_libertad_capital" onclick="tg2('libertad_capital')"></div></div>
+<div class="tr"><span class="tl">Proteccion contra expropiacion</span><div class="tg on" id="t_proteccion" onclick="tg2('proteccion')"></div></div>
+<div class="sec">Estructura de compra</div>
+<div class="f"><label>Tipo de compra</label>
+<div class="opts c2"><div class="opt" onclick="sel('tipo_compra','personal',this)"><div class="l">Persona Natural</div><div class="d">A titulo personal</div></div><div class="opt" onclick="sel('tipo_compra','sociedad',this)"><div class="l">Sociedad</div><div class="d">SAS o Ltda</div></div></div></div>
+<div class="f"><label>Requiere visa?</label>
+<div class="opts c3"><div class="opt" onclick="sel('visa','no',this)"><div class="l">No</div></div><div class="opt" onclick="sel('visa','inversion',this)"><div class="l">V-5 Inversion</div></div><div class="opt" onclick="sel('visa','residencia',this)"><div class="l">Residencia</div></div></div></div>
+<div class="f"><label>Representante legal en Colombia</label><input type="text" id="representante" placeholder="Apoderado o representante"></div>
+</div>
+</div>
+
+<!-- PAGE 4: NORMATIVA URBANISTICA -->
+<div class="page" id="p4">
+<div class="card">
+<h2>4. Normativa Urbanistica</h2>
+<h3>Que se puede construir?</h3>
+<div class="tr"><span class="tl">POT/PBOT consultado</span><div class="tg" id="t_pot" onclick="tg2('pot')"></div></div>
+<div class="tr"><span class="tl">Uso del suelo permitido (residencial)</span><div class="tg" id="t_uso_suelo" onclick="tg2('uso_suelo')"></div></div>
+<div class="tr"><span class="tl">Parametros edificatorios claros</span><div class="tg" id="t_parametros" onclick="tg2('parametros')"></div></div>
+<div class="tr"><span class="tl">No esta en zona de proteccion</span><div class="tg" id="t_zona_proteccion" onclick="tg2('zona_proteccion')"></div></div>
+<div class="tr"><span class="tl">No esta en zona de riesgo</span><div class="tg" id="t_zona_riesgo" onclick="tg2('zona_riesgo')"></div></div>
+<div class="sec">Parametros edificatorios</div>
+<div class="f"><label>Uso del suelo</label>
+<div class="opts c3"><div class="opt" onclick="sel('uso','residencial',this)"><div class="l">Residencial</div></div><div class="opt" onclick="sel('uso','rural',this)"><div class="l">Rural</div></div><div class="opt" onclick="sel('uso','mixto',this)"><div class="l">Mixto</div></div></div></div>
+<div class="f"><label>Altura maxima permitida (niveles)</label>
+<div class="opts c3"><div class="opt" onclick="sel('altura','1',this)"><div class="l">1 Nivel</div></div><div class="opt" onclick="sel('altura','2',this)"><div class="l">2 Niveles</div></div><div class="opt" onclick="sel('altura','3',this)"><div class="l">3+ Niveles</div></div></div></div>
+<div class="f"><label>Retiros (metros)</label><input type="number" id="retiros" placeholder="5"></div>
+<div class="f"><label>Coeficiente de construccion</label><input type="number" id="coef_const" placeholder="0.5" step="0.1"></div>
+<div class="f"><label>Licencia requerida?</label>
+<div class="opts c2"><div class="opt" onclick="sel('licencia','si',this)"><div class="l">Si</div></div><div class="opt" onclick="sel('licencia','no',this)"><div class="l">No / Autoconstruccion</div></div></div></div>
+</div>
+</div>
+
+<!-- PAGE 5: SEGURIDAD AMBIENTAL -->
+<div class="page" id="p5">
+<div class="card">
+<h2>5. Seguridad Ambiental</h2>
+<h3>Condiciones ecologicas y obligaciones</h3>
+<div class="tr"><span class="tl">Fuera de area protegida</span><div class="tg" id="t_area_proteg" onclick="tg2('area_proteg')"></div></div>
+<div class="tr"><span class="tl">Sin restricciones hibricas</span><div class="tg" id="t_restriccion_hidrica" onclick="tg2('restriccion_hidrica')"></div></div>
+<div class="tr"><span class="tl">Sin amenaza de inundacion</span><div class="tg" id="t_inundacion" onclick="tg2('inundacion')"></div></div>
+<div class="tr"><span class="tl">Sin amenaza de deslizamiento</span><div class="tg" id="t_deslizamiento" onclick="tg2('deslizamiento')"></div></div>
+<div class="tr"><span class="tl">Sin amenaza de incendio forestal</span><div class="tg" id="t_incendio" onclick="tg2('incendio')"></div></div>
+<div class="tr"><span class="tl">Biodiversidad compatible</span><div class="tg" id="t_biodiversidad" onclick="tg2('biodiversidad')"></div></div>
+<div class="f"><label>Clasificacion ambiental</label>
+<div class="opts c3"><div class="opt" onclick="sel('clasif_amb','baja',this)"><div class="l">Baja</div><div class="d">Sin restricciones</div></div><div class="opt" onclick="sel('clasif_amb','media',this)"><div class="l">Media</div><div class="d">Algunas restricciones</div></div><div class="opt" onclick="sel('clasif_amb','alta',this)"><div class="l">Alta</div><div class="d">Muy restrictiva</div></div></div></div>
+<div class="f"><label>Estudios ambientales requeridos</label>
+<textarea id="estudios_amb" placeholder="Ej: Estudio de impacto ambiental, Permiso de vertimientos..."></textarea></div>
+</div>
+</div>
+
+<!-- PAGE 6: SEGURIDAD CATASTRAL -->
+<div class="page" id="p6">
+<div class="card">
+<h2>6. Seguridad Catastral</h2>
+<h3>Precision geografica y juridica</h3>
+<div class="tr"><span class="tl">Area registrada coincide con fisica</span><div class="tg" id="t_area_coincide" onclick="tg2('area_coincide')"></div></div>
+<div class="tr"><span class="tl">Linderos claros y verificados</span><div class="tg" id="t_linderos" onclick="tg2('linderos')"></div></div>
+<div class="tr"><span class="tl">Coordenadas oficiales definidas</span><div class="tg" id="t_coordenadas_of" onclick="tg2('coordenadas_of')"></div></div>
+<div class="tr"><span class="tl">Topografia verificada</span><div class="tg" id="t_topografia_ver" onclick="tg2('topografia_ver')"></div></div>
+<div class="tr"><span class="tl">Catastro actualizado</span><div class="tg" id="t_catastro_act" onclick="tg2('catastro_act')"></div></div>
+<div class="sec">Datos catastrales</div>
+<div class="f"><label>Matricula inmobiliaria</label><input type="text" id="matricula" placeholder="Ej: 123-456789"></div>
+<div class="f"><label>Folio electronico</label><input type="text" id="folio" placeholder="Ej: ABC-123456"></div>
+<div class="f"><label>Numeracion predial</label><input type="text" id="numeracion" placeholder="Ej: 01-001-001-001"></div>
+<div class="f"><label>Observaciones catastrales</label><textarea id="obs_catastral" placeholder="Notas sobre hallazgos catastales..."></textarea></div>
+</div>
+</div>
+
+<!-- PAGE 7: SERVICIOS Y ACCESO -->
+<div class="page" id="p7">
+<div class="card">
+<h2>7. Servicios y Acceso</h2>
+<h3>Infraestructura disponible</h3>
+<div class="sec">Servicios publicos</div>
+<div class="tr"><span class="tl">Agua potable (red o pozo)</span><div class="tg" id="t_agua" onclick="tg2('agua')"></div></div>
+<div class="tr"><span class="tl">Energia electrica</span><div class="tg" id="t_energia" onclick="tg2('energia')"></div></div>
+<div class="tr"><span class="tl">Gas natural</span><div class="tg" id="t_gas" onclick="tg2('gas')"></div></div>
+<div class="tr"><span class="tl">Alcantarillado</span><div class="tg" id="t_alcantarillado" onclick="tg2('alcantarillado')"></div></div>
+<div class="tr"><span class="tl">Internet fibra optica</span><div class="tg" id="t_internet_dd" onclick="tg2('internet_dd')"></div></div>
+<div class="sec">Acceso</div>
+<div class="tr"><span class="tl">Acceso vehicular pavimentado</span><div class="tg" id="t_acceso_pav" onclick="tg2('acceso_pav')"></div></div>
+<div class="tr"><span class="tl">Acceso todo clima</span><div class="tg" id="t_acceso_todo" onclick="tg2('acceso_todo')"></div></div>
+<div class="tr"><span class="tl">Sequia alcanzable</span><div class="tg" id="t_sequia" onclick="tg2('sequia')"></div></div>
+<div class="f"><label>Distancia a ciudad principal (km)</label><input type="number" id="distancia_ciudad" placeholder="25"></div>
+<div class="f"><label>Tiempo estimado de desplazamiento</label><input type="text" id="tiempo_desplaz" placeholder="Ej: 45 minutos"></div>
+<div class="sec">Infraestructura critique</div>
+<div class="tr"><span class="tl">Hospital/clinica cercano</span><div class="tg" id="t_hospital" onclick="tg2('hospital')"></div></div>
+<div class="tr"><span class="tl">Colegios/escuelas</span><div class="tg" id="t_colegios" onclick="tg2('colegios')"></div></div>
+<div class="tr"><span class="tl">Supermercados/mercados</span><div class="tg" id="t_supermercados" onclick="tg2('supermercados')"></div></div>
+<div class="tr"><span class="tl">Aeropuerto cercano</span><div class="tg" id="t_aeropuerto" onclick="tg2('aeropuerto')"></div></div>
+</div>
+</div>
+
+<!-- PAGE 8: ANALISIS DE MERCADO -->
+<div class="page" id="p8">
+<div class="card">
+<h2>8. Analisis de Mercado y Valor</h2>
+<h3>Valor real y potencial de la propiedad</h3>
+<div class="sec">Comparables</div>
+<div class="f"><label>Precio m2 zona (comparables)</label><input type="number" id="precio_m2_comp" placeholder="25000"></div>
+<div class="f"><label>Cantidad de comparables</label><input type="number" id="num_comparables" placeholder="5"></div>
+<div class="f"><label>Tiempo promedio de venta (meses)</label><input type="number" id="tiempo_venta_comp" placeholder="8"></div>
+<div class="sec">Valorizacion</div>
+<div class="f"><label>Tendencia de precios zona</label>
+<div class="opts c3"><div class="opt" onclick="sel('tendencia','creciente',this)"><div class="l">Creciente</div></div><div class="opt" onclick="sel('tendencia','estable',this)"><div class="l">Estable</div></div><div class="opt" onclick="sel('tendencia','decreciente',this)"><div class="l">Decreciente</div></div></div></div>
+<div class="f"><label>Proyectos nuevos en la zona</label>
+<div class="opts c3"><div class="opt" onclick="sel('proyectos_nuevos','muchos',this)"><div class="l">Muchos</div></div><div class="opt" onclick="sel('proyectos_nuevos','algunos',this)"><div class="l">Algunos</div></div><div class="opt" onclick="sel('proyectos_nuevos','pocos',this)"><div class="l">Pocos</div></div></div></div>
+<div class="f"><label>Demanda de la zona</label>
+<div class="opts c3"><div class="opt" onclick="sel('demanda','alta',this)"><div class="l">Alta</div></div><div class="opt" onclick="sel('demanda','media',this)"><div class="l">Media</div></div><div class="opt" onclick="sel('demanda','baja',this)"><div class="l">Baja</div></div></div></div>
+<div class="f"><label>Perfil de compradores tipico</label><input type="text" id="perfil_compradores" placeholder="Ej: Familias bogotanas, extranjeros"></div>
+<div class="f"><label>Observaciones de mercado</label><textarea id="obs_mercado" placeholder="Notas sobre el mercado local..."></textarea></div>
+</div>
+</div>
+
+<!-- PAGE 9: COSTOS OCULTOS -->
+<div class="page" id="p9">
+<div class="card">
+<h2>9. Costos Ocultos y Riesgos</h2>
+<h3>Todo lo que el precio no incluye</h3>
+<div class="sec">Costos adicionales estimados</div>
+<div class="f"><label>Cerramiento / Barda (COP)</label><input type="number" id="costo_cerramiento" placeholder="15000000"></div>
+<div class="f"><label>Pozo de agua / Perforacion (COP)</label><input type="number" id="costo_pozo" placeholder="8000000"></div>
+<div class="f"><label>Conexion energia (COP)</label><input type="number" id="costo_energia_conn" placeholder="5000000"></div>
+<div class="f"><label>Movimiento de tierras (COP)</label><input type="number" id="costo_tierras" placeholder="3000000"></div>
+<div class="f"><label>Topografia y estudios (COP)</label><input type="number" id="costo_topografia" placeholder="2000000"></div>
+<div class="f"><label>Licencias y permisos (COP)</label><input type="number" id="costo_licencias" placeholder="4000000"></div>
+<div class="f"><label>Impuestos prediales anuales (COP)</label><input type="number" id="costo_impuestos" placeholder="500000"></div>
+<div class="f"><label>Mantenimiento anual estimado (COP)</label><input type="number" id="costo_mantenimiento" placeholder="2000000"></div>
+<div class="sec">Riesgos identificados</div>
+<div class="f"><label>Riesgo principal</label>
+<div class="opts c3"><div class="opt" onclick="sel('riesgo_ppal','bajo',this)"><div class="l">Bajo</div></div><div class="opt" onclick="sel('riesgo_ppal','medio',this)"><div class="l">Medio</div></div><div class="opt" onclick="sel('riesgo_ppal','alto',this)"><div class="l">Alto</div></div></div></div>
+<div class="f"><label>Descripcion de riesgos</label><textarea id="desc_riesgos" placeholder="Ej: Zona con historial de inundaciones en 2019..."></textarea></div>
+</div>
+</div>
+
+<!-- PAGE 10: VEREDICTO -->
+<div class="page" id="p10">
+<div id="veredicto"></div>
+<div class="row" style="margin-top:16px">
+<button class="btn bp" onclick="saveDD()" id="btnSaveDD" style="display:none">Guardar en BD</button>
+<button class="btn bp" onclick="exportTXT()">Exportar Due Diligence TXT</button>
+<button class="btn bs" onclick="resetAll()">Nuevo Terreno</button>
+</div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nb" id="nb"><button class="btn bs" onclick="prev()">Anterior</button><button class="btn bp" onclick="next()">Siguiente</button></div>
+</div>
+
+<script>
+let cp=0;const tp=11;
+let D={ref_terreno:'',direccion:'',municipio:'',departamento:'',lat:0,lon:0,area_total:0,valor_venta:0,
+escritura:false,tradicion:false,cadena:false,cedula_cat:false,hipotecas:false,embargos:false,servidumbres:false,patrimonio:false,procesos:false,
+abogado:'',obs_legal:'',
+puede_comprar:true,trato_igual:true,libertad_capital:true,proteccion:true,tipo_compra:'',visa:'',representante:'',
+pot:false,uso_suelo:false,parametros:false,zona_proteccion:false,zona_riesgo:false,uso:'',altura:'',retiros:0,coef_const:0,licencia:'',
+area_proteg:false,restriccion_hidrica:false,inundacion:false,deslizamiento:false,incendio:false,biodiversidad:false,clasif_amb:'',estudios_amb:'',
+area_coincide:false,linderos:false,coordenadas_of:false,topografia_ver:false,catastro_act:false,matricula:'',folio:'',numeracion:'',obs_catastral:'',
+agua:false,energia:false,gas:false,alcantarillado:false,internet_dd:false,acceso_pav:false,acceso_todo:false,sequia:false,distancia_ciudad:0,tiempo_desplaz:'',
+hospital:false,colegios:false,supermercados:false,aeropuerto:false,
+precio_m2_comp:0,num_comparables:0,tiempo_venta_comp:0,tendencia:'',proyectos_nuevos:'',demanda:'',perfil_compradores:'',obs_mercado:'',
+costo_cerramiento:0,costo_pozo:0,costo_energia_conn:0,costo_tierras:0,costo_topografia:0,costo_licencias:0,costo_impuestos:0,costo_mantenimiento:0,
+riesgo_ppal:'',desc_riesgos:''};
+let T={escritura:false,tradicion:false,cadena:false,cedula_cat:false,hipotecas:false,embargos:false,servidumbres:false,patrimonio:false,procesos:false,
+puede_comprar:true,trato_igual:true,libertad_capital:true,proteccion:true,pot:false,uso_suelo:false,parametros:false,zona_proteccion:false,zona_riesgo:false,
+area_proteg:false,restriccion_hidrica:false,inundacion:false,deslizamiento:false,incendio:false,biodiversidad:false,
+area_coincide:false,linderos:false,coordenadas_of:false,topografia_ver:false,catastro_act:false,
+agua:false,energia:false,gas:false,alcantarillado:false,internet_dd:false,acceso_pav:false,acceso_todo:false,sequia:false,
+hospital:false,colegios:false,supermercados:false,aeropuerto:false};
+
+function updProg(){const p=((cp)/(tp-1))*100;document.getElementById('pf').style.width=p+'%';
+document.getElementById('pt').textContent=`Paso ${cp+1} de ${tp}`;
+const s=document.getElementById('sd');s.innerHTML='';
+for(let i=0;i<tp;i++){const d=document.createElement('span');d.className=i===cp?'a':i<cp?'d':'';s.appendChild(d)}}
+function show(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('p'+n).classList.add('active');cp=n;updProg();
+const nb=document.getElementById('nb');n===0||n===tp-1?nb.classList.remove('show'):nb.classList.add('show');
+window.scrollTo(0,0)}
+function next(){collect();if(cp<tp-1)show(cp+1);if(cp===tp-1)genVeredicto()}
+function prev(){if(cp>0)show(cp-1)}
+
+function collect(){
+D.ref_terreno=document.getElementById('ref_terreno').value;
+D.direccion=document.getElementById('direccion').value;
+D.municipio=document.getElementById('municipio').value;
+D.departamento=document.getElementById('departamento').value;
+D.lat=parseFloat(document.getElementById('lat').value)||0;
+D.lon=parseFloat(document.getElementById('lon').value)||0;
+D.area_total=parseInt(document.getElementById('area_total').value)||0;
+D.valor_venta=parseInt(document.getElementById('valor_venta').value)||0;
+D.abogado=document.getElementById('abogado').value;
+D.obs_legal=document.getElementById('obs_legal').value;
+D.retiros=parseInt(document.getElementById('retiros').value)||0;
+D.coef_const=parseFloat(document.getElementById('coef_const').value)||0;
+D.matricula=document.getElementById('matricula').value;
+D.folio=document.getElementById('folio').value;
+D.numeracion=document.getElementById('numeracion').value;
+D.obs_catastral=document.getElementById('obs_catastral').value;
+D.distancia_ciudad=parseInt(document.getElementById('distancia_ciudad').value)||0;
+D.tiempo_desplaz=document.getElementById('tiempo_desplaz').value;
+D.precio_m2_comp=parseInt(document.getElementById('precio_m2_comp').value)||0;
+D.num_comparables=parseInt(document.getElementById('num_comparables').value)||0;
+D.tiempo_venta_comp=parseInt(document.getElementById('tiempo_venta_comp').value)||0;
+D.perfil_compradores=document.getElementById('perfil_compradores').value;
+D.obs_mercado=document.getElementById('obs_mercado').value;
+D.costo_cerramiento=parseInt(document.getElementById('costo_cerramiento').value)||0;
+D.costo_pozo=parseInt(document.getElementById('costo_pozo').value)||0;
+D.costo_energia_conn=parseInt(document.getElementById('costo_energia_conn').value)||0;
+D.costo_tierras=parseInt(document.getElementById('costo_tierras').value)||0;
+D.costo_topografia=parseInt(document.getElementById('costo_topografia').value)||0;
+D.costo_licencias=parseInt(document.getElementById('costo_licencias').value)||0;
+D.costo_impuestos=parseInt(document.getElementById('costo_impuestos').value)||0;
+D.costo_mantenimiento=parseInt(document.getElementById('costo_mantenimiento').value)||0;
+D.desc_riesgos=document.getElementById('desc_riesgos').value;
+Object.keys(T).forEach(k=>D[k]=T[k]);
+if(D.area_total>0&&D.valor_venta>0){
+document.getElementById('precio_m2').value=Math.round(D.valor_venta/D.area_total);
+D.precio_m2=Math.round(D.valor_venta/D.area_total)}}
+function sel(f,v,e){D[f]=v;e.parentElement.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));e.classList.add('sel')}
+function tg2(k){T[k]=!T[k];const e=document.getElementById('t-'+k);if(e)e.classList.toggle('on',T[k])}
+
+// SCORING
+function calcScore(){
+let total=0;const areas=[];
+// Legal (20 pts)
+let legal=0;
+if(T.escritura)legal+=5;if(T.tradicion)legal+=5;if(T.cadena)legal+=4;if(T.cedula_cat)legal+=3;
+if(!T.hipotecas)legal+=1;if(!T.embargos)legal+=1;if(!T.servidumbres)legal+=1;if(!T.patrimonio)legal+=1;if(!T.procesos)legal+=1;
+total+=Math.min(legal,20);
+areas.push({name:'Legal',score:Math.min(legal,20),max:20,status:legal>=16?'pass':legal>=10?'warn':'fail'});
+// Normativa (15 pts)
+let norm=0;
+if(T.pot)norm+=4;if(T.uso_suelo)norm+=4;if(T.parametros)norm+=3;if(!T.zona_proteccion)norm+=2;if(!T.zona_riesgo)norm+=2;
+total+=Math.min(norm,15);
+areas.push({name:'Urbanistico',score:Math.min(norm,15),max:15,status:norm>=12?'pass':norm>=7?'warn':'fail'});
+// Ambiental (15 pts)
+let amb=0;
+if(!T.area_proteg)amb+=3;if(!T.restriccion_hidrica)amb+=3;if(!T.inundacion)amb+=3;if(!T.deslizamiento)amb+=3;if(!T.incendio)amb+=3;
+total+=Math.min(amb,15);
+areas.push({name:'Ambiental',score:Math.min(amb,15),max:15,status:amb>=12?'pass':amb>=7?'warn':'fail'});
+// Catastral (10 pts)
+let cat=0;
+if(T.area_coincide)cat+=3;if(T.linderos)cat+=3;if(T.coordenadas_of)cat+=2;if(T.topografia_ver)cat+=1;if(T.catastro_act)cat+=1;
+total+=Math.min(cat,10);
+areas.push({name:'Catastral',score:Math.min(cat,10),max:10,status:cat>=8?'pass':cat>=5?'warn':'fail'});
+// Servicios (20 pts)
+let srv=0;
+if(T.agua)srv+=4;if(T.energia)srv+=4;if(T.gas)srv+=2;if(T.alcantarillado)srv+=2;if(T.internet_dd)srv+=3;
+if(T.acceso_pav)srv+=2;if(T.acceso_todo)srv+=2;if(!T.sequia)srv+=1;
+total+=Math.min(srv,20);
+areas.push({name:'Servicios',score:Math.min(srv,20),max:20,status:srv>=16?'pass':srv>=10?'warn':'fail'});
+// Mercado (20 pts)
+let mkt=0;
+if(D.tendencia==='creciente')mkt+=6;else if(D.tendencia==='estable')mkt+=4;mkt+=2;
+if(D.demanda==='alta')mkt+=6;else if(D.demanda==='media')mkt+=4;mkt+=2;
+if(D.num_comparables>=3)mkt+=2;mkt+=2;
+total+=Math.min(mkt,20);
+areas.push({name:'Mercado',score:Math.min(mkt,20),max:20,status:mkt>=16?'pass':mkt>=10?'warn':'fail'});
+return{total:Math.min(total,100),areas}}
+
+// COSTOS TOTALES
+function calcCostos(){
+const ocultos=D.costo_cerramiento+D.costo_pozo+D.costo_energia_conn+D.costo_tierras+D.costo_topografia+D.costo_licencias;
+const impuestos=D.costo_impuestos;
+const total=D.valor_venta+ocultos;
+const precio_m2_real=Math.round(total/D.area_total);
+return{ocultos,impuestos,total,precio_m2_real}}
+
+// VEREDICTO
+function genVeredicto(){
+collect();
+const sc=calcScore();
+const ct=calcCostos();
+let verdict,verdictClass;
+if(sc.total>=80){verdict='APROBADO';verdictClass='verdict-aprobado'}
+else if(sc.total>=60){verdict='CONDICIONAL';verdictClass='verdict-condicional'}
+else{verdict='RECHAZADO';verdictClass='verdict-rechazado'}
+let h='';
+
+// EXECUTIVE SUMMARY
+h+=`<div class="exec-box">
+<div style="text-align:center;margin-bottom:12px">
+<div style="font-size:8px;color:var(--text2);text-transform:uppercase;letter-spacing:3px;margin-bottom:4px">CHIHIZA International</div>
+<div style="font-size:14px;font-weight:700;color:var(--accent)">DUE DILIGENCE - RESUMEN</div>
+<div style="font-size:9px;color:var(--text2);margin-top:2px">${new Date().toLocaleDateString('es-CO')}</div>
+</div>
+<div class="exec-row"><div class="exec-label">Terreno</div><div class="exec-value">${D.ref_terreno||'Sin referencia'}</div></div>
+<div class="exec-row"><div class="exec-label">Ubicacion</div><div class="exec-value">${D.municipio||'-'}, ${D.departamento||'-'}</div></div>
+<div class="exec-row"><div class="exec-label">Area</div><div class="exec-value">${D.area_total.toLocaleString()} m2</div></div>
+<div class="exec-row"><div class="exec-label">Valor Venta</div><div class="exec-value">$${(D.valor_venta/1e6).toFixed(1)}M COP</div></div>
+<div class="exec-row"><div class="exec-label">Precio/m2</div><div class="exec-value">$${ct.precio_m2_real.toLocaleString()} COP</div></div>
+<div class="exec-row"><div class="exec-label">Score Total</div><div class="exec-value ${sc.total>=80?'green':sc.total>=60?'yellow':'red'}">${sc.total}/100</div></div>
+<div class="exec-row"><div class="exec-label">Veredicto</div><div class="exec-value ${sc.total>=80?'green':sc.total>=60?'yellow':'red'}">${verdict}</div></div>
+</div>`;
+
+// VEREDICTO VISUAL
+h+=`<div class="card"><div class="sec">VEREDICTO FINAL</div>
+<div class="verdict-box ${verdictClass}">
+<div class="verdict-title" style="color:${sc.total>=80?'var(--green)':sc.total>=60?'var(--yellow)':'var(--red)'}">${verdict}</div>
+<div style="font-size:10px;color:var(--text2);margin-top:6px">Puntaje: ${sc.total}/100 puntos</div>
+</div>
+<div class="sec">DESAGLOSE POR AREA</div>
+<table class="criteria-table">
+<tr><th>Area</th><th style="text-align:center">Puntaje</th><th style="text-align:center">Estado</th></tr>`;
+sc.areas.forEach(a=>{
+h+=`<tr><td>${a.name}</td><td style="text-align:center;font-weight:700;color:${a.status==='pass'?'var(--green)':a.status==='warn'?'var(--yellow)':'var(--red)'}">${a.score}/${a.max}</td>
+<td class="criteria-status ${a.status}">${a.status==='pass'?'✅':a.status==='warn'?'⚠️':'❌'}</td></tr>`});
+h+=`</table>
+<div class="source-note">Metodologia CHIHIZA Due Diligence v1.0 | 6 areas de verificacion | 100 puntos maximos</div></div>`;
+
+// COSTOS TOTALES
+h+=`<div class="card"><div class="sec">ANALISIS DE COSTOS TOTALES</div>
+<div class="mg">
+<div class="m"><div class="v">$${(D.valor_venta/1e6).toFixed(1)}M</div><div class="l">Valor Terreno</div></div>
+<div class="m y"><div class="v">$${(ct.ocultos/1e6).toFixed(1)}M</div><div class="l">Costos Adicionales</div></div>
+<div class="m b"><div class="v">$${(ct.total/1e6).toFixed(1)}M</div><div class="l">Costo Total Real</div></div>
+<div class="m g"><div class="v">$${ct.precio_m2_real.toLocaleString()}</div><div class="l">Precio/m2 Real</div></div>
+</div>
+<div class="sec">DETALLE COSTOS OCULTOS</div>
+<div style="font-size:9px;color:var(--text2);line-height:1.8">
+<div>Cerramiento: $${(D.costo_cerramiento/1e6).toFixed(1)}M</div>
+<div>Pozo/Agua: $${(D.costo_pozo/1e6).toFixed(1)}M</div>
+<div>Conexion energia: $${(D.costo_energia_conn/1e6).toFixed(1)}M</div>
+<div>Movimiento tierras: $${(D.costo_tierras/1e6).toFixed(1)}M</div>
+<div>Topografia/Estudios: $${(D.costo_topografia/1e6).toFixed(1)}M</div>
+<div>Licencias/Permisos: $${(D.costo_licencias/1e6).toFixed(1)}M</div>
+</div>
+<div class="source-note">Costos basados en precios Homecenter Colombia 2026 + estimaciones regionales</div></div>`;
+
+// CHECKLIST LEGAL
+h+=`<div class="card"><div class="sec">CHECKLIST LEGAL</div>`;
+const legalItems=[
+{name:'Escritura publica registrada',ok:T.escritura},
+{name:'Certificado de tradicion y libertad',ok:T.tradicion},
+{name:'Cadena de propietarios verificada',ok:T.cadena},
+{name:'Cedula catastral al dia',ok:T.cedula_cat},
+{name:'Sin hipotecas vigentes',ok:!T.hipotecas},
+{name:'Sin embargos',ok:!T.embargos},
+{name:'Sin servidumbres ocultas',ok:!T.servidumbres},
+{name:'Sin patrimonio de familia',ok:!T.patrimonio},
+{name:'Sin procesos judiciales',ok:!T.procesos}
+];
+legalItems.forEach(item=>{
+h+=`<div class="checklist-item">
+<div class="checklist-icon ${item.ok?'ok':'fail'}">${item.ok?'✓':'✗'}</div>
+<div>${item.name}</div>
+</div>`});
+h+=`</div>`;
+
+// CHECKLIST SERVICIOS
+h+=`<div class="card"><div class="sec">CHECKLIST SERVICIOS</div>`;
+const srvItems=[
+{name:'Agua potable',ok:T.agua},
+{name:'Energia electrica',ok:T.energia},
+{name:'Gas natural',ok:T.gas},
+{name:'Alcantarillado',ok:T.alcantarillado},
+{name:'Internet fibra optica',ok:T.internet_dd},
+{name:'Acceso vehicular pavimentado',ok:T.acceso_pav},
+{name:'Acceso todo clima',ok:T.acceso_todo},
+{name:'Hospital/clinica cercano',ok:T.hospital},
+{name:'Colegios/escuelas',ok:T.colegios},
+{name:'Supermercados',ok:T.supermercados}
+];
+srvItems.forEach(item=>{
+h+=`<div class="checklist-item">
+<div class="checklist-icon ${item.ok?'ok':'fail'}">${item.ok?'✓':'✗'}</div>
+<div>${item.name}</div>
+</div>`});
+h+=`</div>`;
+
+// RECOMENDACIONES
+h+=`<div class="card"><div class="sec">RECOMENDACIONES CHIHIZA</div>`;
+if(verdict==='APROBADO'){
+h+=`<div class="ri"><div class="n">1</div><div class="t">El terreno cumple con los estandares de calidad CHIHIZA.</div></div>`;
+h+=`<div class="ri"><div class="n">2</div><div class="t">Proceder con la negociacion y firma de promesa de compraventa.</div></div>`;
+h+=`<div class="ri"><div class="n">3</div><div class="t">Iniciar proceso de diseno y presupuesto.</div></div>`;
+}else if(verdict==='CONDICIONAL'){
+h+=`<div class="ri"><div class="n">1</div><div class="t">El terreno tiene potencial pero requiere atencion en areas criticas.</div></div>`;
+h+=`<div class="ri"><div class="n">2</div><div class="t">Completar verificaciones pendientes antes de avanzar.</div></div>`;
+h+=`<div class="ri"><div class="n">3</div><div class="t">Re-evaluar una vez resueltas las condiciones.</div></div>`;
+}else{
+h+=`<div class="ri"><div class="n">1</div><div class="t">No se recomienda avanzar con este terreno en condiciones actuales.</div></div>`;
+h+=`<div class="ri"><div class="n">2</div><div class="t">Considerar alternativas en la misma zona o buscar mejores opciones.</div></div>`;
+h+=`<div class="ri"><div class="n">3</div><div class="t">CHIHIZA puede asesorar en la busqueda de alternativas.</div></div>`;
+}
+h+=`</div>`;
+
+document.getElementById('veredicto').innerHTML=h}
+
+function exportTXT(){
+collect();const sc=calcScore();const ct=calcCostos();
+let verdict=sc.total>=80?'APROBADO':sc.total>=60?'CONDICIONAL':'RECHAZADO';
+let t=`================================================================================
+CHIHIZA DUE DILIGENCE - ANALISIS DE TERRENO
+================================================================================
+Fecha: ${new Date().toLocaleDateString('es-CO')}
+Terreno: ${D.ref_terreno||'-'}
+Ubicacion: ${D.municipio||'-'}, ${D.departamento||'-'}
+Coordenadas: ${D.lat}, ${D.lon}
+Area: ${D.area_total.toLocaleString()} m2
+Valor: $${D.valor_venta.toLocaleString('es-CO')} COP
+Precio/m2: $${ct.precio_m2_real.toLocaleString()} COP
+
+VEREDICTO: ${verdict} (${sc.total}/100 puntos)
+
+1. IDENTIFICACION
+${'='.repeat(50)}
+Referencia: ${D.ref_terreno||'-'}
+Direccion: ${D.direccion||'-'}
+Municipio: ${D.municipio||'-'}
+Departamento: ${D.departamento||'-'}
+Area: ${D.area_total.toLocaleString()} m2
+Valor: $${D.valor_venta.toLocaleString('es-CO')} COP
+
+2. VERIFICACION LEGAL
+${'='.repeat(50)}
+Escritura publica: ${T.escritura?'Si':'No'}
+Certificado tradicion: ${T.tradicion?'Si':'No'}
+Cadena propietarios: ${T.cadena?'Si':'No'}
+Cedula catastral: ${T.cedula_cat?'Si':'No'}
+Hipotecas: ${T.hipotecas?'Si (RIESGO)':'No'}
+Embargos: ${T.embargos?'Si (RIESGO)':'No'}
+Servidumbres: ${T.servidumbres?'Si (RIESGO)':'No'}
+Patrimonio familia: ${T.patrimonio?'Si (RIESGO)':'No'}
+Procesos judiciales: ${T.procesos?'Si (RIESGO)':'No'}
+Abogado: ${D.abogado||'-'}
+Observaciones: ${D.obs_legal||'-'}
+
+3. NORMATIVA URBANISTICA
+${'='.repeat(50)}
+POT consultado: ${T.pot?'Si':'No'}
+Uso suelo: ${T.uso_suelo?'Permitido':'No verificado'}
+Parametros edificatorios: ${T.parametros?'Claros':'No claros'}
+Zona proteccion: ${T.zona_proteccion?'Si (RIESGO)':'No'}
+Zona riesgo: ${T.zona_riesgo?'Si (RIESGO)':'No'}
+Uso: ${D.uso||'-'}
+Altura: ${D.altura||'-'} niveles
+Retiros: ${D.retiros} m
+Coeficiente: ${D.coef_const}
+Licencia: ${D.licencia||'-'}
+
+4. SEGURIDAD AMBIENTAL
+${'='.repeat(50)}
+Area protegida: ${T.area_proteg?'Si (RIESGO)':'No'}
+Restriccion hidrica: ${T.restriccion_hidrica?'Si (RIESGO)':'No'}
+Inundacion: ${T.inundacion?'Si (RIESGO)':'No'}
+Deslizamiento: ${T.deslizamiento?'Si (RIESGO)':'No'}
+Incendio: ${T.incendio?'Si (RIESGO)':'No'}
+Clasificacion: ${D.clasif_amb||'-'}
+Estudios: ${D.estudios_amb||'-'}
+
+5. SEGURIDAD CATASTRAL
+${'='.repeat(50)}
+Area coincide: ${T.area_coincide?'Si':'No'}
+Linderos claros: ${T.linderos?'Si':'No'}
+Coordenadas oficiales: ${T.coordenadas_of?'Si':'No'}
+Topografia verificada: ${T.topografia_ver?'Si':'No'}
+Catastro actualizado: ${T.catastro_act?'Si':'No'}
+Matricula: ${D.matricula||'-'}
+Folio: ${D.folio||'-'}
+Numeracion: ${D.numeracion||'-'}
+
+6. SERVICIOS Y ACCESO
+${'='.repeat(50)}
+Agua: ${T.agua?'Si':'No'}
+Energia: ${T.energia?'Si':'No'}
+Gas: ${T.gas?'Si':'No'}
+Alcantarillado: ${T.alcantarillado?'Si':'No'}
+Internet: ${T.internet_dd?'Si':'No'}
+Acceso pavimento: ${T.acceso_pav?'Si':'No'}
+Acceso todo clima: ${T.acceso_todo?'Si':'No'}
+Distancia ciudad: ${D.distancia_ciudad} km
+Tiempo: ${D.tiempo_desplaz||'-'}
+Hospital: ${T.hospital?'Si':'No'}
+Colegios: ${T.colegios?'Si':'No'}
+Supermercados: ${T.supermercados?'Si':'No'}
+Aeropuerto: ${T.aeropuerto?'Si':'No'}
+
+7. ANALISIS DE MERCADO
+${'='.repeat(50)}
+Precio m2 zona: $${D.precio_m2_comp.toLocaleString('es-CO')}
+Comparables: ${D.num_comparables}
+Tiempo venta: ${D.tiempo_venta_comp} meses
+Tendencia: ${D.tendencia||'-'}
+Proyectos nuevos: ${D.proyectos_nuevos||'-'}
+Demanda: ${D.demanda||'-'}
+Compradores: ${D.perfil_compradores||'-'}
+Observaciones: ${D.obs_mercado||'-'}
+
+8. COSTOS TOTALES
+${'='.repeat(50)}
+Valor terreno: $${D.valor_venta.toLocaleString('es-CO')}
+Costos adicionales: $${ct.ocultos.toLocaleString('es-CO')}
+Costo total real: $${ct.total.toLocaleString('es-CO')}
+Precio/m2 real: $${ct.precio_m2_real.toLocaleString('es-CO')}
+Impuestos anuales: $${D.costo_impuestos.toLocaleString('es-CO')}
+Mantenimiento anual: $${D.costo_mantenimiento.toLocaleString('es-CO')}
+
+9. DESAGLOSE POR AREA
+${'='.repeat(50)}
+${sc.areas.map(a=>`  ${a.name}: ${a.score}/${a.max} (${a.status})`).join('\n')}
+
+10. RECOMENDACIONES
+${'='.repeat(50)}
+Veredicto: ${verdict}
+Puntaje: ${sc.total}/100
+
+================================================================================
+CHIHIZA International | Due Diligence v1.0
+================================================================================`;
+const blob=new Blob([t],{type:'text/plain'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+a.download=`CHIHIZA_DD_${(D.ref_terreno||'terreno').replace(/\s+/g,'_')}_${new Date().toISOString().split('T')[0]}.txt`;
+a.click()}
+
+function resetAll(){if(!confirm('Nuevo terreno?'))return;location.reload()}
+// DB INTEGRATION
+const API = 'http://localhost:5000/api';
+let DB_PROJECT_ID = null;
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const pid = params.get('project_id');
+  if (pid) {
+    DB_PROJECT_ID = parseInt(pid);
+    document.getElementById('dbBar').style.display = 'flex';
+    document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Conectado a BD';
+    document.getElementById('btnSaveDD').style.display = 'block';
+    loadDD();
+  }
+})();
+
+async function saveDD() {
+  if (!DB_PROJECT_ID) return alert('No hay proyecto vinculado. Abre desde el Dashboard.');
+  collect();
+  const sc = calcScore();
+  const data = { ...D, ...T, score_total: sc.total, verdict: sc.total >= 80 ? 'APROBADO' : sc.total >= 60 ? 'CONDICIONAL' : 'RECHAZADO' };
+  try {
+    const res = await fetch(API + '/projects/' + DB_PROJECT_ID + '/dd', {
+      method: 'PUT', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw await res.text();
+    document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Guardado en BD';
+    alert('Datos guardados en la base de datos');
+  } catch(e) {
+    alert('Error al guardar: ' + e);
+  }
+}
+
+async function loadDD() {
+  if (!DB_PROJECT_ID) return;
+  try {
+    const res = await fetch(API + '/projects/' + DB_PROJECT_ID + '/dd');
+    if (!res.ok) throw await res.text();
+    const data = await res.json();
+    if (!data || Object.keys(data).length === 0) {
+      document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Sin datos previos';
+      return;
+    }
+    // Load text inputs
+    const textFields = ['ref_terreno','direccion','municipio','departamento','abogado','obs_legal','representante',
+      'estudios_amb','matricula','folio','numeracion','obs_catastral','tiempo_desplaz','perfil_compradores',
+      'obs_mercado','desc_riesgos'];
+    textFields.forEach(f => {
+      const el = document.getElementById(f);
+      if (el && data[f] !== undefined && data[f] !== null) el.value = data[f];
+    });
+    // Load number inputs
+    const numFields = ['lat','lon','area_total','valor_venta','retiros','coef_const','distancia_ciudad',
+      'precio_m2_comp','num_comparables','tiempo_venta_comp','costo_cerramiento','costo_pozo','costo_energia_conn',
+      'costo_tierras','costo_topografia','costo_licencias','costo_impuestos','costo_mantenimiento'];
+    numFields.forEach(f => {
+      const el = document.getElementById(f);
+      if (el && data[f] !== undefined && data[f] !== null) el.value = data[f];
+    });
+    // Load toggles
+    Object.keys(T).forEach(k => {
+      if (data[k] !== undefined) {
+        T[k] = data[k] ? true : false;
+        const el = document.getElementById('t_' + k);
+        if (el) el.classList.toggle('on', T[k]);
+      }
+    });
+    // Load selections
+    const selMap = {
+      'tipo_compra': 'tipo_compra', 'visa': 'visa', 'uso': 'uso', 'altura': 'altura',
+      'licencia': 'licencia', 'clasif_amb': 'clasif_amb', 'tendencia': 'tendencia',
+      'proyectos_nuevos': 'proyectos_nuevos', 'demanda': 'demanda', 'riesgo_ppal': 'riesgo_ppal'
+    };
+    Object.entries(selMap).forEach(([key, id]) => {
+      if (data[key]) {
+        D[key] = data[key];
+        const parent = document.getElementById(id)?.closest('.opts') || document.querySelector(`[id="${id}"]`)?.closest('.opts');
+        // Mark the selected option
+        document.querySelectorAll(`.opt`).forEach(o => {
+          const onclick = o.getAttribute('onclick') || '';
+          if (onclick.includes(`'${key}'`) && onclick.includes(`'${data[key]}'`)) {
+            o.classList.add('sel');
+          }
+        });
+      }
+    });
+    // Compute precio_m2 if area_total and valor_venta
+    if (data.area_total > 0 && data.valor_venta > 0) {
+      document.getElementById('precio_m2').value = Math.round(data.valor_venta / data.area_total);
+    }
+    document.getElementById('dbInfo').textContent = 'Proyecto #' + DB_PROJECT_ID + ' | Datos cargados';
+  } catch(e) {
+    console.error('Error loading DD:', e);
+  }
+}
+
+updProg();
+
+</script>
+</body>
+</html>

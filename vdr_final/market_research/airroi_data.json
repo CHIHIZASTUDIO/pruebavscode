@@ -1,0 +1,70 @@
+{
+  "source": "AirROI",
+  "location": "La Vega, Cundinamarca, Colombia",
+  "period": "TTM July 2025 – June 2026",
+  "url": "https://www.airroi.com/airbnb-data/colombia/cundinamarca/la-vega",
+  "properties": [
+    {
+      "name": "Villa Raquel Boutique",
+      "type": "Entire Place",
+      "rooms": 4,
+      "adr_usd": 361.94,
+      "occupancy_percent": 50.9,
+      "annual_revenue_usd": 68836,
+      "notes": "Highest ADR in the area. Boutique positioning similar to La Nuit."
+    },
+    {
+      "name": "Villa Gabriela Estate",
+      "type": "Entire Place",
+      "rooms": 5,
+      "adr_usd": 259.55,
+      "occupancy_percent": 69.3,
+      "annual_revenue_usd": 66115,
+      "notes": "Highest occupancy. Larger property with estate positioning."
+    },
+    {
+      "name": "Heated Pool - Modern & Spectacular View",
+      "type": "Entire Place",
+      "rooms": 3,
+      "adr_usd": 315.77,
+      "occupancy_percent": 41.5,
+      "annual_revenue_usd": 49947,
+      "notes": "Premium pricing justified by pool and view amenities."
+    },
+    {
+      "name": "La Vega Casa de Campo - Finca Kenya",
+      "type": "Entire Place",
+      "rooms": 6,
+      "adr_usd": 280.32,
+      "occupancy_percent": 40.2,
+      "annual_revenue_usd": 46380,
+      "notes": "Largest property. Finca/country house concept."
+    },
+    {
+      "name": "El Tambo",
+      "type": "Entire Place",
+      "rooms": 4,
+      "adr_usd": 235.67,
+      "occupancy_percent": 51.4,
+      "annual_revenue_usd": 42615,
+      "notes": "Solid mid-range performer with good occupancy."
+    },
+    {
+      "name": "El Remanso Country House",
+      "type": "Entire Place",
+      "rooms": 5,
+      "adr_usd": 395.96,
+      "occupancy_percent": 34.5,
+      "annual_revenue_usd": 41039,
+      "notes": "Highest ADR in dataset. Country house positioning."
+    }
+  ],
+  "market_summary": {
+    "avg_adr_usd": 307.53,
+    "avg_occupancy_percent": 48.0,
+    "avg_annual_revenue_usd": 52489,
+    "adr_range": {"min": 235.67, "max": 395.96},
+    "occupancy_range": {"min": 34.5, "max": 69.3},
+    "total_properties": 6
+  }
+}

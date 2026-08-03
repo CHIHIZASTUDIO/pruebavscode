@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHIHIZA Digital Twin | Ficha Técnica de Proyecto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+<div class="logo">
+    <h1>CHIHIZA</h1>
+    <p>Digital Twin | Ficha Técnica de Proyecto</p>
+</div>
+<div id="dbBar" style="display:none;background:rgba(107,143,113,.1);border:1px solid #6b8f71;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:10px;align-items:center;justify-content:space-between;font-family:'Segoe UI',sans-serif">
+  <span id="dbInfo" style="color:#6b8f71;font-weight:600"></span>
+  <div style="display:flex;gap:4px">
+    <button onclick="saveDT()" style="padding:4px 10px;font-size:9px;background:#6b8f71;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">Guardar</button>
+    <button onclick="loadDT()" style="padding:4px 10px;font-size:9px;background:transparent;color:#6b8f71;border:1px solid #6b8f71;border-radius:6px;cursor:pointer;font-weight:600">Recargar</button>
+  </div>
+</div>
+        <header>
+            <div class="header-content">
+                <h1>FICHA TÉCNICA COMPLETA DE PROYECTO</h1>
+                <p class="subtitle">Vivienda Campestre Minimalista | 130 m² Máx. | Configuración Paramétrica Detallada</p>
+            </div>
+            <div class="header-actions">
+                <button id="btn-load" class="btn-secondary">📂 Cargar Proyecto</button>
+                <button id="btn-save-db" class="btn-primary" style="background:#2ecc71">💾 Guardar en BD</button>
+                <button id="btn-export-txt" class="btn-primary">📄 Exportar .TXT</button>
+                <button id="btn-export-json" class="btn-primary">📋 Exportar .JSON</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="form-grid">
+
+<!-- ============================================================================================ -->
+<!-- 1. CONTEXTO Y SITIO - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">🌍</span>
+        <h2>1. CONTEXTO Y SITIO</h2>
+    </div>
+
+    <h3 class="subsection-title">Identificación del Proyecto</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="projectName">Nombre del Proyecto</label>
+            <input type="text" id="projectName" value="Vivienda Campestre Minimalista">
+        </div>
+        <div class="form-group">
+            <label for="projectCode">Código / Referencia</label>
+            <input type="text" id="projectCode" value="VC-2026-001">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="clientName">Nombre del Cliente</label>
+            <input type="text" id="clientName" value="">
+        </div>
+        <div class="form-group">
+            <label for="location">Ubicación / Dirección</label>
+            <input type="text" id="location" value="">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Geometría del Terreno</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="lotLength">Largo (m)</label>
+            <input type="number" id="lotLength" value="25" step="0.1" min="5" max="200">
+        </div>
+        <div class="form-group">
+            <label for="lotWidth">Ancho (m)</label>
+            <input type="number" id="lotWidth" value="15" step="0.1" min="5" max="100">
+        </div>
+        <div class="form-group">
+            <label for="lotArea">Área Total (m²)</label>
+            <input type="number" id="lotArea" value="375" readonly class="calculated">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="lotShape">Forma del Terreno</label>
+            <select id="lotShape">
+                <option value="rectangular" selected>Rectangular</option>
+                <option value="cuadrado">Cuadrado</option>
+                <option value="trapezoidal">Trapezoidal</option>
+                <option value="irregular">Irregular</option>
+                <option value="esquinero">Esquinero</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lotDimensions">Dimensiones Irregulares (si aplica)</label>
+            <input type="text" id="lotDimensions" placeholder="Ej: Frente 15m, Fondo 20m, Diagonal 25m">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Topografía y Geomorfología</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="topography">Pendiente General</label>
+            <select id="topography">
+                <option value="plana" selected>Plana (0-2%)</option>
+                <option value="suave">Pendiente suave (2-5%)</option>
+                <option value="media">Pendiente media (5-15%)</option>
+                <option value="pronunciada">Pendiente pronunciada (15-30%)</option>
+                <option value="muy_pronunciada">Muy pronunciada (>30%)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="slopeDirection">Dirección de la Pendiente</label>
+            <select id="slopeDirection">
+                <option value="norte">Hacia Norte</option>
+                <option value="sur">Hacia Sur</option>
+                <option value="este">Hacia Este</option>
+                <option value="oeste">Hacia Oeste</option>
+                <option value="centro">Hacia Centro (cóncava)</option>
+                <option value="no_aplica" selected>No aplica</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="elevation">Elevación / Nivel del Terreno (msnm)</label>
+            <input type="number" id="elevation" value="1200" step="10" min="0" max="5000">
+        </div>
+        <div class="form-group">
+            <label for="soilType">Tipo de Suelo</label>
+            <select id="soilType">
+                <option value="arcilla">Arcilla</option>
+                <option value="limo">Limo</option>
+                <option value="arena">Arena</option>
+                <option value="grava">Grava</option>
+                <option value="roca">Roca</option>
+                <option value="mixto" selected>Mixto</option>
+                <option value="no_sabe">No se conoce</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="soilNotes">Notas del Suelo / Condiciones Especiales</label>
+        <textarea id="soilNotes" rows="2">Nivel freático a 3m, suelo con capacidad de carga media, sin roca visible</textarea>
+    </div>
+
+    <h3 class="subsection-title">Clima y Condiciones Atmosféricas</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="climate">Clima / Zona Bioclimática</label>
+            <select id="climate">
+                <option value="frio_seco">Frío seco</option>
+                <option value="frio_humedo">Frío húmedo</option>
+                <option value="templado" selected>Templado</option>
+                <option value="templado_humedo">Templado húmedo</option>
+                <option value="calido_seco">Cálido seco</option>
+                <option value="calido_humedo">Cálido húmedo</option>
+                <option value="tropical_seco">Tropical seco</option>
+                <option value="tropical_humedo">Tropical húmedo</option>
+                <option value="montana">Montaña</option>
+                <option value="altiplano">Altiplano</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="altitudeZone">Zona de Altitud</label>
+            <select id="altitudeZone">
+                <option value="baja">Baja (0-500 m)</option>
+                <option value="media_baja">Media baja (500-1000 m)</option>
+                <option value="media" selected>Media (1000-2000 m)</option>
+                <option value="media_alta">Media alta (2000-3000 m)</option>
+                <option value="alta">Alta (>3000 m)</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="tempMax">Temp. Máxima Promedio (°C)</label>
+            <input type="number" id="tempMax" value="26" step="0.5" min="-10" max="50">
+        </div>
+        <div class="form-group">
+            <label for="tempMin">Temp. Mínima Promedio (°C)</label>
+            <input type="number" id="tempMin" value="8" step="0.5" min="-20" max="40">
+        </div>
+        <div class="form-group">
+            <label for="tempAvg">Temp. Media Anual (°C)</label>
+            <input type="number" id="tempAvg" value="17" step="0.5" min="-15" max="35">
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="rainfall">Precipitación Anual (mm)</label>
+            <input type="number" id="rainfall" value="800" step="50" min="0" max="5000">
+        </div>
+        <div class="form-group">
+            <label for="humidity">Humedad Relativa Promedio (%)</label>
+            <input type="number" id="humidity" value="65" step="5" min="10" max="100">
+        </div>
+        <div class="form-group">
+            <label for="sunHours">Horas de Sol Anuales</label>
+            <input type="number" id="sunHours" value="2200" step="50" min="500" max="4000">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="windDirection">Viento Predominante</label>
+            <select id="windDirection">
+                <option value="norte">Norte</option>
+                <option value="noreste">Noreste</option>
+                <option value="este">Este</option>
+                <option value="sureste">Sureste</option>
+                <option value="sur" selected>Sur</option>
+                <option value="suroeste">Suroeste</option>
+                <option value="oeste">Oeste</option>
+                <option value="noroeste">Noroeste</option>
+                <option value="variable">Variable</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="windSpeed">Velocidad Máx. Viento (km/h)</label>
+            <input type="number" id="windSpeed" value="45" step="5" min="0" max="200">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="seismicZone">Zona Sísmica</label>
+            <select id="seismicZone">
+                <option value="0">Zona 0 (Sin riesgo)</option>
+                <option value="1">Zona 1 (Bajo)</option>
+                <option value="2" selected>Zona 2 (Medio)</option>
+                <option value="3">Zona 3 (Alto)</option>
+                <option value="4">Zona 4 (Muy alto)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="riskZone">Zona de Riesgo Natural</label>
+            <select id="riskZone">
+                <option value="ninguna" selected>Ninguna</option>
+                <option value="inundacion">Inundación</option>
+                <option value="deslizamiento">Deslizamiento</option>
+                <option value="derrumbe">Derrumbe</option>
+                <option value="avalancha">Avalancha</option>
+                <option value="erupcion">Erupción volcánica</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Orientación y Solaridad</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="orientation">Orientación Solar Principal</label>
+            <select id="orientation">
+                <option value="N">Norte (0°)</option>
+                <option value="NE">Noreste (45°)</option>
+                <option value="E">Este (90°)</option>
+                <option value="SE">Sureste (135°)</option>
+                <option value="S" selected>Sur (180°)</option>
+                <option value="SO">Suroeste (225°)</option>
+                <option value="O">Oeste (270°)</option>
+                <option value="NO">Noroeste (315°)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="sunPath">Trayectoria Solar</label>
+            <select id="sunPath">
+                <option value="alto">Sol alto (trópico)</option>
+                <option value="medio" selected>Sol medio (templado)</option>
+                <option value="bajo">Sol bajo (templado frío)</option>
+                <option value="muy_bajo">Sol muy bajo (frío extremo)</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Obras que Generan Sombra</label>
+        <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" id="shadeNorth"> Edificación al Norte</label>
+            <label class="checkbox-label"><input type="checkbox" id="shadeSouth"> Edificación al Sur</label>
+            <label class="checkbox-label"><input type="checkbox" id="shadeEast"> Edificación al Este</label>
+            <label class="checkbox-label"><input type="checkbox" id="shadeWest"> Edificación al Oeste</label>
+            <label class="checkbox-label"><input type="checkbox" id="shadeTrees"> Árboles grandes cercanos</label>
+            <label class="checkbox-label"><input type="checkbox" id="shadeMountain"> Montaña / Cerro</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Entorno y Vecindad</h3>
+    <div class="form-group">
+        <label for="zoneType">Tipo de Zona</label>
+        <select id="zoneType">
+            <option value="rural">Rural</option>
+            <option value="periurbano" selected>Periurbano</option>
+            <option value="urbano_bajo">Urbano baja densidad</option>
+            <option value="urbano_medio">Urbano media densidad</option>
+            <option value="urbano_alto">Urbano alta densidad</option>
+            <option value="centro_historico">Centro histórico</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="surroundings">Descripción del Entorno</label>
+        <textarea id="surroundings" rows="2">Zona residencial campestre, baja densidad, vegetación nativa predominante, calles sin pavimentar</textarea>
+    </div>
+    <div class="form-group">
+        <label>Condiciones del Vecindario</label>
+        <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" id="envVegetation" checked> Vegetación abundante</label>
+            <label class="checkbox-label"><input type="checkbox" id="envQuiet" checked> Zona tranquila / silenciosa</label>
+            <label class="checkbox-label"><input type="checkbox" id="envViewGood"> Vistas agradables</label>
+            <label class="checkbox-label"><input type="checkbox" id="envNoise"> Zona con ruido (vía, industria)</label>
+            <label class="checkbox-label"><input type="checkbox" id="envPollution"> Contaminación visible</label>
+            <label class="checkbox-label"><input type="checkbox" id="envSecurity"> Inseguridad</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Servicios e Infraestructura</h3>
+    <div class="form-group">
+        <label>Servicios Disponibles</label>
+        <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" id="svcWater" checked> Agua potable (red)</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcSewer" checked> Alcantarillado (red)</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcElectric" checked> Energía eléctrica</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcGas"> Gas natural</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcInternet" checked> Internet / Telefonía</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcPaved" checked> Vía pavimentada</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcStreetLight" checked> Alumbrado público</label>
+            <label class="checkbox-label"><input type="checkbox" id="svcGarbage"> Recolección de basura</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="waterSource">Fuente de Agua (si no hay red)</label>
+        <select id="waterSource">
+            <option value="red" selected>Red municipal</option>
+            <option value="pozo">Pozo / Noria</option>
+            <option value="aljibe">Aljibe / Cisterna</option>
+            <option value="manantial">Manantial</option>
+            <option value="recoleccion">Recolección de lluvia</option>
+            <option value="camion">Camión cisterna</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="sewageSystem">Sistema de Aguas Residuales</label>
+        <select id="sewageSystem">
+            <option value="red" selected>Red de alcantarillado</option>
+            <option value="fosa">Fosa séptica + drenaje</option>
+            <option value="bidet">Sistema biodigestor</option>
+            <option value="wetland">Jardín de aguas grises</option>
+            <option value="none">Sin sistema definido</option>
+        </select>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 2. NORMATIVA Y REGULACIONES - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">📏</span>
+        <h2>2. NORMATIVA Y REGULACIONES</h2>
+    </div>
+
+    <h3 class="subsection-title">Marcco Regulatorio</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="regulationType">Tipo de Regulación</label>
+            <select id="regulationType">
+                <option value="municipal" selected>Norma Municipal</option>
+                <option value="departamental">Norma Departamental / Estatal</option>
+                <option value="nacional">Norma Nacional</option>
+                <option value="especial">Zona Especial / Curaduría</option>
+                <option value="none">Sin regulación específica</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="regulationCode">Código / Decreto Aplicable</label>
+            <input type="text" id="regulationCode" placeholder="Ej: Decreto 564 de 2015">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="zoning">Zonificación / Uso de Suelo</label>
+        <select id="zoning">
+            <option value="residencial_bajo">Residencial Baja Densidad (R1)</option>
+            <option value="residencial_medio" selected>Residencial Media Densidad (R2)</option>
+            <option value="residencial_alto">Residencial Alta Densidad (R3)</option>
+            <option value="mixto">Uso Mixto (M)</option>
+            <option value="campestre">Zona Campestre / Rural</option>
+            <option value="agricola">Zona Agrícola</option>
+            <option value="ecologica">Zona Ecológica Protegida</option>
+            <option value="forestal">Zona Forestal</option>
+        </select>
+    </div>
+
+    <h3 class="subsection-title">Retiros Obligatorios</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="setbackFront">Retiro Frontal (m)</label>
+            <input type="number" id="setbackFront" value="4" step="0.25" min="0" max="20">
+        </div>
+        <div class="form-group">
+            <label for="setbackBack">Retiro Posterior (m)</label>
+            <input type="number" id="setbackBack" value="4" step="0.25" min="0" max="20">
+        </div>
+        <div class="form-group">
+            <label for="setbackSide">Retiro Lateral (m)</label>
+            <input type="number" id="setbackSide" value="2" step="0.25" min="0" max="15">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="setbackNotes">Notas sobre Retiros</label>
+        <textarea id="setbackNotes" rows="1">Retiro frontal según norma municipal, laterales mínimos por código</textarea>
+    </div>
+
+    <h3 class="subsection-title">Límites Constructivos</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="maxHeight">Altura Máxima Permitida (m)</label>
+            <input type="number" id="maxHeight" value="8" step="0.5" min="3" max="30">
+        </div>
+        <div class="form-group">
+            <label for="maxLevels">Niveles Máximos</label>
+            <input type="number" id="maxLevels" value="2" min="1" max="10">
+        </div>
+        <div class="form-group">
+            <label for="maxFloorHeight">Altura Máx. por Nivel (m)</label>
+            <input type="number" id="maxFloorHeight" value="3.5" step="0.1" min="2.4" max="5">
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="maxCoverage">Ocupación Máxima de Suelo (%)</label>
+            <input type="number" id="maxCoverage" value="50" step="5" min="10" max="90">
+        </div>
+        <div class="form-group">
+            <label for="maxFSI">Índice de Construcción (FSI / COS)</label>
+            <input type="number" id="maxFSI" value="1.2" step="0.1" min="0.2" max="5">
+        </div>
+        <div class="form-group">
+            <label for="maxGSI">Índice de Suelo (GSI / CIS)</label>
+            <input type="number" id="maxGSI" value="0.5" step="0.05" min="0.1" max="1">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Estacionamientos y Acceso</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="parking">Estacionamientos Mínimos</label>
+            <input type="number" id="parking" value="2" min="0" max="10">
+        </div>
+        <div class="form-group">
+            <label for="bikeParking">Parqueadero Bicicletas</label>
+            <input type="number" id="bikeParking" value="2" min="0" max="10">
+        </div>
+        <div class="form-group">
+            <label for="visitorsParking">Estacionamiento Visitantes</label>
+            <input type="number" id="visitorsParking" value="1" min="0" max="5">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="accessType">Tipo de Acceso Vehicular</label>
+        <select id="accessType">
+            <option value="calle_frontal" selected>Calle frontal</option>
+            <option value="calle_lateral">Calle lateral</option>
+            <option value="via_servidumbre">Vía de servidumbre</option>
+            <option value="doble_acceso">Doble acceso (esquinero)</option>
+        </select>
+    </div>
+
+    <h3 class="subsection-title">Requisitos Obligatorios</h3>
+    <div class="form-group">
+        <label>Requisitos Normativos Aplicables</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="reqAccessibility" checked> Accesibilidad universal (RAMP-UD)</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqFire" checked> Código de incendios</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqSeismic" checked> Norma sísmica (NSR-10 / similar)</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqEnergy" checked> Eficiencia energética (Código)</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqWater"> Gestión de aguas pluviales</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqGreen"> Áreas verdes mínimas (20%)</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqNoise"> Norma de ruido ambiental</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqEnv"> Impacto ambiental</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqHistoric"> Zona de patrimonio histórico</label>
+            <label class="checkbox-label"><input type="checkbox" id="reqHeightLimit"> Restricción de altura adicional</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="reqNotes">Notas sobre Requisitos Especiales</label>
+        <textarea id="reqNotes" rows="2">Cumplir norma sísmica NSR-10 categoría II, diseño para viento 150 km/h, acceso PMR en planta baja</textarea>
+    </div>
+
+    <h3 class="subsection-title">Áreas Comunes y Servicios</h3>
+    <div class="form-group">
+        <label for="greenAreaReq">Área Verde Mínima Requerida (m²)</label>
+        <input type="number" id="greenAreaReq" value="75" step="5" min="0" max="500">
+    </div>
+    <div class="form-group">
+        <label for="setbackGreen">Retiros con Vegetación Obligatoria</label>
+        <input type="text" id="setbackGreen" value="Retiro frontal mínimo 50% con vegetación">
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 3. PROGRAMA ARQUITECTÓNICO - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">🏠</span>
+        <h2>3. PROGRAMA ARQUITECTÓNICO</h2>
+    </div>
+
+    <h3 class="subsection-title">Especificaciones Generales</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="totalArea">Área Total Construida (m²)</label>
+            <input type="number" id="totalArea" value="120" step="5" min="30" max="130">
+            <span class="hint">Máximo 130 m² - Incluir áreas techadas</span>
+        </div>
+        <div class="form-group">
+            <label for="levels">Número de Niveles</label>
+            <input type="number" id="levels" value="2" min="1" max="2">
+        </div>
+        <div class="form-group">
+            <label for="floorHeight">Altura por Nivel (m)</label>
+            <input type="number" id="floorHeight" value="2.8" step="0.1" min="2.4" max="3.5">
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="totalHeight">Altura Total (m)</label>
+            <input type="number" id="totalHeight" value="5.6" readonly class="calculated">
+        </div>
+        <div class="form-group">
+            <label for="ceilingHeight">Altura Libre Piso a Techo (m)</label>
+            <input type="number" id="ceilingHeight" value="2.6" step="0.1" min="2.2" max="3.2">
+        </div>
+        <div class="form-group">
+            <label for="slabThickness">Espesor Losa (m)</label>
+            <input type="number" id="slabThickness" value="0.2" step="0.05" min="0.12" max="0.35">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Distribución por Niveles</h3>
+    <div class="levels-config">
+        <div class="level-box">
+            <h3>Nivel 1 - Planta Baja</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="level1Area">Área (m²)</label>
+                    <input type="number" id="level1Area" value="70" step="5" min="20" max="130">
+                </div>
+                <div class="form-group">
+                    <label for="level1Use">Uso Principal</label>
+                    <select id="level1Use">
+                        <option value="social" selected>Social / Recreativo</option>
+                        <option value="servicio">Servicio</option>
+                        <option value="mixto">Mixto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="level1Program">Programa de Espacios</label>
+                <textarea id="level1Program" rows="4">Sala de estar (20 m²)
+Comedor (12 m²)
+Cocina integral (12 m²)
+Bodega / Lavadero (6 m²)
+Medio baño (3 m²)
+Terraza cubierta (10 m²)
+Circulación (7 m²)</textarea>
+            </div>
+            <div class="form-group">
+                <label for="level1Notes">Notas Nivel 1</label>
+                <textarea id="level1Notes" rows="2">Conexión directa con jardín posterior, piso continuo interior-exterior, vista principal hacia norte</textarea>
+            </div>
+        </div>
+
+        <div class="level-box">
+            <h3>Nivel 2 - Planta Alta</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="level2Area">Área (m²)</label>
+                    <input type="number" id="level2Area" value="50" step="5" min="15" max="130">
+                </div>
+                <div class="form-group">
+                    <label for="level2Use">Uso Principal</label>
+                    <select id="level2Use">
+                        <option value="privado" selected>Privado / Dormitorio</option>
+                        <option value="mixto">Mixto</option>
+                        <option value="estudio">Estudio / Trabajo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="level2Program">Programa de Espacios</label>
+                <textarea id="level2Program" rows="4">Recámara principal (18 m²) con baño y vestidor
+Recámara secundaria 1 (10 m²)
+Recámara secundaria 2 (10 m²)
+Baño completo (5 m²)
+Estudio / TV (7 m²)</textarea>
+            </div>
+            <div class="form-group">
+                <label for="level2Notes">Notas Nivel 2</label>
+                <textarea id="level2Notes" rows="2">Vista panorámica desde recámara principal, ventilación cruzada obligatoria, iluminación cenital en baños</textarea>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Espacios Adicionales</h3>
+    <div class="form-group">
+        <label>Espacios Especiales Requeridos</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="spTerrace" checked> Terraza / Deck exterior</label>
+            <label class="checkbox-label"><input type="checkbox" id="spPatio"> Patio interior / Sky garden</label>
+            <label class="checkbox-label"><input type="checkbox" id="spGarage" checked> Cobertura / Garaje cubierto</label>
+            <label class="checkbox-label"><input type="checkbox" id="spStorage"> Bodega exterior</label>
+            <label class="checkbox-label"><input type="checkbox" id="spPool"> Piscina / Jacuzzi</label>
+            <label class="checkbox-label"><input type="checkbox" id="spGarden"> Jardín productivo / Huerto</label>
+            <label class="checkbox-label"><input type="checkbox" id="spBBQ"> Zona BBQ / Asador</label>
+            <label class="checkbox-label"><input type="checkbox" id="spGym"> Gimnasio / Yoga</label>
+            <label class="checkbox-label"><input type="checkbox" id="spOffice"> Home office / Estudio</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Distribución de Espacios Húmedos</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="bathrooms">Baños Totales</label>
+            <input type="number" id="bathrooms" value="2.5" step="0.5" min="1" max="6">
+        </div>
+        <div class="form-group">
+            <label for="kitchenCount">Cocinas</label>
+            <input type="number" id="kitchenCount" value="1" min="0" max="3">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="wetZones">Distribución de Zonas Húmedas</label>
+        <textarea id="wetZones" rows="2">Zonas húmedas agrupadas verticalmente para eficiencia hidráulica. Cocina y baño principal comparten pared de servicio.</textarea>
+    </div>
+
+    <h3 class="subsection-title">Requisitos Especiales del Programa</h3>
+    <div class="form-group">
+        <label for="specialReq">Requisitos Especiales</label>
+        <textarea id="specialReq" rows="3">Espacios que evoquen paz y tranquilidad, conexión con la naturaleza, iluminación natural abundante en todos los ambientes, ventilación cruzada transversal, mínima pérdida de espacio en circulaciones</textarea>
+    </div>
+    <div class="form-group">
+        <label for="flexibility">Flexibilidad Espacial</label>
+        <select id="flexibility">
+            <option value="alta" selected>Alta (muros no estructurales, espacios adaptables)</option>
+            <option value="media">Media (algunos muros fijos)</option>
+            <option value="baja">Baja (distribución rígida)</option>
+        </select>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 4. DISEÑO PARAMÉTRICO - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">⚙️</span>
+        <h2>4. PARÁMETROS DE DISEÑO</h2>
+    </div>
+
+    <h3 class="subsection-title">Concepto y Estilo</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="designStyle">Estilo Arquitectónico</label>
+            <select id="designStyle">
+                <option value="minimalismo" selected>Minimalismo Puro</option>
+                <option value="moderno">Moderno</option>
+                <option value="contemporaneo">Contemporáneo</option>
+                <option value="campestre_moderno">Campestre Moderno</option>
+                <option value="bioclimatico">Bioclimático</option>
+                <option value="orgánico">Orgánico / Fluídico</option>
+                <option value="neoralista">Neorruralista</option>
+                <option value="brutalismo_suave">Brutalismo Suave</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="designPhilosophy">Filosofía de Diseño</label>
+            <select id="designPhilosophy">
+                <option value="less_more" selected>Less is More (Mies)</option>
+                <option value="form_follows">La forma sigue la función</option>
+                <option value="organic">Arquitectura orgánica (Wright)</option>
+                <option value="critical_regionalism">Regionalismo Crítico</option>
+                <option value="parametric">Paramétrico / Algorítmico</option>
+                <option value="biophilic">Biophilic Design</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="designConcept">Concepto de Diseño (Breve)</label>
+        <textarea id="designConcept" rows="3">Minimalismo cálido: líneas puras y limpias pero con materiales que aporten calidez. Espacios fluidos que conecten interior-exterior. Cada vista desde dentro enmarca un cuadro natural. Luz como material principal.</textarea>
+    </div>
+
+    <h3 class="subsection-title">Proporciones y Geometría</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="proportionSystem">Sistema Proporcional</label>
+            <select id="proportionSystem">
+                <option value="modular" selected>Modular (múltiplos de 0.60m)</option>
+                <option value="golden">Sección Áurea (1:1.618)</option>
+                <option value="fibonacci">Fibonacci</option>
+                <option value="free">Forma libre</option>
+                <option value="grid">Grid paramétrico</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="moduleSize">Módulo Base (m)</label>
+            <input type="number" id="moduleSize" value="0.60" step="0.05" min="0.3" max="1.5">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="facadeProportion">Proporción de Fachada (Alto:Ancho)</label>
+            <select id="facadeProportion">
+                <option value="horizontal">Horizontal (1:2 o más)</option>
+                <option value="cuadrada" selected>Cuadrada (1:1)</option>
+                <option value="vertical">Vertical (2:1 o más)</option>
+                <option value="dinamica">Dinámica / Asimétrica</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="volumetry">Volumetría</label>
+            <select id="volumetry">
+                <option value="un volumen" selected>Un volumen compacto</option>
+                <option value="dos_volumenes">Dos volúmenes superpuestos</option>
+                <option value="tres_volumenes">Tres volúmenes</option>
+                <option value="fragmentado">Fragmentado / Envolvente</option>
+                <option value="escultórico">Escultórico</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Cubierta / Techo</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="roofType">Tipo de Cubierta</label>
+            <select id="roofType">
+                <option value="plana" selected>Plana (impermeabilizada)</option>
+                <option value="inclinada_baja">Inclinada baja (0-15°)</option>
+                <option value="un_agua">A un agua</option>
+                <option value="dos_aguas_baja">A dos aguas baja pendiente</option>
+                <option value="dos_aguas_tradicional">A dos aguas tradicional</option>
+                <option value="verde">Cubierta verde / ajardinada</option>
+                <option value="invertida">Cubierta invertida</option>
+                <option value="multiple">Múltiples niveles</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="roofMaterial">Material de Cubierta</label>
+            <select id="roofMaterial">
+                <option value="impermeabilizacion" selected>Impermeabilización líquida</option>
+                <option value="losa">Losa vista</option>
+                <option value="metal">Lámina metálica</option>
+                <option value="membrana">Membrana asfáltica</option>
+                <option value="tejas">Tejas / Losetas</option>
+                <option value="solar">Paneles solares integrados</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="roofPitch">Inclinación (°)</label>
+            <input type="number" id="roofPitch" value="3" step="1" min="0" max="45">
+        </div>
+        <div class="form-group">
+            <label for="roofOverhang">Volado / Alero (m)</label>
+            <input type="number" id="roofOverhang" value="0.6" step="0.1" min="0" max="2.5">
+        </div>
+        <div class="form-group">
+            <label for="roofHeight">Altura Total Cubierta (m)</label>
+            <input type="number" id="roofHeight" value="0.3" step="0.05" min="0.15" max="1">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Ventanas y Aberturas</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="windowWidth">Ancho Estándar (m)</label>
+            <input type="number" id="windowWidth" value="1.2" step="0.1" min="0.4" max="4">
+        </div>
+        <div class="form-group">
+            <label for="windowHeight">Alto Estándar (m)</label>
+            <input type="number" id="windowHeight" value="1.8" step="0.1" min="0.6" max="4">
+        </div>
+        <div class="form-group">
+            <label for="windowRatio">Ratio Ventana/Muro (%)</label>
+            <input type="number" id="windowRatio" value="30" step="5" min="5" max="80">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="windowOrientation">Ventanas Principales Orientadas a</label>
+            <select id="windowOrientation">
+                <option value="norte" selected>Norte (luz indirecta estable)</option>
+                <option value="sur">Sur (luz constante sin directa)</option>
+                <option value="este">Este (luz matutina)</option>
+                <option value="oeste">Oeste (luz vespertina, riesgo sobrecalentamiento)</option>
+                <option value="mixed">Mixta / Todas las orientaciones</option>
+                <option value="view">Orientada a la mejor vista</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="windowType">Tipo de Ventana</label>
+            <select id="windowType">
+                <option value="corredera">Corredera</option>
+                <option value="oscilante">Oscilante / Basculante</option>
+                <option value="panel">Panel corredizo</option>
+                <option value="fixed" selected>Fija + Abertura operable</option>
+                <option value="guillotina">Guillotina</option>
+                <option value="plegable">Plegable</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="specialWindows">Ventanas Especiales</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="winFloorToCeiling" checked> Piso a techo</label>
+            <label class="checkbox-label"><input type="checkbox" id="winClerestory"> Claraboya / Nave luz</label>
+            <label class="checkbox-label"><input type="checkbox" id="winSkylight"> Tragaluz cenital</label>
+            <label class="checkbox-label"><input type="checkbox" id="winCorner"> Esquina / Corner window</label>
+            <label class="checkbox-label"><input type="checkbox" id="winBay"> Ventana salediza / Bay</label>
+            <label class="checkbox-label"><input type="checkbox" id="winRibbon"> Ventana cinta / Ribbon</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Puertas y Accesos</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="mainDoor">Puerta Principal</label>
+            <select id="mainDoor">
+                <option value="simple" selected>Simple (0.90m)</option>
+                <option value="doble">Doble (1.80m)</option>
+                <option value="panel_correizo">Panel correizo</option>
+                <option value="pivotante">Pivotante</option>
+                <option value="oculta">Oculta / Invisible</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="mainDoorHeight">Altura Puerta Principal (m)</label>
+            <input type="number" id="mainDoorHeight" value="2.4" step="0.1" min="2.1" max="3.5">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="interiorDoors">Puertas Interiores</label>
+        <select id="interiorDoors">
+            <option value="standard" selected>Estándar (2.10m × 0.80m)</option>
+            <option value="high">Alta (2.40m × 0.90m)</option>
+            <option value="flush">Al ras del muro</option>
+            <option value="sliding">Correderas / Ensamble</option>
+            <option value="open">Sin puertas (espacios abiertos)</option>
+        </select>
+    </div>
+
+    <h3 class="subsection-title">Acabados Exteriores</h3>
+    <div class="form-group">
+        <label for="facadeTreatment">Tratamiento de Fachada</label>
+        <textarea id="facadeTreatment" rows="2">Muros lisos con textura sutil, acentos en madera oscura, vanos con marcos negros minimalistas, sin molduras ni adornos</textarea>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 5. PALETA DE MATERIALES - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">🧱</span>
+        <h2>5. PALETA DE MATERIALES</h2>
+    </div>
+
+    <h3 class="subsection-title">Muros y Cerramientos</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="wallStructural">Sistema Estructural Muros</label>
+            <select id="wallStructural">
+                <option value="block" selected>Mampostería (bloque / ladrillo)</option>
+                <option value="concrete">Hormigón armado</option>
+                <option value="steel">Steel frame / Metálico</option>
+                <option value="wood">Structural Insulated Panel (SIP)</option>
+                <option value="mixed">Sistema mixto</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="wallThickness">Espesor Muro Exterior (cm)</label>
+            <input type="number" id="wallThickness" value="15" step="1" min="8" max="30">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="wallMaterial">Acabado Exterior Muro Principal</label>
+            <select id="wallMaterial">
+                <option value="blanco_puro" selected>Blanco Puro (estuco / textura lisa)</option>
+                <option value="hormigon_visto">Hormigón Visto / Enchapado</option>
+                <option value="madera_clara">Madera Clara (cedro / pino treated)</option>
+                <option value="piedra_natural">Piedra Natural</option>
+                <option value="ladrillo_vista">Ladrillo a la Vista</option>
+                <option value="adobe">Adobe / Tierra Apisonada</option>
+                <option value="panelizado">Panelizado / Siding</option>
+                <option value="yeso">Yeso Exterior</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="wallFinish">Acabado / Textura</label>
+            <select id="wallFinish">
+                <option value="liso" selected>Liso</option>
+                <option value="rústico">Rústico</option>
+                <option value="apepinado">Apepinado / Rayado</option>
+                <option value="exposto">Material expuesto</option>
+                <option value="pintura">Pintura mate</option>
+                <option value="pintura_brillo">Pintura satinada</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Materiales de Acento</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="accentMaterial">Material de Acentos</label>
+            <select id="accentMaterial">
+                <option value="madera_oscura" selected>Madera Oscura (nogal / eucalipto)</option>
+                <option value="negro_mate">Negro Mate (acero / aluminio)</option>
+                <option value="acero_corten">Acero Corten</option>
+                <option value="cobre">Cobre / Latón</option>
+                <option value="cemento_pulido">Cemento Pulido</option>
+                <option value="piedra">Piedra (contraste)</option>
+                <option value="vegetacion">Vegetación Viva / Green wall</option>
+                <option value="vidrio_color">Vidrio Colorido</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="accentLocation">Ubicación de Acentos</label>
+            <textarea id="accentLocation" rows="2">Marcos de ventanas, puerta principal, pérgola, baranda, detalles de cubierta</textarea>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Pisos</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="floorInterior">Piso Interior</label>
+            <select id="floorInterior">
+                <option value="porcelanato" selected>Porcelanato (60×60 / 60×120)</option>
+                <option value="madera">Madera</option>
+                <option value="concreto_pulido">Concreto Pulido</option>
+                <option value="ceramica">Cerámica</option>
+                <option value="laminado">Laminado</option>
+                <option value="microcemento">Microcemento</option>
+                <option value="terrazo">Terrazo</option>
+                <option value="piedra">Piedra</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="floorExt">Piso Exterior / Terraza</label>
+            <select id="floorExt">
+                <option value="deck_madera" selected>Deck de Madera</option>
+                <option value="piedra_natural">Piedra Natural</option>
+                <option value="concreto_pulido">Concreto Pulido</option>
+                <option value="losa_grande">Losa Grande Format</option>
+                <option value="grava">Grava</option>
+                <option value="cesped">Césped / Grama</option>
+                <option value="anticortico">Anticortico</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Vidrios</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="glassType">Tipo de Vidrio</label>
+            <select id="glassType">
+                <option value="transparente" selected>Transparente</option>
+                <option value="ahumado">Ahumado</option>
+                <option value="reflectivo">Reflectivo</option>
+                <option value="escarchado">Escarchado / Decorativo</option>
+                <option value="bajo_e">Bajo emisivo (LOW-E)</option>
+                <option value="templado">Templado de seguridad</option>
+                <option value="laminado">Laminado (seguridad + acústica)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="glassThickness">Espesor Vidrio (mm)</label>
+            <select id="glassThickness">
+                <option value="4">4mm</option>
+                <option value="6">6mm</option>
+                <option value="8" selected>8mm</option>
+                <option value="10">10mm</option>
+                <option value="12">12mm</option>
+                <option value="dobles">Doble acristalamiento (6-12-6)</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Carpintería Metálica</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="frameMaterial">Material de Marcos / Perfiles</label>
+            <select id="frameMaterial">
+                <option value="aluminio" selected>Aluminio</option>
+                <option value="aluminio_termico">Aluminio Térmico</option>
+                <option value="acero">Acero</option>
+                <option value="pvc">PVC</option>
+                <option value="madera_aluminio">Madera + Aluminio</option>
+                <option value="hierro_forjado">Hierro Forjado</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="frameColor">Color de Marcos</label>
+            <select id="frameColor">
+                <option value="negro" selected>Negro</option>
+                <option value="gris">Gris / Anthracite</option>
+                <option value="blanco">Blanco</option>
+                <option value="natural">Natural / Anodizado</option>
+                <option value="madera">Imitación madera</option>
+                <option value="corten">Corten</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Especificaciones Técnicas</h3>
+    <div class="form-group">
+        <label for="materialNotes">Notas y Restricciones de Materiales</label>
+        <textarea id="materialNotes" rows="3">Materiales naturales que evoquen calidez y conexión con el entorno campestre. Preferir proveedores locales y materiales de baja mantenimiento. Sin materiales plásticos visibles.</textarea>
+    </div>
+    <div class="form-group">
+        <label for="materialCert">Certificaciones Requeridas</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="certFSC"> Madera certificada FSC</label>
+            <label class="checkbox-label"><input type="checkbox" id="certRecycle"> Materiales reciclados (30%+)</label>
+            <label class="checkbox-label"><input type="checkbox" id="certLocal"> Materiales locales (<100km)</label>
+            <label class="checkbox-label"><input type="checkbox" id="certLowVOC"> Pinturas/bajas emisiones VOC</label>
+            <label class="checkbox-label"><input type="checkbox" id="certEnergyStar"> Electrodomésticos Energy Star</label>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 6. SOSTENIBILIDAD Y CONFORT - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">🌱</span>
+        <h2>6. SOSTENIBILIDAD Y CONFORT</h2>
+    </div>
+
+    <h3 class="subsection-title">Estrategias Bioclimáticas</h3>
+    <div class="form-group">
+        <label>Estrategias Pasivas Seleccionadas</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="bio_crossVent" checked> Ventilación cruzada transversal</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_stackVent"> Ventilación por efecto chimenea</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_naturalLight" checked> Iluminación natural maximizada</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_solarGain" checked> Ganancia solar pasiva (invierno)</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_thermalMass" checked> Masa térmica (regulación temp.)</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_shading" checked> Sombreamiento solar (verano)</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_evaporative"> Enfriamiento evaporativo</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_greenRoof"> Cubierta verde</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_greenFacade"> Fachada verde</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_earthTube"> Tubos enterrados (precondicionamiento)</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_nightFlush"> Ventilación nocturna (enfriamiento)</label>
+            <label class="checkbox-label"><input type="checkbox" id="bio_sunBreakers"> Brise-soleil / Celosías</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Estrategias Activas</h3>
+    <div class="form-group">
+        <label>Tecnologías Activas</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="act_solar" checked> Paneles solares fotovoltaicos</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_solarHeat"> Calentador solar de agua</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_heatPump"> Bomba de calor (calefacción/refr.)</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_rainwater" checked> Recolección de agua lluvia</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_grayWater"> Tratamiento aguas grises</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_smartHome"> Domótica / Casa inteligente</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_led" checked> Iluminación LED 100%</label>
+            <label class="checkbox-label"><input type="checkbox" id="act_evCharger"> Cargador vehículo eléctrico</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Eficiencia Energética</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="energyTarget">Meta de Eficiencia Energética</label>
+            <select id="energyTarget">
+                <option value="codigo">Cumplimiento de código</option>
+                <option value="ahorro20" selected>Ahorro 20% bajo estándar</option>
+                <option value="ahorro40">Ahorro 40% bajo estándar</option>
+                <option value="ahorro60">Ahorro 60% bajo estándar</option>
+                <option value="neta_cero">Casa Neta Cero (Net Zero)</option>
+                <option value="positiva">Edificación Plusenergía</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="insulationLevel">Nivel de Aislamiento</label>
+            <select id="insulationLevel">
+                <option value="basico">Básico (cumplimiento normativo)</option>
+                <option value="mejorado" selected>Mejorado</option>
+                <option value="alto">Alto (certificación verde)</option>
+                <option value="pasivo">Estándar Passivhaus</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="uWall">U Muro (W/m²K)</label>
+            <input type="number" id="uWall" value="0.45" step="0.05" min="0.1" max="2">
+        </div>
+        <div class="form-group">
+            <label for="uRoof">U Cubierta (W/m²K)</label>
+            <input type="number" id="uRoof" value="0.35" step="0.05" min="0.1" max="1.5">
+        </div>
+        <div class="form-group">
+            <label for="uWindow">U Ventana (W/m²K)</label>
+            <input type="number" id="uWindow" value="2.5" step="0.1" min="0.8" max="6">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Confort Ambiental</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="comfortLevel">Nivel de Confort Deseado</label>
+            <select id="comfortLevel">
+                <option value="basico">Básico</option>
+                <option value="estandar" selected>Estándar (ASHRAE 55)</option>
+                <option value="alto">Alto</option>
+                <option value="premium">Premium (Passivhaus)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="noiseTarget">Nivel de Ruido Interior (dB)</label>
+            <select id="noiseTarget">
+                <option value="35">35 dB (Muy silencioso - dormitorio)</option>
+                <option value="40" selected>40 dB (Silencioso - vivienda)</option>
+                <option value="45">45 dB (Normal - sala)</option>
+                <option value="50">50 dB (Aceptable - cocina)</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Certificaciones Verdes</h3>
+    <div class="form-group">
+        <label>Certificación Objetivo</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="certLEED"> LEED (USGBC)</label>
+            <label class="checkbox-label"><input type="checkbox" id="certBREEAM"> BREEAM</label>
+            <label class="checkbox-label"><input type="checkbox" id="certEDGE"> EDGE (IFC/Banco Mundial)</label>
+            <label class="checkbox-label"><input type="checkbox" id="certPassivhaus"> Passivhaus / PHI</label>
+            <label class="checkbox-label"><input type="checkbox" id="certWELL"> WELL Building</label>
+            <label class="checkbox-label"><input type="checkbox" id="certLocal"> Certificación Local</label>
+            <label class="checkbox-label"><input type="checkbox" id="certNone" checked> Sin certificación</label>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 7. PAISAJISMO Y VEGETACIÓN - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">🌿</span>
+        <h2>7. PAISAJISMO Y VEGETACIÓN</h2>
+    </div>
+
+    <h3 class="subsection-title">Concepto de Paisajismo</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="landscapeStyle">Estilo de Paisajismo</label>
+            <select id="landscapeStyle">
+                <option value="natural" selected>Natural / Silvestre (baja intervención)</option>
+                <option value="minimalista">Minimalista</option>
+                <option value="formal">Formal / Geométrico</option>
+                <option value="productivo">Productivo (huerto / jardín comestible)</option>
+                <option value="zen">Zen / Japonés</option>
+                <option value="mediterraneo">Mediterráneo</option>
+                <option value="tropical">Tropical</option>
+                <option value="mixto">Mixto / Integrado</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="landscapeConcept">Concepto del Paisajismo</label>
+            <textarea id="landscapeConcept" rows="2">Integración total con el entorno campestre existente. Uso de especies nativas, creación de micro-hábitats, senderos naturales, sin áreas geométricas rígidas.</textarea>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Vegetación</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="treeCount">Árboles Grandes (>4m)</label>
+            <input type="number" id="treeCount" value="4" min="0" max="20">
+        </div>
+        <div class="form-group">
+            <label for="smallTreeCount">Árboles Pequeños (2-4m)</label>
+            <input type="number" id="smallTreeCount" value="8" min="0" max="30">
+        </div>
+        <div class="form-group">
+            <label for="bushCount">Arbustos (<2m)</label>
+            <input type="number" id="bushCount" value="20" min="0" max="100">
+        </div>
+    </div>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="grassArea">Césped / Área Verde (m²)</label>
+            <input type="number" id="grassArea" value="80" step="5" min="0" max="500">
+        </div>
+        <div class="form-group">
+            <label for="flowerCount">Macetas / Jardín de Flores</label>
+            <input type="number" id="flowerCount" value="10" min="0" max="50">
+        </div>
+        <div class="form-group">
+            <label for="totalGreenArea">Área Verde Total (m²)</label>
+            <input type="number" id="totalGreenArea" value="150" readonly class="calculated">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="plantTypes">Tipos de Plantas / Especificaciones</label>
+        <textarea id="plantTypes" rows="3">Especies nativas de la región, baja mantenimiento, atracción de fauna local (colibríes, mariposas), aromáticas (lavanda, romero, menta), sin especies invasoras</textarea>
+    </div>
+    <div class="form-group">
+        <label for="plantZones">Zonificación de Plantación</label>
+        <textarea id="plantZones" rows="2">Zona 1: Cerca de la casa (ornamentales, aromáticas). Zona 2: Perimetral (árboles de sombra). Zona 3: Natural (vegetación existente preservada).</textarea>
+    </div>
+
+    <h3 class="subsection-title">Sistemas de Riego</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="irrigationType">Tipo de Riego</label>
+            <select id="irrigationType">
+                <option value="none">Sin riego (vegetación nativa)</option>
+                <option value="goteo" selected>Goteo programado</option>
+                <option value="aspersion">Aspersión</option>
+                <option value="mixto">Mixto (goteo + aspersión)</option>
+                <option value="manual">Riego manual</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="irrigationZones">Zonas de Riego</label>
+            <input type="number" id="irrigationZones" value="3" min="1" max="10">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Elementos Paisajísticos</h3>
+    <div class="form-group">
+        <label>Elementos a Incluir</label>
+        <div class="checkbox-group-3">
+            <label class="checkbox-label"><input type="checkbox" id="elDeck" checked> Deck / Mirador de madera</label>
+            <label class="checkbox-label"><input type="checkbox" id="elPaths" checked> Senderos / Caminos</label>
+            <label class="checkbox-label"><input type="checkbox" id="elPergola"> Pérgola / Pergolado</label>
+            <label class="checkbox-label"><input type="checkbox" id="elPond"> Estanque / Fuente</label>
+            <label class="checkbox-label"><input type="checkbox" id="elLights" checked> Iluminación exterior</label>
+            <label class="checkbox-label"><input type="checkbox" id="elSeating"> Asientos / Bancos</label>
+            <label class="checkbox-label"><input type="checkbox" id="elWallGarden"> Jardín vertical / Green wall</label>
+            <label class="checkbox-label"><input type="checkbox" id="elFirepit"> Fogata / Firepit</label>
+            <label class="checkbox-label"><input type="checkbox" id="elPlay"> Zona de juegos infantiles</label>
+            <label class="checkbox-label"><input type="checkbox" id="elMeditation"> Zona de meditación / Yoga</label>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Iluminación Exterior</h3>
+    <div class="form-group">
+        <label for="extLightStyle">Estilo de Iluminación Exterior</label>
+        <select id="extLightStyle">
+            <option value="minimalista" selected>Minimalista (empotrada / indirecta)</option>
+            <option value="decorativa">Decorativa (strings, faroles)</option>
+            <option value="senderos">Senderos (posts bajos)</option>
+            <option value="fachada">Fachada (apuntada)</option>
+            <option value="mixto">Mixto</option>
+        </select>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 8. PRESUPUESTO Y COSTOS - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section">
+    <div class="section-header">
+        <span class="section-icon">💰</span>
+        <h2>8. PRESUPUESTO Y COSTOS</h2>
+    </div>
+
+    <h3 class="subsection-title">Presupuesto General</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="budgetTotal">Presupuesto Total Disponible (USD)</label>
+            <input type="number" id="budgetTotal" value="50000" step="1000" min="10000">
+        </div>
+        <div class="form-group">
+            <label for="costPerM2">Costo Referencial (USD/m²)</label>
+            <input type="number" id="costPerM2" value="417" readonly class="calculated">
+        </div>
+        <div class="form-group">
+            <label for="budgetType">Tipo de Presupuesto</label>
+            <select id="budgetType">
+                <option value="ajustado">Ajustado (mínimo viable)</option>
+                <option value="estandar" selected>Estándar (calidad-precio)</option>
+                <option value="premium">Premium (acabados superiores)</option>
+                <option value="lujo">Lujo (sin límite明顯)</option>
+            </select>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Distribución Detallada</h3>
+    <div class="budget-grid">
+        <div class="budget-item">
+            <label>Cimentación</label>
+            <input type="number" id="budgetFoundation" value="10" min="5" max="20">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Estructura</label>
+            <input type="number" id="budgetStructure" value="18" min="10" max="30">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Muros</label>
+            <input type="number" id="budgetWalls" value="12" min="5" max="20">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Cubierta</label>
+            <input type="number" id="budgetRoof" value="10" min="5" max="15">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Carpintería</label>
+            <input type="number" id="budgetCarpentry" value="12" min="5" max="20">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Pisos</label>
+            <input type="number" id="budgetFloors" value="8" min="4" max="15">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Plomería</label>
+            <input type="number" id="budgetPlumbing" value="8" min="4" max="12">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Electricidad</label>
+            <input type="number" id="budgetElectric" value="7" min="4" max="12">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Aire acond.</label>
+            <input type="number" id="budgetHVAC" value="5" min="0" max="10">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Acabados</label>
+            <input type="number" id="budgetFinishes" value="6" min="3" max="12">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Paisajismo</label>
+            <input type="number" id="budgetLandscape" value="2" min="0" max="8">
+            <span>%</span>
+        </div>
+        <div class="budget-item">
+            <label>Diversos</label>
+            <input type="number" id="budgetMisc" value="2" min="0" max="5">
+            <span>%</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="budgetTotalPct">Total Distribución (%)</label>
+        <input type="number" id="budgetTotalPct" value="100" readonly class="calculated">
+    </div>
+
+    <h3 class="subsection-title">Estructura de Costos</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="priority">Prioridad de Inversión</label>
+            <select id="priority">
+                <option value="economia">Economía (mejor relación costo/calidad)</option>
+                <option value="calidad" selected>Calidad (durabilidad y acabados)</option>
+                <option value="diseno">Diseño (elementos premium)</option>
+                <option value="sostenibilidad">Sostenibilidad (inversión verde)</option>
+                <option value="equilibrado">Equilibrado</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="contingency">Contingencia (%)</label>
+            <input type="number" id="contingency" value="10" step="5" min="0" max="30">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="budgetNotes">Notas sobre Presupuesto</label>
+        <textarea id="budgetNotes" rows="2">Incluir 10% de contingencia. Priorizar inversión en estructura y techado de calidad. Los acabados pueden escalarse según disponibilidad de fondos.</textarea>
+    </div>
+
+    <h3 class="subsection-title">Financiamiento</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="fundingSource">Fuente de Financiamiento</label>
+            <select id="fundingSource">
+                <option value="ahorros" selected>Ahorros propios</option>
+                <option value="credito_hipotecario">Crédito hipotecario</option>
+                <option value="credito_construccion">Crédito de construcción</option>
+                <option value="familiar">Préstamo familiar</option>
+                <option value="mixto">Mixto (ahorros + crédito)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="paymentSchedule">Calendario de Pagos</label>
+            <input type="text" id="paymentSchedule" value="30% inicio, 40% avance, 30% entrega">
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 9. CRONOGRAMA Y ACTIVIDADES - Parámetros completos -->
+<!-- ============================================================================================ -->
+<section class="form-section full-width">
+    <div class="section-header">
+        <span class="section-icon">📅</span>
+        <h2>9. CRONOGRAMA Y ACTIVIDADES</h2>
+    </div>
+
+    <h3 class="subsection-title">Programación General</h3>
+    <div class="form-row-3">
+        <div class="form-group">
+            <label for="startDate">Fecha Inicio Estimada</label>
+            <input type="date" id="startDate" value="2026-09-01">
+        </div>
+        <div class="form-group">
+            <label for="durationMonths">Duración Total Estimada (meses)</label>
+            <input type="number" id="durationMonths" value="8" min="3" max="36">
+        </div>
+        <div class="form-group">
+            <label for="endDate">Fecha Entrega Estimada</label>
+            <input type="text" id="endDate" value="Mayo 2027" readonly class="calculated">
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Fases del Proyecto</h3>
+    <div class="phases-grid">
+        <div class="phase-box">
+            <h4>Fase 1: Diseño</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phase1Weeks">Duración (semanas)</label>
+                    <input type="number" id="phase1Weeks" value="8" min="2" max="24">
+                </div>
+                <div class="form-group">
+                    <label for="phase1Start">Inicio</label>
+                    <input type="text" id="phase1Start" value="Sep 2026" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Actividades</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" checked> Anteproyecto</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Proyecto básico</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Proyecto ejecutivo</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Trámites permisos</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-box">
+            <h4>Fase 2: Pre-obra</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phase2Weeks">Duración (semanas)</label>
+                    <input type="number" id="phase2Weeks" value="4" min="1" max="12">
+                </div>
+                <div class="form-group">
+                    <label for="phase2Start">Inicio</label>
+                    <input type="text" id="phase2Start" value="Nov 2026" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Actividades</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" checked> Loteo y limpieza</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Movimiento de tierra</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Instalaciones temporales</label>
+                    <label class="checkbox-label"><input type="checkbox"> Geotecnia</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-box">
+            <h4>Fase 3: Estructura</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phase3Weeks">Duración (semanas)</label>
+                    <input type="number" id="phase3Weeks" value="10" min="4" max="24">
+                </div>
+                <div class="form-group">
+                    <label for="phase3Start">Inicio</label>
+                    <input type="text" id="phase3Start" value="Dic 2026" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Actividades</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" checked> Cimentación</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Estructura PPBB</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Estructura PPA</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Cubierta</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-box">
+            <h4>Fase 4: Cerramientos</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phase4Weeks">Duración (semanas)</label>
+                    <input type="number" id="phase4Weeks" value="6" min="3" max="16">
+                </div>
+                <div class="form-group">
+                    <label for="phase4Start">Inicio</label>
+                    <input type="text" id="phase4Start" value="Feb 2027" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Actividades</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" checked> Mampostería</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Carpintería exterior</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Impermeabilización</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Instalaciones embutidas</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-box">
+            <h4>Fase 5: Acabados</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phase5Weeks">Duración (semanas)</label>
+                    <input type="number" id="phase5Weeks" value="8" min="4" max="20">
+                </div>
+                <div class="form-group">
+                    <label for="phase5Start">Inicio</label>
+                    <input type="text" id="phase5Start" value="Abr 2027" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Actividades</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" checked> Pisos y revestimientos</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Pintura</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Carpintería interior</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Sanitarios y grifería</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Eléctrica final</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="phase-box">
+            <h4>Fase 6: Entrega</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phase6Weeks">Duración (semanas)</label>
+                    <input type="number" id="phase6Weeks" value="4" min="1" max="8">
+                </div>
+                <div class="form-group">
+                    <label for="phase6Start">Inicio</label>
+                    <input type="text" id="phase6Start" value="May 2027" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Actividades</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" checked> Limpieza final</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Paisajismo</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Inspección</label>
+                    <label class="checkbox-label"><input type="checkbox" checked> Entrega formal</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="subsection-title">Hitos Principales</h3>
+    <div class="form-group">
+        <label for="milestones">Lista de Hitos (Fechas Clave)</label>
+        <textarea id="milestones" rows="6">1. Aprobación anteproyecto: Semana 2
+2. Aprobación proyecto ejecutivo: Semana 8
+3. Obtención permisos de construcción: Semana 10
+4. Inicio de obra: Semana 12
+5. Fin de estructura: Semana 22
+6. Fin de cerramientos: Semana 28
+7. Entrega de llaves: Semana 32
+8. Garantías: 12 meses post-entrega</textarea>
+    </div>
+
+    <h3 class="subsection-title">Recursos</h3>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="contractorType">Tipo de Contratista</label>
+            <select id="contractorType">
+                <option value="general" selected>Contratista general</option>
+                <option value="autoconstruccion">Autoconstrucción asistida</option>
+                <option value="medio">Maestro de obra + subcontratistas</option>
+                <option value="empresa">Empresa constructora</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="supervision">Tipo de Supervisión</label>
+            <select id="supervision">
+                <option value="profesional" selected>Profesional independiente</option>
+                <option value="empresa">Empresa supervisora</option>
+                <option value="cliente">El mismo cliente</option>
+                <option value="none">Sin supervisión formal</option>
+            </select>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================================================ -->
+<!-- 10. NOTAS ADICIONALES -->
+<!-- ============================================================================================ -->
+<section class="form-section full-width">
+    <div class="section-header">
+        <span class="section-icon">📝</span>
+        <h2>10. NOTAS Y CONSIDERACIONES ADICIONALES</h2>
+    </div>
+
+    <h3 class="subsection-title">Visión del Cliente</h3>
+    <div class="form-group">
+        <label for="clientVision">¿Qué busca el cliente en esta vivienda?</label>
+        <textarea id="clientVision" rows="4">Una vivienda que sea refugio de paz, donde cada espacio invite a la contemplación y el descanso. Integración total con el paisaje campestre, usando materiales honestos y luz natural como elemento principal del diseño. Un lugar para reconectarse con lo esencial.</textarea>
+    </div>
+
+    <h3 class="subsection-title">Referencias e Inspiración</h3>
+    <div class="form-group">
+        <label for="references">Proyectos / Arquitectos de Referencia</label>
+        <textarea id="references" rows="3">Peter Zumthor (Termas Vals), Tadao Ando (Casa en Iwade), Kengo Kuma (Casa de bambú), Luis Barragán (Casa Estudio), Glenn Murcutt (Marika-Alderton House)</textarea>
+    </div>
+    <div class="form-group">
+        <label for="moodBoard">Paleta de Imágenes / Mood Board (URLs o descripción)</label>
+        <textarea id="moodBoard" rows="2">Colores: blancos cálidos, maderas oscuras, verdes profundos. Texturas: hormigón liso, madera cepillada, piedra natural. Sensación: calma, apertura, luz filtrada, sombra suave.</textarea>
+    </div>
+
+    <h3 class="subsection-title">Restricciones y Limitaciones</h3>
+    <div class="form-group">
+        <label for="restrictions">Restricciones / Elementos No Deseados</label>
+        <textarea id="restrictions" rows="3">Evitar: excesos decorativos, materiales plásticos visibles, colores estridentes, espacios cerrados sin ventilación, tecnología excesivamente compleja que dificulte mantenimiento, exceso de superficie acristalada en fachadas oeste.</textarea>
+    </div>
+    <div class="form-group">
+        <label for="mustHave">Aspectos Imprescindibles (Must-Haves)</label>
+        <textarea id="mustHave" rows="3">1. Al menos 2 baños completos. 2. Cocina con isla o barra. 3. Recámara principal con baño propio. 4. Terraza con vista. 5. Al menos 3 espacios con iluminación natural directa. 6. Estacionamiento para 2 vehículos.</textarea>
+    </div>
+
+    <h3 class="subsection-title">Sostenibilidad y Legado</h3>
+    <div class="form-group">
+        <label for="longTermVision">Visión a Largo Plazo (20+ años)</label>
+        <textarea id="longTermVision" rows="2">Una vivienda que envejezca con dignidad, que requiera mínimo mantenimiento, que sea eficiente energéticamente y que pueda adaptarse a necesidades futuras (ampliación, envejecimiento del residente).</textarea>
+    </div>
+
+    <h3 class="subsection-title">Información Complementaria</h3>
+    <div class="form-group">
+        <label for="additionalInfo">Cualquier Otra Información Relevante</label>
+        <textarea id="additionalInfo" rows="3">El cliente trabaja remoto, requiere espacio de trabajo silencioso con buena iluminación. Tiene 2 hijos adolescentes que necesitan privacidad. La vivienda se usará como residencia principal y lugar de retiro esporádico.</textarea>
+    </div>
+</section>
+
+            </div>
+        </main>
+
+        <footer>
+            <p>Ficha técnica completa generada el <span id="currentDate"></span> | Parámetros para Grasshopper / BIM</p>
+        </footer>
+    </div>
+
+    <input type="file" id="fileInput" accept=".json" style="display: none">
+    <script src="app.js"></script>
+</body>
+</html>

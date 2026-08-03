@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Intelligence Report — La Nuit</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0a0a; color: #e5e5e5; padding: 2rem; }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 1rem; border-bottom: 2px solid #f59e0b; padding-bottom: 0.5rem; }
+  h3 { font-size: 1rem; margin: 1.5rem 0 0.75rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1rem 0; }
+  th, td { padding: 0.5rem 0.75rem; border: 1px solid #2a2a2a; text-align: left; }
+  th { background: #1a1a1a; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: #888; }
+  .metric { display: inline-block; background: #141414; border: 1px solid #2a2a2a; border-radius: 8px; padding: 1rem 1.5rem; margin: 0.5rem; text-align: center; }
+  .metric .value { font-size: 1.5rem; font-weight: 700; }
+  .metric .label { font-size: 0.7rem; text-transform: uppercase; color: #888; margin-top: 0.25rem; }
+  .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #2a2a2a; font-size: 0.75rem; color: #888; }
+  .highlight { background: #1a1a1a; padding: 0.25rem 0.5rem; border-radius: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Market Intelligence Report</h1>
+  <p><strong>Location:</strong> La Vega, Cundinamarca</p>
+  <p><strong>Period:</strong> TTM</p>
+  <p><strong>Generated:</strong> 2026-08-03 07:55</p>
+
+  <h2>Market Overview</h2>
+  <div>
+    <div class="metric"><div class="value">USD 310</div><div class="lbl">Avg ADR</div></div>
+    <div class="metric"><div class="value">57.9%</div><div class="lbl">Avg Occupancy</div></div>
+    <div class="metric"><div class="val">8</div><div class="lbl">Properties</div></div>
+  </div>
+
+  <h2>Top 8 Comparables (Ranked by Similarity)</h2>
+  <table>
+    <thead><tr><th>#</th><th>Property</th><th>Similarity</th><th>ADR</th><th>Occupancy</th><th>Rating</th><th>Source</th></tr></thead>
+    <tbody>
+
+        <tr>
+          <td>1</td>
+          <td>Villa Raquel Boutique</td>
+          <td>88.2%</td>
+          <td>USD 361.94</td>
+          <td>50.9%</td>
+          <td>4.95</td>
+          <td>Airbnb</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Villa Gabriela Estate</td>
+          <td>85.3%</td>
+          <td>USD 259.55</td>
+          <td>69.3%</td>
+          <td>4.9</td>
+          <td>Airbnb</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Heated Pool - Modern & Spectacular View</td>
+          <td>85.2%</td>
+          <td>USD 315.77</td>
+          <td>41.5%</td>
+          <td>4.9</td>
+          <td>Airbnb</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Tulum Regenerative Hotel</td>
+          <td>85.1%</td>
+          <td>USD 420.00</td>
+          <td>72.0%</td>
+          <td>9.3</td>
+          <td>Booking</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Uvita Boutique Hotel</td>
+          <td>81.4%</td>
+          <td>USD 320.00</td>
+          <td>58.0%</td>
+          <td>9.1</td>
+          <td>Booking</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Shambhala Ecohotel</td>
+          <td>78.4%</td>
+          <td>USD 285.00</td>
+          <td>55.0%</td>
+          <td>9.0</td>
+          <td>Booking</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Nosara Eco Lodge</td>
+          <td>76.3%</td>
+          <td>USD 280.00</td>
+          <td>65.0%</td>
+          <td>9.2</td>
+          <td>Booking</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>El Tambo</td>
+          <td>68.2%</td>
+          <td>USD 235.67</td>
+          <td>51.4%</td>
+          <td>4.9</td>
+          <td>Airbnb</td>
+        </tr>
+    </tbody>
+  </table>
+
+  <h2>La Nuit Projection vs Market</h2>
+  <table>
+    <thead><tr><th>Year</th><th>Projected ADR</th><th>Market Context</th></tr></thead>
+    <tbody>
+      <tr><td>Year 1</td><td>USD 143</td><td>Below market — new property, no brand recognition</td></tr>
+      <tr><td>Year 2</td><td>USD 238</td><td>Approaching market average (USD 310)</td></tr>
+      <tr><td>Year 3</td><td><span class="highlight">USD 357</span></td><td>Within market range — validated by comparables</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <p>Source: AirROI / AirDNA / Booking.com / Airbnb — La Vega, Cundinamarca, Colombia</p>
+    <p>Prepared by CHIHIZA Studio for Conrad Pramböck</p>
+  </div>
+</div>
+</body>
+</html>

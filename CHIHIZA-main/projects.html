@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — CHIHIZA</title>
+  <meta name="description" content="CHIHIZA ecological architecture projects in Colombia. Architecture born from the forest.">
+  <link rel="canonical" href="https://chihiza.com/projects">
+  <meta property="og:title" content="CHIHIZA Projects — Ecological Architecture">
+  <meta property="og:description" content="CHIHIZA ecological architecture projects in Colombia.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chihiza.com/projects">
+  <meta property="og:image" content="https://chihiza.com/proyectos/natauta/120748e2-9c3c-4244-b42c-35c7c60edeb1.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .pscroll {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100vh;
+    }
+    .pslide {
+      scroll-snap-align: start;
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .pslide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pslide:hover img {
+      transform: scale(1.04);
+    }
+    .pslide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.35) 0%, transparent 40%, transparent 100%);
+      pointer-events: none;
+    }
+    .pslide-info {
+      position: relative;
+      z-index: 2;
+      padding: 5rem 4rem;
+      pointer-events: none;
+    }
+    .pslide-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+    .pslide-sub {
+      font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <a href="index.html" class="logo">CHIHIZA</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="about.html">About</a>
+      <a href="process.html">Process</a>
+      <a href="research.html">Research</a>
+      <a href="legacy.html">Legal</a>
+      <a href="guide.html">Guide</a>
+      <a href="contact.html">Contact</a>
+      <button class="team-tools-toggle" id="teamToolsToggle" aria-label="Start">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="6,3 20,12 6,21"/>
+        </svg>
+      </button>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="pscroll">
+
+    <a href="projects/natauta.html" class="pslide">
+      <img src="proyectos/natauta/120748e2-9c3c-4244-b42c-35c7c60edeb1.png" alt="Nataut&aacute;">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">Nataut&aacute;</div>
+        <div class="pslide-sub">Private Nature Reserve &mdash; 22 hectares, Cundinamarca</div>
+      </div>
+    </a>
+
+    <a href="projects/la-nuit.html" class="pslide">
+      <img src="proyectos/la-nuite/862a363f-9075-471b-b624-34c967161cc9.jpg" alt="La Nuit">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">La Nuit</div>
+        <div class="pslide-sub">5-Star Luxury &mdash; Undervalued Asset</div>
+      </div>
+    </a>
+
+    <a href="projects/la-montana.html" class="pslide">
+      <img src="proyectos/La%20monta%C3%B1a/ChatGPT%20Image%2029%20jul%202026%2C%2016_10_29.png" alt="La Monta&ntilde;a">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">La Monta&ntilde;a</div>
+        <div class="pslide-sub">15 Eco-Lodges &mdash; La Vega, Cundinamarca</div>
+      </div>
+    </a>
+
+    <a href="projects/anukwe.html" class="pslide">
+      <img src="proyectos/%C3%A1nukwe/1.png" alt="ANUKWE">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">ANUKWE</div>
+        <div class="pslide-sub">Private Investment &mdash; Santa Marta</div>
+      </div>
+    </a>
+
+    <a href="projects/guadu.html" class="pslide">
+      <img src="proyectos/guadu/ChatGPT%20Image%2031%20jul%202026%2C%2006_21_08.png" alt="Guadu">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">Guadu</div>
+        <div class="pslide-sub">Stage II Land Banking &mdash; La Vega, Cundinamarca</div>
+      </div>
+    </a>
+
+    <a href="projects/montvento.html" class="pslide">
+      <img src="proyectos/montvento/ChatGPT%20Image%2026%20jul%202026%2C%2006_31_54.png" alt="Montvento">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">Montvento</div>
+        <div class="pslide-sub">A House Designed to Breathe &mdash; Bucaramanga</div>
+      </div>
+    </a>
+
+    <a href="projects/el-mirador.html" class="pslide">
+      <img src="proyectos/el-mirador/1.png" alt="El Mirador">
+      <div class="pslide-overlay"></div>
+      <div class="pslide-info">
+        <div class="pslide-name">El Mirador</div>
+        <div class="pslide-sub">Panoramic Valley Residence &mdash; Guatavita</div>
+      </div>
+    </a>
+
+  </div>
+
+  <footer class="footer" style="position: relative; z-index: 2;">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">CHIHIZA</div>
+        <p class="footer-text">Architecture born from the forest. Colombia</p>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <a href="projects/natauta.html">Nataut&aacute;</a>
+        <a href="projects/la-nuit.html">La Nuit</a>
+        <a href="projects/la-montana.html">La Monta&ntilde;a</a>
+        <a href="projects/anukwe.html">ANUKWE</a>
+        <a href="projects/guadu.html">Guadu</a>
+        <a href="projects/montvento.html">Montvento</a>
+        <a href="projects/el-mirador.html">El Mirador</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 CHIHIZA International. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/moxdesing/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

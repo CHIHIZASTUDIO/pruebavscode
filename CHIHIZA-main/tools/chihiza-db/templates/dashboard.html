@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHIHIZA DB | Panel de Proyectos</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-inner">
+    <div class="tb-logo">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      CHIHIZA DB
+    </div>
+    <div class="tb-nav">
+      <span class="tb-link active" onclick="showView('projects')">Proyectos</span>
+      <span class="tb-link" onclick="showView('compare')">Comparar</span>
+      <span class="tb-link" onclick="showView('about')">Info</span>
+    </div>
+    <div class="tb-actions">
+      <button class="btn btn-sm btn-primary" onclick="openNew()">+ Nuevo</button>
+      <button class="btn btn-sm btn-outline" onclick="importProject()">Importar</button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <!-- VIEW: PROJECTS -->
+  <div id="view-projects" class="view active">
+    <div class="stats-row" id="stats"></div>
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Buscar proyectos..." oninput="renderProjects()">
+      <select id="statusFilter" onchange="renderProjects()">
+        <option value="">Todos</option>
+        <option value="draft">Borrador</option>
+        <option value="analysis">En Analisis</option>
+        <option value="approved">Aprobado</option>
+        <option value="rejected">Rechazado</option>
+        <option value="completed">Completado</option>
+      </select>
+    </div>
+    <div id="projectList"></div>
+  </div>
+
+  <!-- VIEW: COMPARE -->
+  <div id="view-compare" class="view">
+    <h2 style="font-size:16px;margin-bottom:12px;color:var(--accent)">Comparar Proyectos</h2>
+    <p style="font-size:11px;color:var(--text2);margin-bottom:14px">Selecciona proyectos de la lista para comparar lado a lado.</p>
+    <div id="compareSelector"></div>
+    <div id="compareTable"></div>
+  </div>
+
+  <!-- VIEW: ABOUT -->
+  <div id="view-about" class="view">
+    <div class="card">
+      <h2>CHIHIZA Database System</h2>
+      <p style="font-size:11px;color:var(--text2);line-height:1.6;margin:10px 0">
+        Sistema centralizado de base de datos para las herramientas de analisis CHIHIZA.
+        Almacena, compara y gestiona todos tus proyectos en un solo lugar.
+      </p>
+      <div class="sec">HERRAMIENTAS INTEGRADAS</div>
+      <div class="tool-grid">
+        <a href="/tools/CHIHIZA_DUE_DILIGENCE.html" class="tool-card" target="_blank">
+          <div class="tc-icon">DD</div>
+          <div class="tc-name">Due Diligence</div>
+          <div class="tc-desc">Analisis de terreno</div>
+        </a>
+        <a href="/tools/CHIHIZA_FINANCIAL_MODEL.html" class="tool-card" target="_blank">
+          <div class="tc-icon">FM</div>
+          <div class="tc-name">Financial Model</div>
+          <div class="tc-desc">Modelo financiero</div>
+        </a>
+        <a href="/tools/digital-twin-campestre/index.html" class="tool-card" target="_blank">
+          <div class="tc-icon">DT</div>
+          <div class="tc-name">Digital Twin</div>
+          <div class="tc-desc">Ficha tecnica</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Nuevo Proyecto</h3>
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:5000/api';
+let projects = [];
+
+async function api(url, opts = {}) {
+  const res = await fetch(API + url, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function loadProjects() {
+  projects = await api('/projects');
+  renderProjects();
+  renderStats();
+}
+
+function renderStats() {
+  const total = projects.length;
+  const dd = projects.filter(p => p.score_total != null).length;
+  const fm = projects.filter(p => p.roi_cliente != null).length;
+  const approved = projects.filter(p => p.verdict === 'APROBADO').length;
+  const avgRoi = fm > 0 ? (projects.reduce((s,p) => s + (p.roi_cliente || 0), 0) / fm) : 0;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="stat-v">${total}</div><div class="stat-l">Proyectos</div></div>
+    <div class="stat"><div class="stat-v">${dd}</div><div class="stat-l">DD Completados</div></div>
+    <div class="stat"><div class="stat-v">${fm}</div><div class="stat-l">FM Completados</div></div>
+    <div class="stat"><div class="stat-v">${approved}</div><div class="stat-l">Aprobados</div></div>
+    <div class="stat"><div class="stat-v">${avgRoi.toFixed(1)}%</div><div class="stat-l">ROI Promedio</div></div>
+  `;
+}
+
+function renderProjects() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const s = document.getElementById('statusFilter').value;
+  const filtered = projects.filter(p => {
+    const matchName = p.name.toLowerCase().includes(q) || (p.code || '').toLowerCase().includes(q);
+    const matchStatus = !s || p.status === s;
+    return matchName && matchStatus;
+  });
+  if (!filtered.length) {
+    document.getElementById('projectList').innerHTML = '<div class="empty">No hay proyectos. Crea uno nuevo.</div>';
+    return;
+  }
+  let h = '';
+  filtered.forEach(p => {
+    const statusClass = p.status === 'approved' ? 's-green' : p.status === 'rejected' ? 's-red' : p.status === 'analysis' ? 's-yellow' : 's-gray';
+    h += `<div class="proj-card" onclick="openProject(${p.id})">
+      <div class="pc-top">
+        <div class="pc-name">${esc(p.name)}</div>
+        <span class="status-badge ${statusClass}">${p.status || 'draft'}</span>
+      </div>
+      <div class="pc-meta">${p.code || ''} ${p.area_total ? '| '+p.area_total.toLocaleString()+' m2' : ''}</div>
+      <div class="pc-stats">
+        ${p.score_total != null ? `<span class="tag ${p.score_total >= 80 ? 'tg-g' : p.score_total >= 60 ? 'tg-y' : 'tg-r'}">DD: ${p.score_total}/100</span>` : ''}
+        ${p.roi_cliente != null ? `<span class="tag ${p.roi_cliente >= 20 ? 'tg-g' : p.roi_cliente >= 10 ? 'tg-y' : 'tg-r'}">ROI: ${p.roi_cliente.toFixed(1)}%</span>` : ''}
+        ${p.verdict ? `<span class="tag ${p.verdict === 'APROBADO' ? 'tg-g' : p.verdict === 'CONDICIONAL' ? 'tg-y' : 'tg-r'}">${p.verdict}</span>` : ''}
+      </div>
+      <div class="pc-actions" onclick="event.stopPropagation()">
+        <button class="btn btn-xs btn-outline" onclick="runDD(${p.id})">DD</button>
+        <button class="btn btn-xs btn-outline" onclick="runFM(${p.id})">FM</button>
+        <button class="btn btn-xs btn-outline" onclick="runDT(${p.id})">DT</button>
+        <button class="btn btn-xs btn-outline" onclick="exportOne(${p.id})">Export</button>
+        <button class="btn btn-xs btn-danger" onclick="deleteOne(${p.id})">Delete</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('projectList').innerHTML = h;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function openNew() {
+  document.getElementById('modalTitle').textContent = 'Nuevo Proyecto';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="f"><label>Nombre del proyecto</label><input type="text" id="newName" placeholder="Ej: Finca El Paraiso"></div>
+    <div class="f"><label>Cliente</label><input type="text" id="newClient" placeholder="Nombre del cliente"></div>
+    <div class="f"><label>Ubicacion</label><input type="text" id="newLocation" placeholder="Ej: Santander, Colombia"></div>
+    <div class="f"><label>Area del terreno (m2)</label><input type="number" id="newArea" placeholder="5000"></div>
+    <div class="f"><label>Area de construccion (m2)</label><input type="number" id="newAreaConst" placeholder="120"></div>
+    <div class="f"><label>Valor de venta (COP)</label><input type="number" id="newValor" placeholder="150000000"></div>
+    <button class="btn btn-primary" onclick="createProject()" style="margin-top:10px">Crear Proyecto</button>
+  `;
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+async function createProject() {
+  const name = document.getElementById('newName').value.trim();
+  if (!name) return alert('Nombre requerido');
+  await api('/projects', {
+    method: 'POST',
+    body: JSON.stringify({
+      name,
+      client: document.getElementById('newClient').value,
+      location: document.getElementById('newLocation').value,
+      area_total: parseFloat(document.getElementById('newArea').value) || 0,
+      area_construccion: parseFloat(document.getElementById('newAreaConst').value) || 0,
+      valor_venta: parseFloat(document.getElementById('newValor').value) || 0
+    })
+  });
+  closeModal();
+  loadProjects();
+}
+
+async function openProject(pid) {
+  const p = await api('/projects/' + pid);
+  document.getElementById('modalTitle').textContent = esc(p.name);
+  let h = `
+    <div class="f"><label>Nombre</label><input type="text" id="epName" value="${esc(p.name)}"></div>
+    <div class="f"><label>Codigo</label><input type="text" id="epCode" value="${esc(p.code || '')}"></div>
+    <div class="f"><label>Estado</label>
+      <select id="epStatus">
+        <option value="draft" ${p.status === 'draft' ? 'selected' : ''}>Borrador</option>
+        <option value="analysis" ${p.status === 'analysis' ? 'selected' : ''}>En Analisis</option>
+        <option value="approved" ${p.status === 'approved' ? 'selected' : ''}>Aprobado</option>
+        <option value="rejected" ${p.status === 'rejected' ? 'selected' : ''}>Rechazado</option>
+        <option value="completed" ${p.status === 'completed' ? 'selected' : ''}>Completado</option>
+      </select>
+    </div>
+    <div class="f"><label>Cliente</label><input type="text" id="epClient" value="${esc(p.info?.client || '')}"></div>
+    <div class="f"><label>Ubicacion</label><input type="text" id="epLocation" value="${esc(p.info?.location || '')}"></div>
+    <div class="f"><label>Municipio</label><input type="text" id="epMunicipio" value="${esc(p.info?.municipality || '')}"></div>
+    <div class="f"><label>Departamento</label><input type="text" id="epDept" value="${esc(p.info?.department || '')}"></div>
+    <div class="f"><label>Area terreno (m2)</label><input type="number" id="epArea" value="${p.info?.area_total || 0}"></div>
+    <div class="f"><label>Area construccion (m2)</label><input type="number" id="epAreaConst" value="${p.info?.area_construccion || 0}"></div>
+    <div class="f"><label>Valor venta (COP)</label><input type="number" id="epValor" value="${p.info?.valor_venta || 0}"></div>
+    <div class="sec">DATOS DE ANALISIS</div>
+    <div class="detail-grid">
+      <div><div class="dg-l">DD Score</div><div class="dg-v">${p.due_diligence?.score_total ?? '-'}/100</div></div>
+      <div><div class="dg-l">Veredicto</div><div class="dg-v">${p.due_diligence?.verdict ?? '-'}</div></div>
+      <div><div class="dg-l">ROI</div><div class="dg-v">${p.financial_model?.roi_cliente != null ? p.financial_model.roi_cliente.toFixed(1)+'%' : '-'}</div></div>
+      <div><div class="dg-l">Inversion Total</div><div class="dg-v">${p.financial_model?.inversion_total ? '$'+(p.financial_model.inversion_total/1e6).toFixed(1)+'M' : '-'}</div></div>
+      <div><div class="dg-l">Utilidad</div><div class="dg-v">${p.financial_model?.utilidad_cliente ? '$'+(p.financial_model.utilidad_cliente/1e6).toFixed(1)+'M' : '-'}</div></div>
+      <div><div class="dg-l">CHIHIZA Ingresos</div><div class="dg-v">${p.financial_model?.ingresos_chihiza ? '$'+(p.financial_model.ingresos_chihiza/1e6).toFixed(1)+'M' : '-'}</div></div>
+    </div>`;
+  h += '<button class="btn btn-primary" onclick="updateProject('+pid+')" style="margin-top:12px">Guardar Cambios</button>';
+  document.getElementById('modalBody').innerHTML = h;
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+async function updateProject(pid) {
+  await api('/projects/' + pid, {
+    method: 'PUT',
+    body: JSON.stringify({
+      name: document.getElementById('epName').value,
+      code: document.getElementById('epCode').value,
+      status: document.getElementById('epStatus').value,
+      client: document.getElementById('epClient').value,
+      location: document.getElementById('epLocation').value,
+      municipality: document.getElementById('epMunicipio').value,
+      department: document.getElementById('epDept').value,
+      area_total: parseFloat(document.getElementById('epArea').value) || 0,
+      area_construccion: parseFloat(document.getElementById('epAreaConst').value) || 0,
+      valor_venta: parseFloat(document.getElementById('epValor').value) || 0
+    })
+  });
+  closeModal();
+  loadProjects();
+}
+
+async function deleteOne(pid) {
+  if (!confirm('Eliminar proyecto?')) return;
+  await api('/projects/' + pid, { method: 'DELETE' });
+  loadProjects();
+}
+
+async function exportOne(pid) {
+  const data = await api('/export/' + pid);
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `chihiza-${data.name.replace(/\s+/g, '-').toLowerCase()}-${data.code}.json`;
+  a.click();
+}
+
+async function importProject() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    try {
+      const data = JSON.parse(text);
+      await api('/import', { method: 'POST', body: JSON.stringify(data) });
+      loadProjects();
+      alert('Proyecto importado correctamente');
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  };
+  input.click();
+}
+
+function runDD(pid) {
+  window.open('/tools/CHIHIZA_DUE_DILIGENCE.html?project_id=' + pid, '_blank');
+}
+
+function runFM(pid) {
+  window.open('/tools/CHIHIZA_FINANCIAL_MODEL.html?project_id=' + pid, '_blank');
+}
+
+function runDT(pid) {
+  window.open('/tools/digital-twin-campestre/index.html?project_id=' + pid, '_blank');
+}
+
+// COMPARE VIEW
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tb-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelector(`.tb-link[onclick*="${name}"]`).classList.add('active');
+  if (name === 'compare') loadCompare();
+}
+
+async function loadCompare() {
+  if (projects.length < 2) {
+    document.getElementById('compareSelector').innerHTML = '<div class="empty">Necesitas al menos 2 proyectos para comparar.</div>';
+    document.getElementById('compareTable').innerHTML = '';
+    return;
+  }
+  let h = '<div class="checkbox-group">';
+  projects.forEach(p => {
+    h += `<label class="checkbox-label" style="font-size:11px"><input type="checkbox" class="cmp-chk" value="${p.id}"> ${esc(p.name)}</label>`;
+  });
+  h += '</div><button class="btn btn-primary btn-sm" onclick="doCompare()" style="margin-top:8px">Comparar</button>';
+  document.getElementById('compareSelector').innerHTML = h;
+}
+
+async function doCompare() {
+  const ids = Array.from(document.querySelectorAll('.cmp-chk:checked')).map(c => c.value);
+  if (ids.length < 2) return alert('Selecciona al menos 2 proyectos');
+  const data = await api('/compare?ids=' + ids.join(','));
+  let h = '<div style="overflow-x:auto"><table class="cmp-table"><tr><th>Indicador</th>';
+  data.forEach(p => { h += `<th>${esc(p.name)}</th>`; });
+  h += '</tr>';
+  const rows = [
+    ['Codigo', 'code'],
+    ['Estado', 'status'],
+    ['Area (m2)', 'area_total'],
+    ['Valor Venta', 'valor_venta', (v) => v ? '$' + (v/1e6).toFixed(1) + 'M' : '-'],
+    ['DD Score', 'score_total', (v) => v != null ? v + '/100' : '-'],
+    ['Veredicto', 'verdict'],
+    ['ROI', 'roi_cliente', (v) => v != null ? v.toFixed(1) + '%' : '-'],
+    ['Inversion', 'inversion_total', (v) => v ? '$' + (v/1e6).toFixed(1) + 'M' : '-'],
+    ['Utilidad', 'utilidad_cliente', (v) => v ? '$' + (v/1e6).toFixed(1) + 'M' : '-'],
+    ['CHIHIZA Ingreso', 'ingresos_chihiza', (v) => v ? '$' + (v/1e6).toFixed(1) + 'M' : '-'],
+    ['Creado', 'created_at', (v) => v ? v.split('T')[0] : '-']
+  ];
+  rows.forEach(([label, key, fmt]) => {
+    h += `<tr><td class="cmp-label">${label}</td>`;
+    data.forEach(p => {
+      let val = p[key];
+      if (fmt) val = fmt(val);
+      else if (val == null) val = '-';
+      h += `<td>${val}</td>`;
+    });
+    h += '</tr>';
+  });
+  h += '</table></div>';
+  document.getElementById('compareTable').innerHTML = h;
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal-overlay')) return;
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+
+loadProjects();
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{
+  "description": "Market intelligence database schema for La Nuit comparable properties",
+  "version": "1.0",
+  "last_updated": "2026-08-03",
+  "property_fields": {
+    "id": "string - unique identifier",
+    "name": "string - property name",
+    "platform": "string - Airbnb / Booking / Hotel / Other",
+    "url": "string - source URL",
+    "latitude": "float - GPS latitude",
+    "longitude": "float - GPS longitude",
+    "distance_km": "float - distance from La Nuit property",
+    "municipality": "string - municipality name",
+    "country": "string - country",
+    "rooms": "integer - number of rooms/units",
+    "capacity": "integer - max guests",
+    "type": "string - Villa / Eco Lodge / Boutique Hotel / Cabin / Farmhouse / Other",
+    "area_sqm": "float - approximate area in square meters",
+    "adr_usd": "float - average daily rate in USD",
+    "occupancy_percent": "float - estimated occupancy rate",
+    "revpar_usd": "float - revenue per available room per night",
+    "rating": "float - platform rating (1-5 or 1-10)",
+    "num_reviews": "integer - total number of reviews",
+    "has_pool": "boolean",
+    "has_jacuzzi": "boolean",
+    "has_restaurant": "boolean",
+    "has_spa": "boolean",
+    "architecture_style": "string - modern / colonial / rustic / minimalist / other",
+    "view_type": "string - mountain / valley / forest / lake / garden / city / other",
+    "nature_immersion": "float - 0-1 scale of nature immersion",
+    "luxury_level": "float - 0-1 scale of luxury",
+    "year_built_or_renovated": "integer",
+    "source": "string - data source (AirROI / AirDNA / Booking / Airbnb / Google / Manual)",
+    "notes": "string - additional context"
+  },
+  "scoring_weights": {
+    "luxury_level": 0.25,
+    "architecture_match": 0.20,
+    "nature_immersion": 0.20,
+    "property_size": 0.15,
+    "amenities": 0.10,
+    "distance": 0.10
+  },
+  "comparable_levels": {
+    "level_1": {
+      "name": "Direct Competition",
+      "radius_km": 20,
+      "description": "Properties within 20km of La Nuit"
+    },
+    "level_2": {
+      "name": "Regional Benchmarks",
+      "municipalities": ["Anapoima", "Apulo", "Sasaima", "San Francisco", "Villeta", "Guaduas", "La Mesa", "Bituima", "El Peñol", "Guatavita"],
+      "description": "Cundinamarca highland properties"
+    },
+    "level_3": {
+      "name": "International Luxury Benchmarks",
+      "properties": [
+        {"name": "Nosara, Costa Rica", "type": "Eco Lodge"},
+        {"name": "Uvita, Costa Rica", "type": "Boutique Hotel"},
+        {"name": "Santa Teresa, Costa Rica", "type": "Luxury Resort"},
+        {"name": "Tulum, Mexico", "type": "Boutique Hotel"}
+      ],
+      "description": "International regenerative luxury hospitality benchmarks"
+    }
+  }
+}
